@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="视图函数 第一个参数必须是request 返回值必须是django.http.response.HttpResponseBase的子类的对象  1234from django.http import HttpResponsedef book(request):    return HttpResponse(&apos;图书首页&apos;) urls.py路径和视图函数对应 12345678910from djang">
+  <meta name="description" content="视图函数 第一个参数必须是request 返回值必须是django.http.response.HttpResponseBase的子类的对象  1234from django.http import HttpResponsedef book(request):    return HttpResponse(&apos;图书首页&apos;)">
 <meta name="keywords" content="django">
 <meta property="og:type" content="article">
 <meta property="og:title" content="django笔记02-视图和url">
 <meta property="og:url" content="http://wuliuqi.top/2019/01/10/django笔记02/index.html">
 <meta property="og:site_name" content="阿珍爱上了阿强">
-<meta property="og:description" content="视图函数 第一个参数必须是request 返回值必须是django.http.response.HttpResponseBase的子类的对象  1234from django.http import HttpResponsedef book(request):    return HttpResponse(&apos;图书首页&apos;) urls.py路径和视图函数对应 12345678910from djang">
+<meta property="og:description" content="视图函数 第一个参数必须是request 返回值必须是django.http.response.HttpResponseBase的子类的对象  1234from django.http import HttpResponsedef book(request):    return HttpResponse(&apos;图书首页&apos;)">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-10T10:59:12.546Z">
+<meta property="og:updated_time" content="2019-01-13T03:35:32.863Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="django笔记02-视图和url">
-<meta name="twitter:description" content="视图函数 第一个参数必须是request 返回值必须是django.http.response.HttpResponseBase的子类的对象  1234from django.http import HttpResponsedef book(request):    return HttpResponse(&apos;图书首页&apos;) urls.py路径和视图函数对应 12345678910from djang">
+<meta name="twitter:description" content="视图函数 第一个参数必须是request 返回值必须是django.http.response.HttpResponseBase的子类的对象  1234from django.http import HttpResponsedef book(request):    return HttpResponse(&apos;图书首页&apos;)">
 
 
 
@@ -387,12 +387,24 @@
                 
               
 
-              <time title="创建时间：2019-01-10 17:48:48 / 修改时间：18:59:12" itemprop="dateCreated datePublished" datetime="2019-01-10T17:48:48+08:00">2019-01-10</time>
+              <time title="创建时间：2019-01-10 17:48:48" itemprop="dateCreated datePublished" datetime="2019-01-10T17:48:48+08:00">2019-01-10</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-01-13 11:35:32" itemprop="dateModified" datetime="2019-01-13T11:35:32+08:00">2019-01-13</time>
               
             
           </span>
@@ -465,7 +477,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">764</span>
+                <span title="本文字数">1.6k</span>
               
 
               
@@ -479,7 +491,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长">3 分钟</span>
               
             </div>
           
@@ -504,13 +516,30 @@
 <li>返回值必须是<code>django.http.response.HttpResponseBase</code>的子类的对象</li>
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">book</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">'图书首页'</span>)</span><br></pre></td></tr></table></figure>
-<h1 id="urls-py"><a href="#urls-py" class="headerlink" title="urls.py"></a>urls.py</h1><p>路径和视图函数对应</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path</span><br><span class="line"><span class="keyword">from</span> book <span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">'admin/'</span>, admin.site.urls),</span><br><span class="line">    path(<span class="string">'book/'</span>, views.book),</span><br><span class="line">    <span class="comment"># /book/detail/1/</span></span><br><span class="line">    path(<span class="string">'book/detail/&lt;book_id&gt;/&lt;category_id&gt;/'</span>, views.book_detail),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h1 id="urls-py"><a href="#urls-py" class="headerlink" title="urls.py"></a>urls.py</h1><p><code>settings.py</code>文件中配置了<code>ROOT_URLCONF</code>为<code>urls.py</code>，所以会在这个文件中寻找映射<br>路径和视图函数对应</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path</span><br><span class="line"><span class="keyword">from</span> book <span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">'admin/'</span>, admin.site.urls),</span><br><span class="line">    path(<span class="string">'book/'</span>, views.book),</span><br><span class="line">    <span class="comment"># /book/detail/1/</span></span><br><span class="line">    path(<span class="string">'book/detail/&lt;book_id&gt;/&lt;category_id&gt;/'</span>, views.book_detail),</span><br><span class="line">    path(<span class="string">'book/author/'</span>, views.author_detail)，</span><br><span class="line">    path(<span class="string">'book/publisher/&lt;int:publisher_id&gt;/'</span>, views.publisher_detail),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 <h2 id="url传递参数"><a href="#url传递参数" class="headerlink" title="url传递参数"></a>url传递参数</h2><ol>
-<li><code>urls.py</code>文件，<code>&lt;参数名&gt;</code>传递，视图函数中，参数名要和它一致</li>
+<li><code>urls.py</code>文件，<code>&lt;参数名&gt;</code>传递，默认使用<code>str</code>转换器，如<code>&lt;int:publisher_id&gt;</code>。视图函数中，参数名要和它一致</li>
 <li>查询字符串的方式，访问浏览器时参数如<code>?id=2</code>，<code>http://127.0.0.1:8000/book/author/?id=2</code></li>
+<li>转换器：<code>int</code>,<code>path</code>,<code>slug</code>,<code>str</code>,<code>uuid</code></li>
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">author_detail</span><span class="params">(request)</span>:</span></span><br><span class="line">    author_id = request.GET.get(<span class="string">'id'</span>)</span><br><span class="line">    <span class="comment">#author_id = request.GET['id']   #这种写法也可以，GET类似字典，获取值方式与字典相同</span></span><br><span class="line">    text = <span class="string">'作者的id是：%s'</span> % author_id</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(text)</span><br></pre></td></tr></table></figure>
+<h3 id="url参数内置的转换器"><a href="#url参数内置的转换器" class="headerlink" title="url参数内置的转换器"></a>url参数内置的转换器</h3><ol>
+<li>str：除了<code>/</code>以外的所有字符</li>
+<li>int：一个或多个数字</li>
+<li>path：所有字符</li>
+<li>uuid：只有满足<code>uuid.uuid4()</code>函数返回的字符串格式</li>
+<li>slug：<code>-</code>，<code>_</code>，英文字母，数字任意组合</li>
+</ol>
+<h2 id="urls模块化"><a href="#urls模块化" class="headerlink" title="urls模块化"></a>urls模块化</h2><ol>
+<li>主url对app的url引用，将url进行拼接，注意<code>/</code>，只写在末尾</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#主url</span></span><br><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path, include</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">'admin/'</span>, admin.site.urls),</span><br><span class="line">    path(<span class="string">'book/'</span>,include(<span class="string">'book.urls'</span>))</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>app中的url单独放在自己的<code>urls.py</code>文件中，如下面名为的<code>book</code>的app</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#app的url</span></span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path</span><br><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    <span class="comment">#book/</span></span><br><span class="line">    path(<span class="string">''</span>, views.book),</span><br><span class="line">    path(<span class="string">'detail/&lt;book_id&gt;/'</span>, views.book_detail),</span><br><span class="line">    path(<span class="string">'list/'</span>,views.book_list),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -724,7 +753,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#视图函数"><span class="nav-number">1.</span> <span class="nav-text">视图函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#urls-py"><span class="nav-number">2.</span> <span class="nav-text">urls.py</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#url传递参数"><span class="nav-number">2.1.</span> <span class="nav-text">url传递参数</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#视图函数"><span class="nav-number">1.</span> <span class="nav-text">视图函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#urls-py"><span class="nav-number">2.</span> <span class="nav-text">urls.py</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#url传递参数"><span class="nav-number">2.1.</span> <span class="nav-text">url传递参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#url参数内置的转换器"><span class="nav-number">2.1.1.</span> <span class="nav-text">url参数内置的转换器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#urls模块化"><span class="nav-number">2.2.</span> <span class="nav-text">urls模块化</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -758,7 +787,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">3k</span>
+    <span title="站点总字数">4k</span>
   
 
   
@@ -769,7 +798,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">6 分钟</span>
+    <span title="站点阅读时长">7 分钟</span>
   
 </div>
 
