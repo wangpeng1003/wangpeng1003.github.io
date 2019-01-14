@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="阿珍爱上了阿强">
 <meta property="og:description" content="视图函数 第一个参数必须是request 返回值必须是django.http.response.HttpResponseBase的子类的对象  1234from django.http import HttpResponsedef book(request):    return HttpResponse(&apos;图书首页&apos;)">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-13T12:34:26.314Z">
+<meta property="og:updated_time" content="2019-01-14T10:10:22.403Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="django笔记02-视图和url">
 <meta name="twitter:description" content="视图函数 第一个参数必须是request 返回值必须是django.http.response.HttpResponseBase的子类的对象  1234from django.http import HttpResponsedef book(request):    return HttpResponse(&apos;图书首页&apos;)">
@@ -404,7 +404,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-01-13 20:34:26" itemprop="dateModified" datetime="2019-01-13T20:34:26+08:00">2019-01-13</time>
+                <time title="修改时间：2019-01-14 18:10:22" itemprop="dateModified" datetime="2019-01-14T18:10:22+08:00">2019-01-14</time>
               
             
           </span>
@@ -477,7 +477,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">3.9k</span>
+                <span title="本文字数">5k</span>
               
 
               
@@ -491,7 +491,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">7 分钟</span>
+                <span title="阅读时长">9 分钟</span>
               
             </div>
           
@@ -525,6 +525,8 @@
 <li>转换器：<code>int</code>,<code>path</code>,<code>slug</code>,<code>str</code>,<code>uuid</code></li>
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">author_detail</span><span class="params">(request)</span>:</span></span><br><span class="line">    author_id = request.GET.get(<span class="string">'id'</span>)</span><br><span class="line">    <span class="comment">#author_id = request.GET['id']   #这种写法也可以，GET类似字典，获取值方式与字典相同</span></span><br><span class="line">    text = <span class="string">'作者的id是：%s'</span> % author_id</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(text)</span><br></pre></td></tr></table></figure>
+<h3 id="url映射时指定默认参数"><a href="#url映射时指定默认参数" class="headerlink" title="url映射时指定默认参数"></a>url映射时指定默认参数</h3><p><code>views.py</code>中，可以给函数指定默认参数，<code>url</code>中没有传递的话，使用默认参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">books</span><span class="params">(request, page=<span class="number">0</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> HttpResponse(book_list[page])</span><br></pre></td></tr></table></figure>
 <h3 id="url参数内置的转换器"><a href="#url参数内置的转换器" class="headerlink" title="url参数内置的转换器"></a>url参数内置的转换器</h3><ol>
 <li>str：除了<code>/</code>以外的所有字符</li>
 <li>int：一个或多个数字</li>
@@ -532,6 +534,15 @@
 <li>uuid：只有满足<code>uuid.uuid4()</code>函数返回的字符串格式</li>
 <li>slug：<code>-</code>，<code>_</code>，英文字母，数字任意组合</li>
 </ol>
+<h3 id="自定义url-path-转换器"><a href="#自定义url-path-转换器" class="headerlink" title="自定义url(path)转换器"></a>自定义url(path)转换器</h3><ol>
+<li>定义一个类，直接继承自object就可以了</li>
+<li>在类中定义一个属性regex，这个属性是用来保存url转换器规则的正则表达式</li>
+<li>实现to_python(self, value)方法，作用是将url中的值转换一下，然后传给视图函数</li>
+<li>实现to_url(self, value)方法，作用是在做url反转时，将传进来的参数转换后拼接成一个正确的url</li>
+<li>将定义好的转换器，使用<code>django.urls.converters.register_converter</code>方法注册到django中</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> converters, register_converter</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CategoryConverter</span><span class="params">(object)</span>:</span></span><br><span class="line">    regex = <span class="string">r'\w+|(\w+\+\w+)+'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">to_python</span><span class="params">(self, value)</span>:</span></span><br><span class="line">        <span class="comment"># python+django+flask</span></span><br><span class="line">        <span class="comment"># ['python', 'django', 'flask']</span></span><br><span class="line">        result = value.split(<span class="string">'+'</span>)</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">to_url</span><span class="params">(self,value)</span>:</span></span><br><span class="line">        <span class="comment"># value: ['python', 'django', 'flask']</span></span><br><span class="line">        <span class="comment"># python+django+flask</span></span><br><span class="line">        <span class="keyword">if</span> isinstance(value, list):</span><br><span class="line">            result = <span class="string">'+'</span>.join(value)</span><br><span class="line">            <span class="keyword">return</span> result</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">raise</span> RuntimeError(<span class="string">'转换url时，分类参数必须为列表'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 注册</span></span><br><span class="line">register_converter(CategoryConverter, <span class="string">'cate'</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>注</strong>：可以将以上代码单独存为<code>converters.py</code>文件，在<code>__init__.py</code>中导入，<code>from . import converters</code>，自动执行</p>
 <h2 id="urls模块化"><a href="#urls模块化" class="headerlink" title="urls模块化"></a>urls模块化</h2><ol>
 <li>主url对app的url引用，将url进行拼接，注意<code>/</code>，只写在末尾</li>
 </ol>
@@ -654,6 +665,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/01/14/python笔记/" rel="prev" title="python笔记">
+                python笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -728,7 +743,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -745,7 +760,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -762,7 +779,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -798,7 +817,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#视图函数"><span class="nav-number">1.</span> <span class="nav-text">视图函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#urls-py"><span class="nav-number">2.</span> <span class="nav-text">urls.py</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#url传递参数"><span class="nav-number">2.1.</span> <span class="nav-text">url传递参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#url参数内置的转换器"><span class="nav-number">2.1.1.</span> <span class="nav-text">url参数内置的转换器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#urls模块化"><span class="nav-number">2.2.</span> <span class="nav-text">urls模块化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#url命名"><span class="nav-number">2.3.</span> <span class="nav-text">url命名</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#应用（app）命名空间"><span class="nav-number">2.3.1.</span> <span class="nav-text">应用（app）命名空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例命名空间"><span class="nav-number">2.3.2.</span> <span class="nav-text">实例命名空间</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#include函数"><span class="nav-number">2.4.</span> <span class="nav-text">include函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#re-path"><span class="nav-number">2.5.</span> <span class="nav-text">re_path</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reverse"><span class="nav-number">2.6.</span> <span class="nav-text">reverse()</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#视图函数"><span class="nav-number">1.</span> <span class="nav-text">视图函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#urls-py"><span class="nav-number">2.</span> <span class="nav-text">urls.py</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#url传递参数"><span class="nav-number">2.1.</span> <span class="nav-text">url传递参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#url映射时指定默认参数"><span class="nav-number">2.1.1.</span> <span class="nav-text">url映射时指定默认参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#url参数内置的转换器"><span class="nav-number">2.1.2.</span> <span class="nav-text">url参数内置的转换器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义url-path-转换器"><span class="nav-number">2.1.3.</span> <span class="nav-text">自定义url(path)转换器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#urls模块化"><span class="nav-number">2.2.</span> <span class="nav-text">urls模块化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#url命名"><span class="nav-number">2.3.</span> <span class="nav-text">url命名</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#应用（app）命名空间"><span class="nav-number">2.3.1.</span> <span class="nav-text">应用（app）命名空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例命名空间"><span class="nav-number">2.3.2.</span> <span class="nav-text">实例命名空间</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#include函数"><span class="nav-number">2.4.</span> <span class="nav-text">include函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#re-path"><span class="nav-number">2.5.</span> <span class="nav-text">re_path</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reverse"><span class="nav-number">2.6.</span> <span class="nav-text">reverse()</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -832,7 +851,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">6k</span>
+    <span title="站点总字数">9k</span>
   
 
   
@@ -843,7 +862,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">11 分钟</span>
+    <span title="站点阅读时长">16 分钟</span>
   
 </div>
 
