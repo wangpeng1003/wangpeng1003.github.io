@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/qi.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/qi.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="第1章 了解SQL在使用多列作为主键时，上述条件必须应用到构成主键的所有列，所有列值的组合必须是唯一的（但单个列的值可以不唯一） SQL（发音为字母S-Q-L或sequel）是结构化查询语言（Structured Query Language） 第2章 MySQL简介数据的所有存储、检索、管理和处理实际上是由数据库软件——DBMS（数据库管理系统-DataBase Management Syste">
+<meta name="keywords" content="MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《MySQL必知必会》笔记">
+<meta property="og:url" content="http://wuliuqi.top/2019/02/09/《MySQL必知必会》笔记/index.html">
+<meta property="og:site_name" content="阿珍爱上了阿强">
+<meta property="og:description" content="第1章 了解SQL在使用多列作为主键时，上述条件必须应用到构成主键的所有列，所有列值的组合必须是唯一的（但单个列的值可以不唯一） SQL（发音为字母S-Q-L或sequel）是结构化查询语言（Structured Query Language） 第2章 MySQL简介数据的所有存储、检索、管理和处理实际上是由数据库软件——DBMS（数据库管理系统-DataBase Management Syste">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-02-10T07:46:17.409Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《MySQL必知必会》笔记">
+<meta name="twitter:description" content="第1章 了解SQL在使用多列作为主键时，上述条件必须应用到构成主键的所有列，所有列值的组合必须是唯一的（但单个列的值可以不唯一） SQL（发音为字母S-Q-L或sequel）是结构化查询语言（Structured Query Language） 第2章 MySQL简介数据的所有存储、检索、管理和处理实际上是由数据库软件——DBMS（数据库管理系统-DataBase Management Syste">
+
+
+
+
+
+
+  <link rel="canonical" href="http://wuliuqi.top/2019/02/09/《MySQL必知必会》笔记/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>《MySQL必知必会》笔记 | 阿珍爱上了阿强</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">阿珍爱上了阿强</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">在一个有星星的夜晚</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wuliuqi.top/2019/02/09/《MySQL必知必会》笔记/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WP">
+      <meta itemprop="description" content="飞机从头顶飞过<br>流星也划破那夜空">
+      <meta itemprop="image" content="/images/memory.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="阿珍爱上了阿强">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《MySQL必知必会》笔记
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-09 22:44:14" itemprop="dateCreated datePublished" datetime="2019-02-09T22:44:14+08:00">2019-02-09</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-02-10 15:46:17" itemprop="dateModified" datetime="2019-02-10T15:46:17+08:00">2019-02-10</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/09/《MySQL必知必会》笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/02/09/《MySQL必知必会》笔记/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2019/02/09/《MySQL必知必会》笔记/" class="leancloud_visitors" data-flag-title="《MySQL必知必会》笔记">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">6.8k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">12 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="第1章-了解SQL"><a href="#第1章-了解SQL" class="headerlink" title="第1章 了解SQL"></a>第1章 了解SQL</h1><p>在使用多列作为主键时，上述条件必须应用到构成主键的所有列，所有列值的组合必须是唯一的（但单个列的值可以不唯一）</p>
+<p><code>SQL</code>（发音为字母S-Q-L或sequel）是结构化查询语言（Structured Query Language）</p>
+<h1 id="第2章-MySQL简介"><a href="#第2章-MySQL简介" class="headerlink" title="第2章 MySQL简介"></a>第2章 MySQL简介</h1><p>数据的所有存储、检索、管理和处理实际上是由数据库软件——DBMS（数据库管理系统-DataBase Management System）完成的</p>
+<a id="more"></a>
+<h1 id="第3章-使用MySQL"><a href="#第3章-使用MySQL" class="headerlink" title="第3章 使用MySQL"></a>第3章 使用MySQL</h1><p><code>SHOW DATABASES；</code>，返回可用数据库的一个列表</p>
+<p><code>SHOW TABLES;</code>，返回当前选择的数据库内可用表的列表</p>
+<p><code>SHOW COLUMNS FROM customers;</code>，查看表结构：字段名、数据类型、是否允许NULL、键信息、默认值以及其他信息（如字段cust_id的auto_increment）</p>
+<p><code>DESCRIBE customers；</code>，是<code>SHOW COLUMNS FROM customers；</code>的一种快捷方式</p>
+<h1 id="第4章-检索数据"><a href="#第4章-检索数据" class="headerlink" title="第4章 检索数据"></a>第4章 检索数据</h1><p><code>SQL</code>是不区分大小写的，许多SQL开发人员喜欢对所有SQL关键字使用大写，而对所有列和表名使用小写，这样做使代码更易于阅读和调试。<br>SQL语句可以在一行上给出，也可以分成许多行。多数SQL开发人员认为将SQL语句分成多行更容易阅读和调试。</p>
+<p><code>DISTINCT</code>关键字，检索出有不同值的列表</p>
+<p><code>SELECT DISTINCT vend_id FROM products;</code>,只返回不同值的vend_id行</p>
+<p><code>DISTINCT</code>关键字应用于所有列而不仅是前置它的列，如果给出<code>SELECT DISTINCT vend_id, prod_price</code>，除非指定的两个列都不同，否则所有行都将被检索出来。</p>
+<p><code>SELECT prod_name FROM products LIMIT 5;</code>，<code>LIMIT 5</code>指示<code>MySQL</code>返回不多于5行。</p>
+<p><code>SELECT prod_name FROM products LIMIT 5,5;</code>，<code>LIMIT 5, 5</code>指示<code>MySQL</code>返回从行5开始的5行。第一个数为开始位置，第二个数为要检索的行数。行0检索出来的第一行为行0，而不是行1。因此，<code>LIMIT 1, 1</code>将检索出第二行而不是第一行。</p>
+<p><code>LIMIT 4 OFFSET 3</code>意为从行3开始取4行，就像LIMIT 3, 4一样。</p>
+<h1 id="第5章-排序检索数据"><a href="#第5章-排序检索数据" class="headerlink" title="第5章 排序检索数据"></a>第5章 排序检索数据</h1><p>关系数据库设计理论认为，如果不明确规定排序顺序，则不应该假定检索出的数据的顺序有意义。<br><code>ORDER BY</code>子句取一个或多个列的名字，据此对输出进行排序:</p>
+<p><code>SELECT prod_name FROM products ORDER BY prod_name;</code>，对prod_name以字母顺序排序。</p>
+<p>为了按多个列排序，只要指定列名，列名之间用逗号分开即可（就像选择多个列时所做的那样）。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先按价格，然后再按名称排序</span></span><br><span class="line"><span class="comment"># 以下是一条命令，分号算作结束，分行便于阅读</span></span><br><span class="line"><span class="keyword">SELECT</span> prod_id, prod_price, prod_name <span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> prod_price, prod_name;</span><br></pre></td></tr></table></figure>
+<p>默认升序，为了进行降序排序，必须指定DESC关键字</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> prod_id, prod_price, prod_name</span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> prod_price <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
+<p><code>DESC</code>关键字只应用到直接位于其前面的列名，下面的例子以降序排序产品（最贵的在最前面），然后再对产品名排序（默认升序）：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> prod_id, prod_price, prod_name</span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> prod_price <span class="keyword">DESC</span>, prod_name;</span><br></pre></td></tr></table></figure>
+<p>在多个列上降序排序 如果想在多个列上进行降序排序，必须对每个列指定<code>DESC</code>关键字。与<code>DESC</code>相反的关键字是<code>ASC（ASCENDING）</code>，在升序排序时可以指定它。但实际上，<code>ASC</code>没有多大用处，因为升序是默认的（如果既不指定<code>ASC</code>也不指定<code>DESC</code>，则假定为<code>ASC</code>）。</p>
+<p>在字典（dictionary）排序顺序中，A被视为与a相同，这是MySQL（和大多数数据库管理系统）的默认行为。</p>
+<p>使用<code>ORDER BY</code>和<code>LIMIT</code>的组合，能够找出一个列中最高或最低的值。下面的例子演示如何找出最昂贵物品的值:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> prod_price</span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> prod_price <span class="keyword">DESC</span></span><br><span class="line"><span class="keyword">LIMIT</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<p>在给出<code>ORDER BY</code>子句时，应该保证它位于<code>FROM</code>子句之后。如果使用<code>LIMIT</code>，它必须位于<code>ORDER BY</code>之后。使用子句的次序不对将产生错误消息。</p>
+<h1 id="第6章-过滤数据"><a href="#第6章-过滤数据" class="headerlink" title="第6章 过滤数据"></a>第6章 过滤数据</h1><p>WHERE子句在表名（FROM子句）之后给出</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> prod_name, prod_price</span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">WHERE</span> prod_price = <span class="number">2.5</span>;</span><br></pre></td></tr></table></figure>
+<p>条件操作符（WHERE子句操作符）</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">操作符</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">=</td>
+<td style="text-align:center">等于</td>
+</tr>
+<tr>
+<td style="text-align:center">&lt;&gt;</td>
+<td style="text-align:center">不等于</td>
+</tr>
+<tr>
+<td style="text-align:center">!=</td>
+<td style="text-align:center">不等于</td>
+</tr>
+<tr>
+<td style="text-align:center">&lt;</td>
+<td style="text-align:center">小于</td>
+</tr>
+<tr>
+<td style="text-align:center">&lt;=</td>
+<td style="text-align:center">小于等于</td>
+</tr>
+<tr>
+<td style="text-align:center">&gt;</td>
+<td style="text-align:center">大于</td>
+</tr>
+<tr>
+<td style="text-align:center">&gt;=</td>
+<td style="text-align:center">大于等于</td>
+</tr>
+<tr>
+<td style="text-align:center">BETWEEN</td>
+<td style="text-align:center">在指定的两个值之间</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> prod_name, prod_price</span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">WHERE</span> prod_name = <span class="string">'fuses'</span>;</span><br></pre></td></tr></table></figure>
+<p><code>MySQL</code>在执行匹配时默认不区分大小写，所以<code>fuses</code>与<code>Fuses</code>匹配。<br>如果将值与串类型的列进行比较，则需要限定引号。用来与数值列进行比较的值不用引号。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> prod_name, prod_price</span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">WHERE</span> prod_price <span class="keyword">BETWEEN</span> <span class="number">5</span> <span class="keyword">AND</span> <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+<p><code>BETWEEN</code>匹配范围中所有的值，包括指定的开始值和结束值。</p>
+<p><code>SELECT</code>语句有一个特殊的<code>WHERE</code>子句，可用来检查具有<code>NULL</code>值的列。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> prod_name</span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">WHERE</span> prod_price <span class="keyword">IS</span> <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure>
+<p>在通过过滤选择出不具有特定值的行时，你可能希望返回具有<code>NULL</code>值的行。但是，不行。因为未知具有特殊的含义，数据库不知道它们是否匹配，所以在匹配过滤或不匹配过滤时不返回它们。因此，在过滤数据时，一定要验证返回数据中确实给出了被过滤列具有<code>NULL</code>的行。</p>
+<h1 id="第7章-数据过滤"><a href="#第7章-数据过滤" class="headerlink" title="第7章 数据过滤"></a>第7章 数据过滤</h1><p>操作符（operator）：用来联结或改变<code>WHERE</code>子句中的子句的关键字。也称为逻辑操作符（logical operator）。<code>AND</code>操作符，<code>OR</code>操作符，<code>IN</code>操作符，<code>NOT</code>操作符。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> prod_id, prod_price, prod_name</span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">WHERE</span> vend_id = <span class="number">1003</span> <span class="keyword">AND</span> prod_price &lt;=<span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+<p>此<code>SQL</code>语句检索由供应商1003制造且价格小于等于10美元的所有产品的名称和价格。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> prod_name, prod_price</span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">WHERE</span> vend_id = <span class="number">1002</span> <span class="keyword">OR</span> vend_id = <span class="number">1003</span>;</span><br></pre></td></tr></table></figure>
+<p>此SQL语句检索由任一个指定供应商制造的所有产品的产品名和价格。<code>OR</code>操作符告诉<code>DBMS</code>匹配任一条件而不是同时匹配两个条件。</p>
+<p><code>SQL</code>（像多数语言一样）在处理<code>OR</code>操作符前，优先处理<code>AND</code>操作符，<code>AND</code>在计算次序中优先级更高。任何时候使用具有<code>AND</code>和<code>OR</code>操作符的<code>WHERE</code>子句，都应该使用圆括号明确地分组操作符。</p>
+<p><code>IN</code>操作符用来指定条件范围，范围中的每个条件都可以进行匹配。<code>IN</code>操作符完成与<code>OR</code>相同的功能。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> prod_name, prod_price</span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">WHERE</span> vend_id <span class="keyword">IN</span> (<span class="number">1002</span>,<span class="number">1003</span>)</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> prod_name;</span><br></pre></td></tr></table></figure>
+<p>此<code>SELECT</code>语句检索供应商1002和1003制造的所有产品，与下面的<code>SQL</code>语句效果相同。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> prod_name, prod_price</span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">WHERE</span> vend_id = <span class="number">1002</span> <span class="keyword">OR</span> vend_id = <span class="number">1003</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> prod_name;</span><br></pre></td></tr></table></figure>
+<p><code>IN</code>操作符优点具体如下：</p>
+<ol>
+<li>在使用长的合法选项清单时，IN操作符的语法更清楚且更直观。</li>
+<li>在使用IN时，计算的次序更容易管理（因为使用的操作符更少）。</li>
+<li>IN操作符一般比OR操作符清单执行更快。</li>
+<li>IN的最大优点是可以包含其他SELECT语句，使得能够更动态地建立WHERE子句。</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> prod_name, prod_price</span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">WHERE</span> vend_id <span class="keyword">NOT</span> <span class="keyword">IN</span> (<span class="number">1002</span>,<span class="number">1003</span>)</span><br></pre></td></tr></table></figure>
+<p>此<code>SELECT</code>语句列出除1002和1003之外的所有供应商制造的产品</p>
+<p><code>MySQL</code>支持使用<code>NOT</code>对<code>IN</code>、<code>BETWEEN</code>和<code>EXISTS</code>子句取反</p>
+<h1 id="第8章-用通配符进行过滤"><a href="#第8章-用通配符进行过滤" class="headerlink" title="第8章 用通配符进行过滤"></a>第8章 用通配符进行过滤</h1><p>操作符何时不是操作符？答案是在它作为谓词（predi-cate）时。</p>
+<p><code>%</code>表示任何字符出现任意次数。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 找出所有以词jet起头的产品</span></span><br><span class="line"><span class="keyword">SELECT</span> prod_id, prod_name</span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">WHERE</span> prod_name <span class="keyword">LIKE</span> <span class="string">'jet%'</span>;</span><br></pre></td></tr></table></figure>
+<p>根据MySQL的配置方式，搜索可以是区分大小写的。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可以使用多个通配符</span></span><br><span class="line"><span class="keyword">SELECT</span> prod_id, prod_name</span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">WHERE</span> prod_name <span class="keyword">LIKE</span> <span class="string">`%anvil%`</span></span><br></pre></td></tr></table></figure>
+<p><code>%</code>代表搜索模式中给定位置的0个、1个或多个字符。</p>
+<p>尾空格可能会干扰通配符匹配,解决这个问题的一个简单的办法是在搜索模式最后附加一个%。一个更好的办法是使用函数（第11章将会介绍）去掉首尾空格。</p>
+<p>即使是<code>WHERE prod_name LIKE &#39;%&#39;</code>也不能匹配用值NULL作为产品名的行。</p>
+<p><code>_</code>下划线只匹配单个字符而不是多个字符</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> prod_id, prod_name</span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">WHERE</span> prod_name <span class="keyword">LIKE</span> <span class="string">'_ ton anvil'</span>;</span><br></pre></td></tr></table></figure>
+<p>通配符技巧：</p>
+<ol>
+<li>不要过度使用通配符。如果其他操作符能达到相同的目的，应该使用其他操作符。</li>
+<li>在确实需要使用通配符时，除非绝对有必要，否则不要把它们用在搜索模式的开始处。把通配符置于搜索模式的开始处，搜索起来是最慢的。</li>
+<li>仔细注意通配符的位置。如果放错地方，可能不会返回想要的数据。</li>
+</ol>
+<h1 id="第9章-用正则表达式进行搜索"><a href="#第9章-用正则表达式进行搜索" class="headerlink" title="第9章 用正则表达式进行搜索"></a>第9章 用正则表达式进行搜索</h1><p>检索列prod_name包含文本1000的所有行：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> prod_name</span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">WHERE</span> prod_name REGEXP <span class="string">'1000'</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> prod_name</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> prod_name</span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">WHERE</span> prod_name REGEXP <span class="string">'.000'</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> prod_name;</span><br></pre></td></tr></table></figure>
+<p><code>.</code>是正则表达式语言中一个特殊的字符。它表示匹配任意一个字符。</p>
+<p>MySQL中的正则表达式匹配（自版本3.23.4后）不区分大小写（即，大写和小写都匹配）。为区分大小写，可使用<code>BINARY</code>关键字，如<code>WHERE prod_name REGEXP BINARY &#39;JetPack .000&#39;</code>。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> prod_name</span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">WHERE</span> prod_name REGEXP <span class="string">'1000|2000'</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> prod_name;</span><br></pre></td></tr></table></figure>
+<p><code>|</code>为正则表达式的<code>OR</code>操作符。它表示匹配其中之一，因此1000和2000都匹配并返回。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> prod_name</span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">WHERE</span> prod_name REGEXP <span class="string">'[123] Ton'</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> prod_name</span><br></pre></td></tr></table></figure>
+<p><code>[123]</code>定义一组字符，它的意思是匹配1或2或3。</p>
+<p>为否定一个字符集，在集合的开始处放置一个<code>^</code>即可。尽管<code>[123]</code>匹配字符1、2或3，但<code>[^123]</code>却匹配除这些字符外的任何东西。</p>
+<p>下面的集合将匹配数字0到9：<code>[0123456789]</code>，可简化为<code>[0-9]</code>。<code>[1-3]</code>和<code>[6-9]</code>也是合法的范围。<code>[a-z]</code>匹配任意字母字符。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> prod_name</span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">WHERE</span> prod_name REGEXP <span class="string">'[1-5] Ton'</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> prod_name</span><br></pre></td></tr></table></figure>
+<p>为了匹配特殊字符，必须用<code>\\</code>为前导。<code>\\-</code>表示查找<code>-</code>, <code>\\．</code>表示查找<code>．</code>。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> vend_name</span><br><span class="line"><span class="keyword">FROM</span> vendors</span><br><span class="line"><span class="keyword">WHERE</span> vend_name REGEXP <span class="string">`\\.`</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> vend_name;</span><br></pre></td></tr></table></figure>
+<p>转义。这包括<code>．</code>、<code>|</code>、<code>[]</code>以及迄今为止使用过的其他特殊字符。<code>\\</code>也用来引用元字符（具有特殊含义的字符）</p>
+<p>空白元字符：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">元字符</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">\f</td>
+<td style="text-align:center">换页</td>
+</tr>
+<tr>
+<td style="text-align:center">\n</td>
+<td style="text-align:center">换行</td>
+</tr>
+<tr>
+<td style="text-align:center">\r</td>
+<td style="text-align:center">回车</td>
+</tr>
+<tr>
+<td style="text-align:center">\t</td>
+<td style="text-align:center">制表</td>
+</tr>
+<tr>
+<td style="text-align:center">\v</td>
+<td style="text-align:center">纵向制表</td>
+</tr>
+</tbody>
+</table>
+<p>多数正则表达式实现使用单个反斜杠转义特殊字符，以便能使用这些字符本身。但<code>MySQL</code>要求两个反斜杠（<code>MySQL</code>自己解释一个，正则表达式库解释另一个）。</p>
+<p>为更方便工作，可以使用预定义的字符集，称为字符类。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">[:alnum:]</td>
+<td style="text-align:center">任意字母和数字（同[a-zA-Z0-9]）</td>
+</tr>
+<tr>
+<td style="text-align:center">[:alpha:]</td>
+<td style="text-align:center">任意字符（同[a-zA-Z]）</td>
+</tr>
+<tr>
+<td style="text-align:center">[:blank:]</td>
+<td style="text-align:center">空格和制表（同[\t]）</td>
+</tr>
+<tr>
+<td style="text-align:center">[:cntrl:]</td>
+<td style="text-align:center">ASCII 0到31和127</td>
+</tr>
+<tr>
+<td style="text-align:center">[:digit:]</td>
+<td style="text-align:center">任意数字（同[0-9]）</td>
+</tr>
+<tr>
+<td style="text-align:center">[:graph:]</td>
+<td style="text-align:center">与[:print:]相同，但不包括空格</td>
+</tr>
+<tr>
+<td style="text-align:center">[:lower:]</td>
+<td style="text-align:center">任意小写字母（同[a-z]）</td>
+</tr>
+<tr>
+<td style="text-align:center">[:print:]</td>
+<td style="text-align:center">任意可打印字符</td>
+</tr>
+<tr>
+<td style="text-align:center">[:punct:]</td>
+<td style="text-align:center">既不在[:alnum:]又不在[:cntrl:]中的任意字符</td>
+</tr>
+<tr>
+<td style="text-align:center">[:space:]</td>
+<td style="text-align:center">包括空格在内的任意空白字符（同[\f\n\r\t\v]）</td>
+</tr>
+<tr>
+<td style="text-align:center">[:upper:]</td>
+<td style="text-align:center">任意大写字母（同[a-Z]）</td>
+</tr>
+<tr>
+<td style="text-align:center">[:xdigit:]</td>
+<td style="text-align:center">任意十六进制数字（同[a-fA-F0-9]）</td>
+</tr>
+</tbody>
+</table>
+<p>正则表达式重复元字符:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">元字符</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">*</td>
+<td style="text-align:center">0个或多个匹配</td>
+</tr>
+<tr>
+<td style="text-align:center">+</td>
+<td style="text-align:center">1个或多个匹配（等于{1，}）</td>
+</tr>
+<tr>
+<td style="text-align:center">?</td>
+<td style="text-align:center">0个或1个匹配（等于{0,1}）</td>
+</tr>
+<tr>
+<td style="text-align:center">{n}</td>
+<td style="text-align:center">指定数目的匹配</td>
+</tr>
+<tr>
+<td style="text-align:center">{n,}</td>
+<td style="text-align:center">不少于指定数目的匹配</td>
+</tr>
+<tr>
+<td style="text-align:center">{n,m}</td>
+<td style="text-align:center">匹配数目的范围(m不超过255)</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> prod_name</span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">WHERE</span> prod_name REGEXP <span class="string">'\\([0-9] sticks?\\)'</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> prod_name</span><br></pre></td></tr></table></figure>
+<p>匹配到<code>TNT (1 stick)</code>，<code>TNT (5 sticks)</code>。<br>正则表达式<code>\\([0-9] sticks? \\)</code>需要解说一下。<code>\\(</code>匹配<code>(</code>, <code>[0-9]</code>匹配任意数字（这个例子中为1和5）, <code>sticks？</code>匹配<code>stick</code>和<code>sticks</code>（<code>s</code>后的<code>?</code>使<code>s</code>可选，因为<code>?</code>匹配它前面的任何字符的0次或1次出现）, <code>\\)</code>匹配<code>)</code>。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> prod_name</span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">WHERE</span> prod_name REGEXP <span class="string">`[[:DIGIT:]]&#123;4&#125;`</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> prod_name;</span><br></pre></td></tr></table></figure>
+<p><code>[:digit:]</code>匹配任意数字，因而它为数字的一个集合。<code>{4}</code>确切地要求它前面的字符（任意数字）出现4次，所以<code>[[:digit:]]{4}</code>匹配连在一起的任意4位数字。</p>
+<p>为了匹配特定位置的文本，需要使用定位符：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">元字符</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">^</td>
+<td style="text-align:center">文本的开始</td>
+</tr>
+<tr>
+<td style="text-align:center">$</td>
+<td style="text-align:center">文本的结尾</td>
+</tr>
+<tr>
+<td style="text-align:center">[[:&lt;:]]</td>
+<td style="text-align:center">词的开始</td>
+</tr>
+<tr>
+<td style="text-align:center">[[:&gt;:]]</td>
+<td style="text-align:center">词的结尾</td>
+</tr>
+</tbody>
+</table>
+<p>查询以一个数（包括以小数点开始的数）开始的所有产品，需要使用^定位符：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> prod_name</span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">WHERE</span> prod_name REGEXP <span class="string">'^[0-9\\.]'</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> prod_name;</span><br></pre></td></tr></table></figure>
+<p><code>^</code>有两种用法。在集合中（用<code>[和]</code>定义），用它来否定该集合，如<code>[^1002,1003]</code>。否则，用来指串的开始处。</p>
+<p><code>LIKE</code>和<code>REGEXP</code>的不同在于，<code>LIKE</code>匹配整个串而<code>REGEXP</code>匹配子串。利用定位符，通过用<code>^</code>开始每个表达式，用<code>$</code>结束每个表达式，可以使<code>REGEXP</code>的作用与<code>LIKE</code>一样。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>赞赏作者</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatreward.png" alt="WP 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/27/HTML笔记/" rel="next" title="HTML笔记">
+                <i class="fa fa-chevron-left"></i> HTML笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/memory.jpg" alt="WP">
+            
+              <p class="site-author-name" itemprop="name">WP</p>
+              <p class="site-description motion-element" itemprop="description">飞机从头顶飞过<br>流星也划破那夜空</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第1章-了解SQL"><span class="nav-number">1.</span> <span class="nav-text">第1章 了解SQL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第2章-MySQL简介"><span class="nav-number">2.</span> <span class="nav-text">第2章 MySQL简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第3章-使用MySQL"><span class="nav-number">3.</span> <span class="nav-text">第3章 使用MySQL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第4章-检索数据"><span class="nav-number">4.</span> <span class="nav-text">第4章 检索数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第5章-排序检索数据"><span class="nav-number">5.</span> <span class="nav-text">第5章 排序检索数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第6章-过滤数据"><span class="nav-number">6.</span> <span class="nav-text">第6章 过滤数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第7章-数据过滤"><span class="nav-number">7.</span> <span class="nav-text">第7章 数据过滤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第8章-用通配符进行过滤"><span class="nav-number">8.</span> <span class="nav-text">第8章 用通配符进行过滤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第9章-用正则表达式进行搜索"><span class="nav-number">9.</span> <span class="nav-text">第9章 用正则表达式进行搜索</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WP</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">44k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">1:20</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/three/three.min.js"></script>
+
+  
+  <script src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+
+
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail';
+  guest = guest.split(',').filter(function (item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'IrCihvbStzYVX1cVfwYfUjpt-gzGzoHsz',
+    appKey: 'U1FLNq52nK27I2BQq9TCSAdt',
+    placeholder: '来玩啊',
+    avatar: 'mp',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+</script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+</html>
