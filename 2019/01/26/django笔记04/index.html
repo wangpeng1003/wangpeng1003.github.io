@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="阿珍爱上了阿强">
 <meta property="og:description" content="Django配置连接数据库settings.py文件中数据库相关的配置 12345678910111213141516DATABASES = &amp;#123;    &apos;default&apos;: &amp;#123;        # 数据库引擎（是mysql还是oracle等）        &apos;ENGINE&apos;: &apos;django.db.backends.mysql&apos;,        # 数据库的名字        &apos;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-13T07:43:01.254Z">
+<meta property="og:updated_time" content="2019-02-13T12:52:54.911Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="django笔记04 - 数据库">
 <meta name="twitter:description" content="Django配置连接数据库settings.py文件中数据库相关的配置 12345678910111213141516DATABASES = &amp;#123;    &apos;default&apos;: &amp;#123;        # 数据库引擎（是mysql还是oracle等）        &apos;ENGINE&apos;: &apos;django.db.backends.mysql&apos;,        # 数据库的名字        &apos;">
@@ -404,7 +404,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-13 15:43:01" itemprop="dateModified" datetime="2019-02-13T15:43:01+08:00">2019-02-13</time>
+                <time title="修改时间：2019-02-13 20:52:54" itemprop="dateModified" datetime="2019-02-13T20:52:54+08:00">2019-02-13</time>
               
             
           </span>
@@ -782,13 +782,13 @@
 <h2 id="values"><a href="#values" class="headerlink" title="values"></a>values</h2><p>只想提取其中的几个字段，可以使用<code>values</code>来进行指定，并且使用了<code>values</code>方法后，提取出的<code>QuerySet</code>中的数据类型不是模型，而是在<code>values</code>方法中指定的字段和值形成的字典：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">books = Book.objects.values(<span class="string">'id'</span>,<span class="string">'name'</span>)</span><br></pre></td></tr></table></figure>
 <p>提取这个模型上关联的的对象的属性，查找顺序和<code>filter</code>的用法是一样的：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">books = Book.objects.values(<span class="string">'id'</span>,<span class="string">'name'</span>,author_name=F(<span class="string">'author__name'</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">books = Book.objects.values(<span class="string">'id'</span>,<span class="string">'name'</span>,<span class="string">'author__name'</span>)</span><br></pre></td></tr></table></figure>
 <p>以上会提取<code>author</code>的<code>name</code>字段，如果想更改字段名，可以使用关键字参数：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">books = Book.objects.values(<span class="string">'id'</span>, <span class="string">'name'</span>, author_name=F(<span class="string">'author__name'</span>))</span><br></pre></td></tr></table></figure>
 <p>自定义的名字，不能和模型上本身拥有的字段一样，否则会报错。</p>
 <p>在<code>values</code>中，也可以使用聚合函数来形成一个新的字段。比如获取每本图书的销量：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">books = Book.objects.values(<span class="string">'id'</span>, <span class="string">'name'</span>, order_nums=Count(<span class="string">'bookorder'</span>))</span><br></pre></td></tr></table></figure>
-<p>如果调用<code>value</code>方法的时候，没有传递任何的参数，那么会获取这个模型上的所有字段以及对于的值形成的字典：</p>
+<p>如果调用<code>values</code>方法的时候，没有传递任何的参数，那么会获取这个模型上的所有字段以及对于的值形成的字典：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">books = Book.objects.values()</span><br></pre></td></tr></table></figure>
 <p>那么<code>books</code>中的值如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'id'</span>:<span class="number">1</span>, <span class="string">'name'</span>:<span class="string">'三国演义'</span>, <span class="string">'pages'</span>:<span class="number">987</span>, <span class="string">'price'</span>:<span class="number">108.0</span>, <span class="string">'rating'</span>:<span class="number">3.9</span>, <span class="string">'author_id'</span>:<span class="number">3</span>&#125;</span><br></pre></td></tr></table></figure>
@@ -1118,7 +1118,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">67k</span>
+    <span title="站点总字数">71k</span>
   
 
   
@@ -1129,7 +1129,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">2:03</span>
+    <span title="站点阅读时长">2:09</span>
   
 </div>
 

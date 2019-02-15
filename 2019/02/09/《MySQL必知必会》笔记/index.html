@@ -105,7 +105,7 @@
 <meta property="og:description" content="第1章 了解SQL在使用多列作为主键时，上述条件必须应用到构成主键的所有列，所有列值的组合必须是唯一的（但单个列的值可以不唯一） SQL（发音为字母S-Q-L或sequel）是结构化查询语言（Structured Query Language） 第2章 MySQL简介数据的所有存储、检索、管理和处理实际上是由数据库软件——DBMS（数据库管理系统-DataBase Management Syste">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://wuliuqi.top/2019/02/09/《MySQL必知必会》笔记/AS关键字.jpg">
-<meta property="og:updated_time" content="2019-02-13T04:29:12.067Z">
+<meta property="og:updated_time" content="2019-02-14T06:44:08.517Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《MySQL必知必会》笔记">
 <meta name="twitter:description" content="第1章 了解SQL在使用多列作为主键时，上述条件必须应用到构成主键的所有列，所有列值的组合必须是唯一的（但单个列的值可以不唯一） SQL（发音为字母S-Q-L或sequel）是结构化查询语言（Structured Query Language） 第2章 MySQL简介数据的所有存储、检索、管理和处理实际上是由数据库软件——DBMS（数据库管理系统-DataBase Management Syste">
@@ -406,7 +406,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-13 12:29:12" itemprop="dateModified" datetime="2019-02-13T12:29:12+08:00">2019-02-13</time>
+                <time title="修改时间：2019-02-14 14:44:08" itemprop="dateModified" datetime="2019-02-14T14:44:08+08:00">2019-02-14</time>
               
             
           </span>
@@ -479,7 +479,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">18k</span>
+                <span title="本文字数">22k</span>
               
 
               
@@ -493,7 +493,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">33 分钟</span>
+                <span title="阅读时长">39 分钟</span>
               
             </div>
           
@@ -1225,6 +1225,104 @@
 <p>此<code>SELECT</code>语句使用<code>INNER JOIN</code>将<code>customers</code>和<code>orders</code>表互相关联。<code>GROUP BY</code>子句按客户分组数据，因此，函数调用<code>COUNT(orders.order_num)</code>对每个客户的订单计数，将它作为<code>num_ord</code>返回。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> customer.cust_name,</span><br><span class="line">       customers.cust_id,</span><br><span class="line">       <span class="keyword">COUNT</span>(orders.order_num) <span class="keyword">AS</span> num_ord</span><br><span class="line"><span class="keyword">FROM</span> customers <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> orders</span><br><span class="line"><span class="keyword">ON</span> customers.cust_id = orders.cust_id</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> customers.cust_id</span><br></pre></td></tr></table></figure>
 <p>这个例子使用左外部联结来包含所有客户，甚至包含那些没有任何下订单的客户。结果显示也包含了客户Mouse House，它有0个订单。</p>
+<h1 id="第17章-组合查询"><a href="#第17章-组合查询" class="headerlink" title="第17章 组合查询"></a>第17章 组合查询</h1><p><code>MySQL</code>也允许执行多个查询（多条<code>SELECT</code>语句），并将结果作为单个查询结果集返回。这些组合查询通常称为并（union）或复合查询（compound query）。<br>有两种基本情况，其中需要使用组合查询：</p>
+<ul>
+<li>在单个查询中从不同的表返回类似结构的数据；</li>
+<li>对单个表执行多个查询，按单个查询返回数据。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> vend_id, prod_id, prod_price</span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">WHERE</span> prod_price &lt;= <span class="number">5</span></span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> vend_id, prod_id, prod_price</span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">WHERE</span> vend_id <span class="keyword">IN</span> (<span class="number">1001</span>,<span class="number">1002</span>);</span><br></pre></td></tr></table></figure>
+<p>第一条SELECT检索价格不高于5的所有物品。第二条SELECT使用IN找出供应商1001和1002生产的所有物品，组合了一下。与下面的查询等价。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> vend_id, prod_id, prod_price</span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">WHERE</span> prod_price &lt;= <span class="number">5</span></span><br><span class="line"><span class="keyword">OR</span> vend_id <span class="keyword">IN</span> (<span class="number">1001</span>,<span class="number">1002</span>)</span><br></pre></td></tr></table></figure>
+<p><code>UNION</code>规则</p>
+<ul>
+<li><code>UNION</code>必须由两条或两条以上的<code>SELECT</code>语句组成，语句之间用关键字<code>UNION</code>分隔（因此，如果组合4条<code>SELECT</code>语句，将要使用3个<code>UNION</code>关键字）。</li>
+<li><code>UNION</code>中的每个查询必须包含相同的列、表达式或聚集函数（不过各个列不需要以相同的次序列出）。</li>
+<li>列数据类型必须兼容：类型不必完全相同，但必须是<code>DBMS</code>可以隐含地转换的类型（例如，不同的数值类型或不同的日期类型）。</li>
+</ul>
+<p>在使用UNION时，重复的行被自动取消。如果想返回所有匹配行，可使用<code>UNION ALL</code>而不是<code>UNION</code>。</p>
+<p>在用<code>UNION</code>组合查询时，只能使用一条<code>ORDER BY</code>子句，它必须出现在最后一条<code>SELECT</code>语句之后。将用它来排序所有<code>SELECT</code>语句返回的所有结果，只能有一种排序方式。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> vend_id, prod_id, prod_price</span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">WHERE</span> prod_price &lt;= <span class="number">5</span></span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> vend_id, prod_id, prod_price</span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">WHERE</span> vend_id <span class="keyword">IN</span> (<span class="number">1001</span>,<span class="number">1002</span>)</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> vend_id, prod_id;</span><br></pre></td></tr></table></figure>
+<h1 id="第18章-全文本搜索"><a href="#第18章-全文本搜索" class="headerlink" title="第18章 全文本搜索"></a>第18章 全文本搜索</h1><p>两个最常使用的引擎为MyISAM和InnoDB，前者支持全文本搜索，而后者不支持。</p>
+<p>一般在创建表时启用全文本搜索。<code>CREATE TABLE</code>语句（第21章中介绍）接受<code>FULLTEXT</code>子句，它给出被索引列的一个逗号分隔的列表。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> productnotes</span><br><span class="line">(</span><br><span class="line">        note_id    <span class="built_in">int</span>    <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT,</span><br><span class="line">        prod_id    <span class="built_in">char</span>(<span class="number">10</span>)    <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">        note_date    datetime    <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">        note_text    <span class="built_in">text</span>    <span class="literal">NULL</span>,</span><br><span class="line">        PRIMARY <span class="keyword">KEY</span>(note_id),</span><br><span class="line">        FULLTEXT(note_text)</span><br><span class="line">)<span class="keyword">ENGINE</span>=MyISAM;</span><br></pre></td></tr></table></figure>
+<p>这里的<code>FULLTEXT</code>索引单个列，如果需要也可以指定多个列。<br>在定义之后，<code>MySQL</code>自动维护该索引。在增加、更新或删除行时，索引随之自动更新</p>
+<p><code>Match()</code>指定被搜索的列，<code>Against()</code>指定要使用的搜索表达式。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> note_text</span><br><span class="line"><span class="keyword">FROM</span> productnotes</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">Match</span>(note_text) Against(<span class="string">'rabit'</span>);</span><br></pre></td></tr></table></figure>
+<p><code>Match(note_text)</code>指示<code>MySQL</code>针对指定的列进行搜索，<code>Against(&#39;rabbit&#39;)</code>指定词<code>rabbit</code>作为搜索文本。由于有两行包含词<code>rabbit</code>，这两个行被返回。<br>除非使用<code>BINARY</code>方式（本章中没有介绍），否则全文本搜索不区分大小写。</p>
+<p>全文本搜索的一个重要部分就是对结果排序。具有较高等级的行先返回（因为这些行很可能是你真正想要的行）。<br>如果指定多个搜索项，则包含多数匹配词的那些行将具有比包含较少词（或仅有一个匹配）的那些行高的等级值。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> note_text</span><br><span class="line"><span class="keyword">FROM</span> productnotes</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">Match</span>(note_text) Against(<span class="string">'anvils'</span> <span class="keyword">WITH</span> <span class="keyword">QUERY</span> EXPANSION);</span><br></pre></td></tr></table></figure>
+<p>查询扩展，可能与你的搜索有关的所有其他行，即使它们不包含词anvils。</p>
+<p>布尔方式，可以提供关于如下内容的细节：</p>
+<ul>
+<li>要匹配的词；</li>
+<li>要排斥的词（如果某行包含这个词，则不返回该行，即使它包含其他指定的词也是如此）；</li>
+<li>排列提示（指定某些词比其他词更重要，更重要的词等级更高）;</li>
+<li>表达式分组；</li>
+<li>另外一些内容。</li>
+</ul>
+<p>为了匹配包含<code>heavy</code>但不包含任意以<code>rope</code>开始的词的行，可使用以下查询：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> note_text</span><br><span class="line"><span class="keyword">FROM</span> productnotes</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">Match</span>(note_text) Against(<span class="string">'heavy -rope*'</span> <span class="keyword">IN</span> <span class="built_in">BOOLEAN</span> <span class="keyword">MODE</span>);</span><br></pre></td></tr></table></figure>
+<p><code>-</code>排除一个词，而<code>*</code>是截断操作符（可想象为用于词尾的一个通配符）。</p>
+<p>支持的所有布尔操作符如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">函数</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">+</td>
+<td style="text-align:center">包含，词必须存在</td>
+</tr>
+<tr>
+<td style="text-align:center">-</td>
+<td style="text-align:center">排除，词必须不出现</td>
+</tr>
+<tr>
+<td style="text-align:center">&gt;</td>
+<td style="text-align:center">包含，而且增加等级</td>
+</tr>
+<tr>
+<td style="text-align:center">()</td>
+<td style="text-align:center">把词组成子表达式（允许这些子表达式作为一个组被包含、排除、排列等）</td>
+</tr>
+<tr>
+<td style="text-align:center">~</td>
+<td style="text-align:center">取消一个词的排序值</td>
+</tr>
+<tr>
+<td style="text-align:center">*</td>
+<td style="text-align:center">词尾的通配符</td>
+</tr>
+<tr>
+<td style="text-align:center">“”</td>
+<td style="text-align:center">定义一个短语（与单个词的列表不一样，它匹配整个短语以便包含或排除这个短语）</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> note_text</span><br><span class="line"><span class="keyword">FROM</span> productnotes</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">Match</span>(note_text) Against(<span class="string">'+rabbit +bait'</span> <span class="keyword">IN</span> <span class="built_in">BOOLEAN</span> <span class="keyword">MODE</span>);</span><br></pre></td></tr></table></figure>
+<p>这个搜索匹配包含词<code>rabbit</code>和<code>bait</code>的行。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> note_text</span><br><span class="line"><span class="keyword">FROM</span> productnotes</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">Match</span>(note_text) Against(<span class="string">'rabbit bait'</span> <span class="keyword">IN</span> <span class="built_in">BOOLEAN</span> <span class="keyword">MODE</span>);</span><br></pre></td></tr></table></figure>
+<p>没有指定操作符，这个搜索匹配包含<code>rabbit</code>和<code>bait</code>中的至少一个词的行。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> note_text</span><br><span class="line"><span class="keyword">FROM</span> productnotes</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">Match</span>(note_text) Against(<span class="string">'"rabbit bait"'</span> <span class="keyword">IN</span> <span class="built_in">BOOLEAN</span> <span class="keyword">MODE</span>);</span><br></pre></td></tr></table></figure>
+<p>这个搜索匹配短语<code>rabbit bait</code>而不是匹配两个词<code>rabbit</code>和<code>bait</code>。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> note_text</span><br><span class="line"><span class="keyword">FROM</span> productnotes</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">Match</span>(note_text) Against(<span class="string">'&gt;rabbit &lt;carrot'</span> <span class="keyword">IN</span> <span class="built_in">BOOLEAN</span> <span class="keyword">MODE</span>);</span><br></pre></td></tr></table></figure>
+<p>匹配<code>rabbit</code>和<code>carrot</code>，增加前者的等级，降低后者的等级。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> note_text</span><br><span class="line"><span class="keyword">FROM</span> productnotes</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">Match</span>(note_text) Against(<span class="string">'+safe +(&lt;combination)'</span> <span class="keyword">IN</span> <span class="built_in">BOOLEAN</span> <span class="keyword">MODE</span>);</span><br></pre></td></tr></table></figure>
+<p>这个搜索匹配词<code>safe</code>和<code>combination</code>，降低后者的等级。</p>
+<p>在布尔方式中，不按等级值降序排序返回的行。</p>
+<p>全文本搜索的某些重要的说明:</p>
+<ul>
+<li>在索引全文本数据时，短词被忽略且从索引中排除。短词定义为那些具有3个或3个以下字符的词（如果需要，这个数目可以更改）。</li>
+<li><code>MySQL</code>带有一个内建的非用词（<code>stopword</code>）列表，这些词在索引全文本数据时总是被忽略。如果需要，可以覆盖这个列表（请参阅<code>MySQL</code>文档以了解如何完成此工作）。</li>
+<li>许多词出现的频率很高，搜索它们没有用处（返回太多的结果）。因此，<code>MySQL</code>规定了一条50%规则，如果一个词出现在50%以上的行中，则将它作为一个非用词忽略。50%规则不用于<code>IN BOOLEAN MODE</code>。</li>
+<li>如果表中的行数少于3行，则全文本搜索不返回结果（因为每个词或者不出现，或者至少出现在50%的行中）。</li>
+<li>忽略词中的单引号。例如，don’t索引为dont。</li>
+<li>不具有词分隔符（包括日语和汉语）的语言不能恰当地返回全文本搜索结果。</li>
+<li>如前所述，仅在<code>MyISAM</code>数据库引擎中支持全文本搜索。</li>
+</ul>
 
       
     </div>
@@ -1451,7 +1549,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第1章-了解SQL"><span class="nav-number">1.</span> <span class="nav-text">第1章 了解SQL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第2章-MySQL简介"><span class="nav-number">2.</span> <span class="nav-text">第2章 MySQL简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第3章-使用MySQL"><span class="nav-number">3.</span> <span class="nav-text">第3章 使用MySQL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第4章-检索数据"><span class="nav-number">4.</span> <span class="nav-text">第4章 检索数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第5章-排序检索数据"><span class="nav-number">5.</span> <span class="nav-text">第5章 排序检索数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第6章-过滤数据"><span class="nav-number">6.</span> <span class="nav-text">第6章 过滤数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第7章-数据过滤"><span class="nav-number">7.</span> <span class="nav-text">第7章 数据过滤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第8章-用通配符进行过滤"><span class="nav-number">8.</span> <span class="nav-text">第8章 用通配符进行过滤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第9章-用正则表达式进行搜索"><span class="nav-number">9.</span> <span class="nav-text">第9章 用正则表达式进行搜索</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第10章-创建计算字段"><span class="nav-number">10.</span> <span class="nav-text">第10章 创建计算字段</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第11章-使用数据处理函数"><span class="nav-number">11.</span> <span class="nav-text">第11章 使用数据处理函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第12章-汇总数据"><span class="nav-number">12.</span> <span class="nav-text">第12章 汇总数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第13章-分组数据"><span class="nav-number">13.</span> <span class="nav-text">第13章 分组数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第14章-使用子查询"><span class="nav-number">14.</span> <span class="nav-text">第14章 使用子查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第15章-联结表"><span class="nav-number">15.</span> <span class="nav-text">第15章 联结表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第16章-创建高级联结"><span class="nav-number">16.</span> <span class="nav-text">第16章 创建高级联结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第1章-了解SQL"><span class="nav-number">1.</span> <span class="nav-text">第1章 了解SQL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第2章-MySQL简介"><span class="nav-number">2.</span> <span class="nav-text">第2章 MySQL简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第3章-使用MySQL"><span class="nav-number">3.</span> <span class="nav-text">第3章 使用MySQL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第4章-检索数据"><span class="nav-number">4.</span> <span class="nav-text">第4章 检索数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第5章-排序检索数据"><span class="nav-number">5.</span> <span class="nav-text">第5章 排序检索数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第6章-过滤数据"><span class="nav-number">6.</span> <span class="nav-text">第6章 过滤数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第7章-数据过滤"><span class="nav-number">7.</span> <span class="nav-text">第7章 数据过滤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第8章-用通配符进行过滤"><span class="nav-number">8.</span> <span class="nav-text">第8章 用通配符进行过滤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第9章-用正则表达式进行搜索"><span class="nav-number">9.</span> <span class="nav-text">第9章 用正则表达式进行搜索</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第10章-创建计算字段"><span class="nav-number">10.</span> <span class="nav-text">第10章 创建计算字段</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第11章-使用数据处理函数"><span class="nav-number">11.</span> <span class="nav-text">第11章 使用数据处理函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第12章-汇总数据"><span class="nav-number">12.</span> <span class="nav-text">第12章 汇总数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第13章-分组数据"><span class="nav-number">13.</span> <span class="nav-text">第13章 分组数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第14章-使用子查询"><span class="nav-number">14.</span> <span class="nav-text">第14章 使用子查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第15章-联结表"><span class="nav-number">15.</span> <span class="nav-text">第15章 联结表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第16章-创建高级联结"><span class="nav-number">16.</span> <span class="nav-text">第16章 创建高级联结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第17章-组合查询"><span class="nav-number">17.</span> <span class="nav-text">第17章 组合查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第18章-全文本搜索"><span class="nav-number">18.</span> <span class="nav-text">第18章 全文本搜索</span></a></li></ol></div>
             
 
           </div>
@@ -1485,7 +1583,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">67k</span>
+    <span title="站点总字数">71k</span>
   
 
   
@@ -1496,7 +1594,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">2:03</span>
+    <span title="站点阅读时长">2:09</span>
   
 </div>
 
