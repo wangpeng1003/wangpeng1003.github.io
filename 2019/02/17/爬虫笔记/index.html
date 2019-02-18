@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="阿珍爱上了阿强">
 <meta property="og:description" content="安装scrapy框架 安装scrapy：pip install scrapy windows下，还需要安装pypiwin32，防止报错。pip install scrapy。报Visual C++ 14.0 is required错误的话，安装Visual C++ Build Tools，Visual C++ Build Tools 2015下载地址  创建项目和爬虫 创建项目：scapy sta">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-18T06:51:00.603Z">
+<meta property="og:updated_time" content="2019-02-18T14:43:39.071Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="爬虫笔记 - scrapy">
 <meta name="twitter:description" content="安装scrapy框架 安装scrapy：pip install scrapy windows下，还需要安装pypiwin32，防止报错。pip install scrapy。报Visual C++ 14.0 is required错误的话，安装Visual C++ Build Tools，Visual C++ Build Tools 2015下载地址  创建项目和爬虫 创建项目：scapy sta">
@@ -404,7 +404,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-18 14:51:00" itemprop="dateModified" datetime="2019-02-18T14:51:00+08:00">2019-02-18</time>
+                <time title="修改时间：2019-02-18 22:43:39" itemprop="dateModified" datetime="2019-02-18T22:43:39+08:00">2019-02-18</time>
               
             
           </span>
@@ -477,7 +477,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2.9k</span>
+                <span title="本文字数">5.6k</span>
               
 
               
@@ -491,7 +491,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">5 分钟</span>
+                <span title="阅读时长">10 分钟</span>
               
             </div>
           
@@ -531,6 +531,8 @@
 <ol>
 <li><code>ROBOTSTXT_OBEY</code>设置为<code>False</code>。默认是<code>True</code>。即遵守机器协议，那么在爬虫的时候，<code>scrapy</code>首先去找<code>robots.txt</code>文件，如果没有找到。则直接停止爬取。</li>
 <li><code>DEFAULT_REQUEST_HEADERS</code>添加<code>User-Agent</code>。这个也是告诉服务器，我这个请求是一个正常的请求，不是一个爬虫。</li>
+<li>如果要激活<code>pipeline</code>，应该在<code>settings.py</code>中，设置<code>ITEM_PIPELINES</code>。</li>
+<li>设置延时时间，<code>DOWNLOAD_DELAY = 1</code></li>
 </ol>
 <h1 id="运行scrapy项目"><a href="#运行scrapy项目" class="headerlink" title="运行scrapy项目"></a>运行scrapy项目</h1><p>运行<code>scrapy</code>项目。需要在终端，进入项目所在的路径，然后<code>scrapy crawl [爬虫名字]</code>即可运行指定的爬虫。如果不想每次都在命令行中运行，那么可以把这个命令写在一个文件中。以后就在<code>pycharm</code>中执行运行这个文件就可以了。比如现在新创建一个文件叫做<code>start.py</code>，然后在这个文件中填入以下代码：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scrapy <span class="keyword">import</span> cmdline</span><br><span class="line"></span><br><span class="line">cmdline.execute(<span class="string">"scrapy crawl qsbk"</span>.split())</span><br></pre></td></tr></table></figure>
@@ -563,6 +565,34 @@
 <li>缺点：每一个字典是一行，整个文件不是一个满足<code>json</code>格式的文件。</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scrapy.exporters <span class="keyword">import</span> JsonLinesItemExporter</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">QsbkPipeline</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.fp = open(<span class="string">'duanzi.json'</span>, <span class="string">'wb'</span>)</span><br><span class="line">        self.exporter = JsonLinesItemExporter(self.fp, ensure_ascii=<span class="keyword">False</span>, encoding=<span class="string">'utf-8'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">open_spider</span><span class="params">(self,spider)</span>:</span></span><br><span class="line">        print(<span class="string">'爬虫开始'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        self.exporter.export_item(item)</span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">close_spider</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.fp.close()</span><br><span class="line">        print(<span class="string">'爬虫结束'</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="CrawlSpider"><a href="#CrawlSpider" class="headerlink" title="CrawlSpider"></a>CrawlSpider</h1><p>可以实现，只要满足某个条件的<code>url</code>，都进行爬取。<code>CrawlSpider</code>继承自<code>Spider</code>，只不过是在之前的基础之上增加了新的功能，可以定义爬取的<code>url</code>的规则，以后<code>scrapy</code>碰到满足条件的<code>url</code>都进行爬取，而不用手动的<code>yield Request</code>。</p>
+<h2 id="创建CrawlSpider爬虫"><a href="#创建CrawlSpider爬虫" class="headerlink" title="创建CrawlSpider爬虫"></a>创建<code>CrawlSpider</code>爬虫</h2><p>之前创建爬虫的方式是通过s<code>crapy genspider [爬虫名字] [域名]</code>的方式创建的。如果想要创建<code>CrawlSpider</code>爬虫，那么应该通过以下命令创建：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy genspider -c crawl [爬虫名字] [域名]</span><br></pre></td></tr></table></figure>
+<h2 id="LinkExtractors链接提取器"><a href="#LinkExtractors链接提取器" class="headerlink" title="LinkExtractors链接提取器"></a>LinkExtractors链接提取器</h2><p>使用<code>LinkExtractors</code>可以不用程序员自己提取想要的<code>url</code>，然后发送请求。这些工作都可以交给<code>LinkExtractors</code>，他会在所有爬的页面中找到满足规则的<code>url</code>，实现自动的爬取。以下对<code>LinkExtractors</code>类做一个简单的介绍：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">scrapy</span>.<span class="title">linkextractors</span>.<span class="title">LinkExtractor</span><span class="params">(</span></span></span><br><span class="line"><span class="class"><span class="params">    allow = <span class="params">()</span>,</span></span></span><br><span class="line"><span class="class"><span class="params">    deny = <span class="params">()</span>,</span></span></span><br><span class="line"><span class="class"><span class="params">    allow_domains = <span class="params">()</span>,</span></span></span><br><span class="line"><span class="class"><span class="params">    deny_domains = <span class="params">()</span>,</span></span></span><br><span class="line"><span class="class"><span class="params">    deny_extensions = None,</span></span></span><br><span class="line"><span class="class"><span class="params">    restrict_xpaths = <span class="params">()</span>,</span></span></span><br><span class="line"><span class="class"><span class="params">    tags = <span class="params">(<span class="string">'a'</span>,<span class="string">'area'</span>)</span>,</span></span></span><br><span class="line"><span class="class"><span class="params">    attrs = <span class="params">(<span class="string">'href'</span>)</span>,</span></span></span><br><span class="line"><span class="class"><span class="params">    canonicalize = True,</span></span></span><br><span class="line"><span class="class"><span class="params">    unique = True,</span></span></span><br><span class="line"><span class="class"><span class="params">    process_value = None</span></span></span><br><span class="line"><span class="class"><span class="params">)</span></span></span><br></pre></td></tr></table></figure>
+<p>主要参数讲解：</p>
+<ul>
+<li><code>allow</code>：允许的url。所有满足这个正则表达式的url都会被提取。</li>
+<li><code>deny</code>：禁止的url。所有满足这个正则表达式的url都不会被提取。</li>
+<li><code>allow_domains</code>：允许的域名。只有在这个里面指定的域名的url才会被提取。</li>
+<li><code>deny_domains</code>：禁止的域名。所有在这个里面指定的域名的url都不会被提取。</li>
+<li><code>restrict_xpaths</code>：严格的xpath。和allow共同过滤链接。</li>
+</ul>
+<h2 id="Rule规则类"><a href="#Rule规则类" class="headerlink" title="Rule规则类"></a>Rule规则类</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">scrapy</span>.<span class="title">spiders</span>.<span class="title">Rule</span><span class="params">(</span></span></span><br><span class="line"><span class="class"><span class="params">    link_extractor, </span></span></span><br><span class="line"><span class="class"><span class="params">    callback = None, </span></span></span><br><span class="line"><span class="class"><span class="params">    cb_kwargs = None, </span></span></span><br><span class="line"><span class="class"><span class="params">    follow = None, </span></span></span><br><span class="line"><span class="class"><span class="params">    process_links = None, </span></span></span><br><span class="line"><span class="class"><span class="params">    process_request = None</span></span></span><br><span class="line"><span class="class"><span class="params">)</span></span></span><br></pre></td></tr></table></figure>
+<p>主要参数讲解：</p>
+<ul>
+<li><code>link_extractor</code>：一个<code>LinkExtractor</code>对象，用于定义爬取规则。</li>
+<li><code>callback</code>：满足这个规则的url，应该要执行哪个回调函数。因为<code>CrawlSpider</code>使用了<code>parse</code>作为回调函数，因此不要覆盖<code>parse</code>作为回调函数自己的回调函数。</li>
+<li><code>follow</code>：指定根据该规则从response中提取的链接是否需要跟进。</li>
+<li><code>process_links</code>：从<code>link_extractor</code>中获取到链接后会传递给这个函数，用来过滤不需要爬取的链接。</li>
+</ul>
+<h2 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h2><p><code>LinkExtractor</code>和<code>Rule</code>决定爬虫的具体走向。</p>
+<ol>
+<li><code>allow</code>设置规则的方法：能够限制在我们想要的url上，不与其它的url相同的正则表达式即可。</li>
+<li><code>follow</code>使用场景：如果在爬取页面的时候，需要将满足当前条件的url再进行跟进，那么就设置为<code>True</code>。否则设置为<code>False</code>。</li>
+<li><code>callback</code>使用场景：如果这个url对应的页面，只是为了获取更多的url，并不需要里面的数据，可以不指定callback。如果想获取url对应页面中的数据，那么久需要制定一个callback。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scrapy.linkextractors <span class="keyword">import</span> LinkExtractor</span><br><span class="line"><span class="keyword">from</span> scrapy.spiders <span class="keyword">import</span> CrawlSpider, Rule</span><br><span class="line"><span class="keyword">from</span> wxapp.items <span class="keyword">import</span> WxappItem</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WxappSpiderSpider</span><span class="params">(CrawlSpider)</span>:</span></span><br><span class="line">    name = <span class="string">'wxapp_spider'</span></span><br><span class="line">    allowed_domains = [<span class="string">'wxapp-union.com'</span>]</span><br><span class="line">    start_urls = [<span class="string">'http://www.wxapp-union.com/portal.php?mod=list&amp;catid=2&amp;page=1'</span>]</span><br><span class="line"></span><br><span class="line">    rules = (</span><br><span class="line">        Rule(LinkExtractor(allow=<span class="string">r'.+mod=list&amp;catid=2&amp;page=/d'</span>), follow=<span class="keyword">True</span>),</span><br><span class="line">        Rule(LinkExtractor(allow=<span class="string">r'.+article-.+\.html'</span>), callback=<span class="string">'parse_detail'</span>, follow=<span class="keyword">False</span>),</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse_detail</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        title = response.xpath(<span class="string">"//h1[@class='ph']/text()"</span>).get()</span><br><span class="line">        author_p = response.xpath(<span class="string">"//p[@class='authors']"</span>)</span><br><span class="line">        author = author_p.xpath(<span class="string">"./a/text()"</span>).get()</span><br><span class="line">        pub_time = author_p.xpath(<span class="string">"./span/text()"</span>).get()</span><br><span class="line">        article_content = response.xpath(<span class="string">"//td[@id='article_content']//text()"</span>).getall()</span><br><span class="line">        content = <span class="string">''</span>.join(article_content).strip()</span><br><span class="line">        item = WxappItem(author=author, title=title, pub_time=pub_time,content=content)</span><br><span class="line">        <span class="keyword">yield</span> item</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -800,7 +830,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装scrapy框架"><span class="nav-number">1.</span> <span class="nav-text">安装scrapy框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建项目和爬虫"><span class="nav-number">2.</span> <span class="nav-text">创建项目和爬虫</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目目录结构"><span class="nav-number">3.</span> <span class="nav-text">项目目录结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改settings-py代码"><span class="nav-number">4.</span> <span class="nav-text">修改settings.py代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行scrapy项目"><span class="nav-number">5.</span> <span class="nav-text">运行scrapy项目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#糗事百科Scrapy爬虫笔记"><span class="nav-number">6.</span> <span class="nav-text">糗事百科Scrapy爬虫笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JsonItemExporter和JsonLinesItemExporter："><span class="nav-number">6.1.</span> <span class="nav-text">JsonItemExporter和JsonLinesItemExporter：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JsonItemExport"><span class="nav-number">6.1.1.</span> <span class="nav-text">JsonItemExport</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JsonLinesItemExporter"><span class="nav-number">6.1.2.</span> <span class="nav-text">JsonLinesItemExporter</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装scrapy框架"><span class="nav-number">1.</span> <span class="nav-text">安装scrapy框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建项目和爬虫"><span class="nav-number">2.</span> <span class="nav-text">创建项目和爬虫</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目目录结构"><span class="nav-number">3.</span> <span class="nav-text">项目目录结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改settings-py代码"><span class="nav-number">4.</span> <span class="nav-text">修改settings.py代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行scrapy项目"><span class="nav-number">5.</span> <span class="nav-text">运行scrapy项目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#糗事百科Scrapy爬虫笔记"><span class="nav-number">6.</span> <span class="nav-text">糗事百科Scrapy爬虫笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JsonItemExporter和JsonLinesItemExporter："><span class="nav-number">6.1.</span> <span class="nav-text">JsonItemExporter和JsonLinesItemExporter：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JsonItemExport"><span class="nav-number">6.1.1.</span> <span class="nav-text">JsonItemExport</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JsonLinesItemExporter"><span class="nav-number">6.1.2.</span> <span class="nav-text">JsonLinesItemExporter</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CrawlSpider"><span class="nav-number">7.</span> <span class="nav-text">CrawlSpider</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建CrawlSpider爬虫"><span class="nav-number">7.1.</span> <span class="nav-text">创建CrawlSpider爬虫</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LinkExtractors链接提取器"><span class="nav-number">7.2.</span> <span class="nav-text">LinkExtractors链接提取器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rule规则类"><span class="nav-number">7.3.</span> <span class="nav-text">Rule规则类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用说明"><span class="nav-number">7.4.</span> <span class="nav-text">使用说明</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -834,7 +864,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">95k</span>
+    <span title="站点总字数">98k</span>
   
 
   
@@ -845,7 +875,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">2:53</span>
+    <span title="站点阅读时长">2:58</span>
   
 </div>
 
