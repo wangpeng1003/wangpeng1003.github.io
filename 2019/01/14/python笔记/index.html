@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="阿珍爱上了阿强">
 <meta property="og:description" content="join()join() 方法用于将序列中的元素以指定的字符连接生成一个新的字符串。str.join(item)，join函数是一个字符串操作函数。str表示字符串（字符），item表示一个成员，注意括号里必须只能有一个成员，比如&amp;#39;,&amp;#39;.join(&amp;#39;a&amp;#39;,&amp;#39;b&amp;#39;)这种写法是行不通的。 12#将字符串abc中的每个成员，以字符&apos;,&apos;分隔开再拼接成一个字">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-14T03:16:21.331Z">
+<meta property="og:updated_time" content="2019-02-17T09:16:09.439Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python笔记">
 <meta name="twitter:description" content="join()join() 方法用于将序列中的元素以指定的字符连接生成一个新的字符串。str.join(item)，join函数是一个字符串操作函数。str表示字符串（字符），item表示一个成员，注意括号里必须只能有一个成员，比如&amp;#39;,&amp;#39;.join(&amp;#39;a&amp;#39;,&amp;#39;b&amp;#39;)这种写法是行不通的。 12#将字符串abc中的每个成员，以字符&apos;,&apos;分隔开再拼接成一个字">
@@ -387,12 +387,24 @@
                 
               
 
-              <time title="创建时间：2019-01-14 10:35:47 / 修改时间：11:16:21" itemprop="dateCreated datePublished" datetime="2019-01-14T10:35:47+08:00">2019-01-14</time>
+              <time title="创建时间：2019-01-14 10:35:47" itemprop="dateCreated datePublished" datetime="2019-01-14T10:35:47+08:00">2019-01-14</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-02-17 17:16:09" itemprop="dateModified" datetime="2019-02-17T17:16:09+08:00">2019-02-17</time>
               
             
           </span>
@@ -465,7 +477,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1.7k</span>
+                <span title="本文字数">2.1k</span>
               
 
               
@@ -479,7 +491,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">3 分钟</span>
+                <span title="阅读时长">4 分钟</span>
               
             </div>
           
@@ -525,6 +537,9 @@
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="string">"My,name,is,zhangkang,and,I,am,a,student"</span></span><br><span class="line">b1=a.split(<span class="string">","</span>,<span class="number">1</span>)</span><br><span class="line">b2=a.split(<span class="string">","</span>,<span class="number">2</span>)</span><br><span class="line">b8=a.split(<span class="string">","</span>,<span class="number">8</span>)</span><br><span class="line">b9=a.split(<span class="string">","</span>,<span class="number">9</span>)</span><br><span class="line"></span><br><span class="line">print(b1)</span><br><span class="line">print(b2)</span><br><span class="line">print(b8)</span><br><span class="line">print(b9)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出：</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[<span class="string">'My'</span>, <span class="string">'name,is,zhangkang,and,I,am,a,student'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[<span class="string">'My'</span>, <span class="string">'name'</span>, <span class="string">'is,zhangkang,and,I,am,a,student'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[<span class="string">'My'</span>, <span class="string">'name'</span>, <span class="string">'is'</span>, <span class="string">'zhangkang'</span>, <span class="string">'and'</span>, <span class="string">'I'</span>, <span class="string">'am'</span>, <span class="string">'a'</span>, <span class="string">'student'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[<span class="string">'My'</span>, <span class="string">'name'</span>, <span class="string">'is'</span>, <span class="string">'zhangkang'</span>, <span class="string">'and'</span>, <span class="string">'I'</span>, <span class="string">'am'</span>, <span class="string">'a'</span>, <span class="string">'student'</span>] <span class="comment">#超过最大分割次数，还是最大分割，不报错</span></span><br></pre></td></tr></table></figure>
 <p>参考：<a href="https://blog.csdn.net/csdn15698845876/article/details/74012511" target="_blank" rel="noopener">python中split()函数讲解</a></p>
+<h1 id="strip"><a href="#strip" class="headerlink" title="strip()"></a>strip()</h1><p>声明：<code>s</code>为字符串，<code>rm</code>为要删除的字符序列。<br>当<code>rm</code>为空时，默认删除空白符（包括<code>\n</code>, <code>\r</code>,  <code>\t</code>,  <code>&#39; &#39;</code>)</p>
+<p><code>s.strip(rm)</code>，删除s字符串中开头、结尾处，位于rm删除序列的字符<br><code>s.lstrip(rm)</code>，删除s字符串中开头处，位于rm删除序列的字符<br><code>s.rstrip(rm)</code>，删除s字符串中结尾处，位于rm删除序列的字符</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">b = <span class="string">'123abc'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b.strip(<span class="string">'12'</span>)</span><br><span class="line"><span class="string">'3abc'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b.strip(<span class="string">'21'</span>) <span class="comment"># 没有顺序</span></span><br><span class="line"><span class="string">'3abc'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b.strip(<span class="string">'31'</span>) <span class="comment"># 只要开头和结尾中含有rm中的字符 就删除</span></span><br><span class="line"><span class="string">'23abc'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b.strip(<span class="string">'bc'</span>)</span><br><span class="line"><span class="string">'123a'</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -673,7 +688,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -696,7 +711,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">5</span>
+                      
+                    
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -719,7 +736,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">5</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -755,7 +778,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#join"><span class="nav-number">1.</span> <span class="nav-text">join()</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#split"><span class="nav-number">2.</span> <span class="nav-text">split()</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#join"><span class="nav-number">1.</span> <span class="nav-text">join()</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#split"><span class="nav-number">2.</span> <span class="nav-text">split()</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#strip"><span class="nav-number">3.</span> <span class="nav-text">strip()</span></a></li></ol></div>
             
 
           </div>
@@ -789,7 +812,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">83k</span>
+    <span title="站点总字数">95k</span>
   
 
   
@@ -800,7 +823,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">2:30</span>
+    <span title="站点阅读时长">2:53</span>
   
 </div>
 
