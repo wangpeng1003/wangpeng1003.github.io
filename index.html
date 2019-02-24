@@ -344,6 +344,474 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wuliuqi.top/2019/02/21/爬虫笔记04/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WP">
+      <meta itemprop="description" content="飞机从头顶飞过<br>流星也划破那夜空">
+      <meta itemprop="image" content="/images/memory.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="阿珍爱上了阿强">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/02/21/爬虫笔记04/" class="post-title-link" itemprop="url">爬虫笔记04 - 进阶</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-21 13:43:49" itemprop="dateCreated datePublished" datetime="2019-02-21T13:43:49+08:00">2019-02-21</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-02-22 10:06:47" itemprop="dateModified" datetime="2019-02-22T10:06:47+08:00">2019-02-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/爬虫/" itemprop="url" rel="index"><span itemprop="name">爬虫</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/21/爬虫笔记04/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/02/21/爬虫笔记04/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2019/02/21/爬虫笔记04/" class="leancloud_visitors" data-flag-title="爬虫笔记04 - 进阶">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">6k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">11 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="动态网页数据抓取"><a href="#动态网页数据抓取" class="headerlink" title="动态网页数据抓取"></a>动态网页数据抓取</h1><h2 id="AJAX简介"><a href="#AJAX简介" class="headerlink" title="AJAX简介"></a>AJAX简介</h2><p><code>AJAX（Asynchronouse JavaScript And XML）</code>异步<code>JavaScript</code>和<code>XML</code>。过在后台与服务器进行少量数据交换，<code>Ajax</code> 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。传统的网页（不使用<code>Ajax</code>）如果需要更新内容，必须重载整个网页页面。因为传统的在传输数据格式方面，使用的是<code>XML</code>语法。因此叫做<code>AJAX</code>，其实现在数据交互基本上都是使用<code>JSON</code>。使用<code>AJAX</code>加载的数据，即使使用了<code>JS</code>，将数据渲染到了浏览器中，在右键-&gt;查看网页源代码还是不能看到通过<code>ajax</code>加载的数据，只能看到使用这个<code>url</code>加载的<code>html</code>代码。</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/02/21/爬虫笔记04/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wuliuqi.top/2019/02/19/爬虫笔记03/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WP">
+      <meta itemprop="description" content="飞机从头顶飞过<br>流星也划破那夜空">
+      <meta itemprop="image" content="/images/memory.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="阿珍爱上了阿强">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/02/19/爬虫笔记03/" class="post-title-link" itemprop="url">爬虫笔记03 - 网络请求</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-19 16:45:28" itemprop="dateCreated datePublished" datetime="2019-02-19T16:45:28+08:00">2019-02-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-02-22 12:44:02" itemprop="dateModified" datetime="2019-02-22T12:44:02+08:00">2019-02-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/爬虫/" itemprop="url" rel="index"><span itemprop="name">爬虫</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/19/爬虫笔记03/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/02/19/爬虫笔记03/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2019/02/19/爬虫笔记03/" class="leancloud_visitors" data-flag-title="爬虫笔记03 - 网络请求">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">2k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">4 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="urllib"><a href="#urllib" class="headerlink" title="urllib"></a>urllib</h1><p><code>urllib</code>库是<code>Python</code>中一个最基本的网络请求库。可以模拟浏览器的行为，向指定的服务器发送一个请求，并可以保存服务器返回的数据。</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/02/19/爬虫笔记03/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://wuliuqi.top/2019/02/18/爬虫笔记02/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -389,12 +857,24 @@
                 
               
 
-              <time title="创建时间：2019-02-18 12:54:36 / 修改时间：13:05:45" itemprop="dateCreated datePublished" datetime="2019-02-18T12:54:36+08:00">2019-02-18</time>
+              <time title="创建时间：2019-02-18 12:54:36" itemprop="dateCreated datePublished" datetime="2019-02-18T12:54:36+08:00">2019-02-18</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-02-22 13:50:02" itemprop="dateModified" datetime="2019-02-22T13:50:02+08:00">2019-02-22</time>
               
             
           </span>
@@ -467,7 +947,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1.3k</span>
+                <span title="本文字数">3.3k</span>
               
 
               
@@ -481,7 +961,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">2 分钟</span>
+                <span title="阅读时长">6 分钟</span>
               
             </div>
           
@@ -502,22 +982,16 @@
 
       
         
+          <h1 id="json"><a href="#json" class="headerlink" title="json"></a>json</h1><h2 id="什么是json"><a href="#什么是json" class="headerlink" title="什么是json"></a>什么是json</h2><p>JSON(JavaScript Object Notation, JS 对象标记) 是一种轻量级的数据交换格式。它基于 ECMAScript (w3c制定的js规范)的一个子集，采用完全独立于编程语言的文本格式来存储和表示数据。简洁和清晰的层次结构使得 JSON 成为理想的数据交换语言。 易于人阅读和编写，同时也易于机器解析和生成，并有效地提升网络传输效率。</p>
+          <!--noindex-->
           
-            <h1 id="json"><a href="#json" class="headerlink" title="json"></a>json</h1><h2 id="什么是json"><a href="#什么是json" class="headerlink" title="什么是json"></a>什么是json</h2><p>JSON(JavaScript Object Notation, JS 对象标记) 是一种轻量级的数据交换格式。它基于 ECMAScript (w3c制定的js规范)的一个子集，采用完全独立于编程语言的文本格式来存储和表示数据。简洁和清晰的层次结构使得 JSON 成为理想的数据交换语言。 易于人阅读和编写，同时也易于机器解析和生成，并有效地提升网络传输效率。</p>
-<h2 id="JSON支持数据格式"><a href="#JSON支持数据格式" class="headerlink" title="JSON支持数据格式"></a>JSON支持数据格式</h2><ol>
-<li>对象（字典）。使用花括号。</li>
-<li>数组（列表）。使用方括号。</li>
-<li>整形、浮点型、布尔类型还有null类型。</li>
-<li>字符串类型（字符串必须要用双引号，不能用单引号）。</li>
-</ol>
-<p>多个数据之间使用逗号分开。<br><strong>注意</strong>：json本质上就是一个字符串。</p>
-<h2 id="字典和列表转JSON"><a href="#字典和列表转JSON" class="headerlink" title="字典和列表转JSON"></a>字典和列表转JSON</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line">books = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'title'</span>: <span class="string">'钢铁是怎样练成的'</span>,</span><br><span class="line">        <span class="string">'price'</span>: <span class="number">9.8</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'title'</span>: <span class="string">'红楼梦'</span>,</span><br><span class="line">        <span class="string">'price'</span>: <span class="number">9.9</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">json_str = json.dumps(books,ensure_ascii=<span class="keyword">False</span>)</span><br><span class="line">print(json_str)</span><br></pre></td></tr></table></figure>
-<p>因为<code>json</code>在<code>dump</code>的时候，只能存放<code>ascii</code>的字符，因此会将中文进行转义，这时候我们可以使用<code>ensure_ascii=False</code>关闭这个特性。<br>在<code>Python</code>中。只有基本数据类型才能转换成<code>JSON</code>格式的字符串。也即：<code>int</code>、<code>float</code>、<code>str</code>、<code>list</code>、<code>dict</code>、<code>tuple</code>。</p>
-<h2 id="将json数据直接dump到文件中"><a href="#将json数据直接dump到文件中" class="headerlink" title="将json数据直接dump到文件中"></a>将<code>json</code>数据直接<code>dump</code>到文件中</h2><p><code>json</code>模块中除了<code>dumps</code>函数，还有一个<code>dump</code>函数，这个函数可以传入一个文件指针，直接将字符串<code>dump</code>到文件中。示例代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">books = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'title'</span>: <span class="string">'钢铁是怎样练成的'</span>,</span><br><span class="line">        <span class="string">'price'</span>: <span class="number">9.8</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'title'</span>: <span class="string">'红楼梦'</span>,</span><br><span class="line">        <span class="string">'price'</span>: <span class="number">9.9</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'a.json'</span>,<span class="string">'w'</span>) <span class="keyword">as</span> fp:</span><br><span class="line">    json.dump(books,fp)</span><br></pre></td></tr></table></figure>
-<h2 id="将一个json字符串load成Python对象"><a href="#将一个json字符串load成Python对象" class="headerlink" title="将一个json字符串load成Python对象"></a>将一个json字符串load成Python对象</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注意编码格式</span></span><br><span class="line">json_str = <span class="string">'[&#123;"title": "钢铁是怎样练成的", "price": 9.8&#125;, &#123;"title": "红楼梦", "price": 9.9&#125;]'</span></span><br><span class="line">books = json.loads(json_str,encoding=<span class="string">'utf-8'</span>)</span><br><span class="line">print(type(books))</span><br><span class="line">print(books)</span><br></pre></td></tr></table></figure>
-<h2 id="直接从文件中读取json"><a href="#直接从文件中读取json" class="headerlink" title="直接从文件中读取json"></a>直接从文件中读取json</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注意编码格式</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'a.json'</span>,<span class="string">'r'</span>,encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> fp:</span><br><span class="line">    json_str = json.load(fp)</span><br><span class="line">    print(json_str)</span><br></pre></td></tr></table></figure>
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/02/18/爬虫笔记02/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
           
+          <!--/noindex-->
         
       
     </div>
@@ -899,7 +1373,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-18 22:43:39" itemprop="dateModified" datetime="2019-02-18T22:43:39+08:00">2019-02-18</time>
+                <time title="修改时间：2019-02-23 11:50:25" itemprop="dateModified" datetime="2019-02-23T11:50:25+08:00">2019-02-23</time>
               
             
           </span>
@@ -972,7 +1446,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">5.6k</span>
+                <span title="本文字数">13k</span>
               
 
               
@@ -986,7 +1460,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">10 分钟</span>
+                <span title="阅读时长">24 分钟</span>
               
             </div>
           
@@ -1007,8 +1481,7 @@
 
       
         
-          
-            <h1 id="安装scrapy框架"><a href="#安装scrapy框架" class="headerlink" title="安装scrapy框架"></a>安装<code>scrapy</code>框架</h1><ol>
+          <h1 id="安装scrapy框架"><a href="#安装scrapy框架" class="headerlink" title="安装scrapy框架"></a>安装<code>scrapy</code>框架</h1><ol>
 <li>安装<code>scrapy</code>：<code>pip install scrapy</code></li>
 <li>windows下，还需要安装<code>pypiwin32</code>，防止报错。<code>pip install scrapy</code>。报<code>Visual C++ 14.0 is required</code>错误的话，安装<code>Visual C++ Build Tools</code>，<a href="https://blogs.msdn.microsoft.com/pythonengineering/2016/04/11/unable-to-find-vcvarsall-bat/" target="_blank" rel="noopener">Visual C++ Build Tools 2015下载地址</a></li>
 </ol>
@@ -1016,81 +1489,15 @@
 <li>创建项目：<code>scapy startproject [项目名称]</code></li>
 <li>创建爬虫：命令行下，进入项目所在的路径，执行命令<code>scapy genspider [爬虫名字] [爬取的域名]</code>。注意：爬虫的名字不能和项目名字一样。</li>
 </ol>
-<h1 id="项目目录结构"><a href="#项目目录结构" class="headerlink" title="项目目录结构"></a>项目目录结构</h1><ol>
-<li><code>items.py</code>：用来存放爬虫爬取下来数据的模型。</li>
-<li><code>middlewares.py</code>：用来存放各种中间件的文件。</li>
-<li><code>pipelines.py</code>：用来将items的模型存储到本地磁盘中。</li>
-<li><code>settings.py</code>：本爬虫的一些配置信息（比如请求头、多久发送一次请求、ip代理池等）。</li>
-<li><code>scrapy.cfg</code>：项目的配置文件。</li>
-<li><code>spiders包</code>：以后所有的爬虫，都是存放到这个里面。</li>
-</ol>
-<h1 id="修改settings-py代码"><a href="#修改settings-py代码" class="headerlink" title="修改settings.py代码"></a>修改<code>settings.py</code>代码</h1><p>在做一个爬虫之前，一定要记得修改<code>setttings.py</code>中的设置。两个地方是强烈建议设置的。</p>
-<ol>
-<li><code>ROBOTSTXT_OBEY</code>设置为<code>False</code>。默认是<code>True</code>。即遵守机器协议，那么在爬虫的时候，<code>scrapy</code>首先去找<code>robots.txt</code>文件，如果没有找到。则直接停止爬取。</li>
-<li><code>DEFAULT_REQUEST_HEADERS</code>添加<code>User-Agent</code>。这个也是告诉服务器，我这个请求是一个正常的请求，不是一个爬虫。</li>
-<li>如果要激活<code>pipeline</code>，应该在<code>settings.py</code>中，设置<code>ITEM_PIPELINES</code>。</li>
-<li>设置延时时间，<code>DOWNLOAD_DELAY = 1</code></li>
-</ol>
-<h1 id="运行scrapy项目"><a href="#运行scrapy项目" class="headerlink" title="运行scrapy项目"></a>运行scrapy项目</h1><p>运行<code>scrapy</code>项目。需要在终端，进入项目所在的路径，然后<code>scrapy crawl [爬虫名字]</code>即可运行指定的爬虫。如果不想每次都在命令行中运行，那么可以把这个命令写在一个文件中。以后就在<code>pycharm</code>中执行运行这个文件就可以了。比如现在新创建一个文件叫做<code>start.py</code>，然后在这个文件中填入以下代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scrapy <span class="keyword">import</span> cmdline</span><br><span class="line"></span><br><span class="line">cmdline.execute(<span class="string">"scrapy crawl qsbk"</span>.split())</span><br></pre></td></tr></table></figure>
-<h1 id="糗事百科Scrapy爬虫笔记"><a href="#糗事百科Scrapy爬虫笔记" class="headerlink" title="糗事百科Scrapy爬虫笔记"></a>糗事百科Scrapy爬虫笔记</h1><ol>
-<li><code>response</code>是一个<code>scrapy.http.response.html.HtmlResponse</code>对象。可以执行<code>xpath</code>和<code>css</code>语法提取数据。</li>
-<li>提取出来的数据，是一个<code>Selector</code>或者是一个<code>SelectorList</code>对象。如果想要获取其中的字符串。使用<code>getall</code>或者<code>get</code>方法。</li>
-<li><code>getall</code>方法：获取<code>Selector</code>中的所有文本。返回的是一个列表。</li>
-<li><code>get</code>方法：获取的是<code>Selector</code>中的第一个文本。返回的是一个<code>str</code>类型。</li>
-<li>如果数据解析回来，要传给<code>pipeline</code>处理。那么可以使用<code>yield</code>来返回。或者是收集所有的<code>item</code>。最后统一使用return返回。</li>
-<li><code>item</code>：建议在<code>items.py</code>中定义好模型。以后就不要使用字典。</li>
-<li><code>pipeline</code>：这个是专门用来保存数据的。其中有三个方法是会经常用的。<ul>
-<li><code>open_spider(self,spider)</code>：当爬虫被打开的时候执行</li>
-<li><code>process_item(self,item,spider</code>)：当爬虫有item传过来的时候会被调用</li>
-<li><code>close_spider(self,spider)</code>：当爬虫关闭的时候会被调用</li>
-</ul>
-</li>
-</ol>
-<p>要激活<code>pipeline</code>，应该在<code>settings.py</code>中，设置<code>ITEM_PIPELINES</code>。示例如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line">   <span class="string">'qsbk.pipelines.QsbkPipeline'</span>: <span class="number">300</span>, <span class="comment">#数字小，优先级高</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="JsonItemExporter和JsonLinesItemExporter："><a href="#JsonItemExporter和JsonLinesItemExporter：" class="headerlink" title="JsonItemExporter和JsonLinesItemExporter："></a>JsonItemExporter和JsonLinesItemExporter：</h2><p>保存<code>json</code>数据的时候，可以使用这两个类，让操作变得更简单。</p>
-<h3 id="JsonItemExport"><a href="#JsonItemExport" class="headerlink" title="JsonItemExport"></a>JsonItemExport</h3><p>每次把数据添加到内存中。最后统一写到磁盘中。</p>
-<ul>
-<li>优点：存储的数据是一个满足json规则的数据</li>
-<li>缺点：如果数据量比较大，比较耗内存</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scrapy.exporters <span class="keyword">import</span> JsonItemExporter</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">QsbkPipeline</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.fp = open(<span class="string">'duanzi.json'</span>, <span class="string">'wb'</span>)</span><br><span class="line">        self.exporter = JsonItemExporter(self.fp, ensure_ascii=<span class="keyword">False</span>, encoding=<span class="string">'utf-8'</span>)</span><br><span class="line">        self.exporter.start_exporting()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">open_spider</span><span class="params">(self,spider)</span>:</span></span><br><span class="line">        print(<span class="string">'爬虫开始'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        self.exporter.export_item(item)</span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">close_spider</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.exporter.finish_exporting()</span><br><span class="line">        self.fp.close()</span><br><span class="line">        print(<span class="string">'爬虫结束'</span>)</span><br></pre></td></tr></table></figure>
-<h3 id="JsonLinesItemExporter"><a href="#JsonLinesItemExporter" class="headerlink" title="JsonLinesItemExporter"></a>JsonLinesItemExporter</h3><p>每次调用<code>export_item</code>的时候把这个<code>item</code>存在到磁盘中</p>
-<ul>
-<li>优点：每次处理数据的时候，直接存储到磁盘中，不耗内存。数据也比较安全。</li>
-<li>缺点：每一个字典是一行，整个文件不是一个满足<code>json</code>格式的文件。</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scrapy.exporters <span class="keyword">import</span> JsonLinesItemExporter</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">QsbkPipeline</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.fp = open(<span class="string">'duanzi.json'</span>, <span class="string">'wb'</span>)</span><br><span class="line">        self.exporter = JsonLinesItemExporter(self.fp, ensure_ascii=<span class="keyword">False</span>, encoding=<span class="string">'utf-8'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">open_spider</span><span class="params">(self,spider)</span>:</span></span><br><span class="line">        print(<span class="string">'爬虫开始'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        self.exporter.export_item(item)</span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">close_spider</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.fp.close()</span><br><span class="line">        print(<span class="string">'爬虫结束'</span>)</span><br></pre></td></tr></table></figure>
-<h1 id="CrawlSpider"><a href="#CrawlSpider" class="headerlink" title="CrawlSpider"></a>CrawlSpider</h1><p>可以实现，只要满足某个条件的<code>url</code>，都进行爬取。<code>CrawlSpider</code>继承自<code>Spider</code>，只不过是在之前的基础之上增加了新的功能，可以定义爬取的<code>url</code>的规则，以后<code>scrapy</code>碰到满足条件的<code>url</code>都进行爬取，而不用手动的<code>yield Request</code>。</p>
-<h2 id="创建CrawlSpider爬虫"><a href="#创建CrawlSpider爬虫" class="headerlink" title="创建CrawlSpider爬虫"></a>创建<code>CrawlSpider</code>爬虫</h2><p>之前创建爬虫的方式是通过s<code>crapy genspider [爬虫名字] [域名]</code>的方式创建的。如果想要创建<code>CrawlSpider</code>爬虫，那么应该通过以下命令创建：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy genspider -c crawl [爬虫名字] [域名]</span><br></pre></td></tr></table></figure>
-<h2 id="LinkExtractors链接提取器"><a href="#LinkExtractors链接提取器" class="headerlink" title="LinkExtractors链接提取器"></a>LinkExtractors链接提取器</h2><p>使用<code>LinkExtractors</code>可以不用程序员自己提取想要的<code>url</code>，然后发送请求。这些工作都可以交给<code>LinkExtractors</code>，他会在所有爬的页面中找到满足规则的<code>url</code>，实现自动的爬取。以下对<code>LinkExtractors</code>类做一个简单的介绍：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">scrapy</span>.<span class="title">linkextractors</span>.<span class="title">LinkExtractor</span><span class="params">(</span></span></span><br><span class="line"><span class="class"><span class="params">    allow = <span class="params">()</span>,</span></span></span><br><span class="line"><span class="class"><span class="params">    deny = <span class="params">()</span>,</span></span></span><br><span class="line"><span class="class"><span class="params">    allow_domains = <span class="params">()</span>,</span></span></span><br><span class="line"><span class="class"><span class="params">    deny_domains = <span class="params">()</span>,</span></span></span><br><span class="line"><span class="class"><span class="params">    deny_extensions = None,</span></span></span><br><span class="line"><span class="class"><span class="params">    restrict_xpaths = <span class="params">()</span>,</span></span></span><br><span class="line"><span class="class"><span class="params">    tags = <span class="params">(<span class="string">'a'</span>,<span class="string">'area'</span>)</span>,</span></span></span><br><span class="line"><span class="class"><span class="params">    attrs = <span class="params">(<span class="string">'href'</span>)</span>,</span></span></span><br><span class="line"><span class="class"><span class="params">    canonicalize = True,</span></span></span><br><span class="line"><span class="class"><span class="params">    unique = True,</span></span></span><br><span class="line"><span class="class"><span class="params">    process_value = None</span></span></span><br><span class="line"><span class="class"><span class="params">)</span></span></span><br></pre></td></tr></table></figure>
-<p>主要参数讲解：</p>
-<ul>
-<li><code>allow</code>：允许的url。所有满足这个正则表达式的url都会被提取。</li>
-<li><code>deny</code>：禁止的url。所有满足这个正则表达式的url都不会被提取。</li>
-<li><code>allow_domains</code>：允许的域名。只有在这个里面指定的域名的url才会被提取。</li>
-<li><code>deny_domains</code>：禁止的域名。所有在这个里面指定的域名的url都不会被提取。</li>
-<li><code>restrict_xpaths</code>：严格的xpath。和allow共同过滤链接。</li>
-</ul>
-<h2 id="Rule规则类"><a href="#Rule规则类" class="headerlink" title="Rule规则类"></a>Rule规则类</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">scrapy</span>.<span class="title">spiders</span>.<span class="title">Rule</span><span class="params">(</span></span></span><br><span class="line"><span class="class"><span class="params">    link_extractor, </span></span></span><br><span class="line"><span class="class"><span class="params">    callback = None, </span></span></span><br><span class="line"><span class="class"><span class="params">    cb_kwargs = None, </span></span></span><br><span class="line"><span class="class"><span class="params">    follow = None, </span></span></span><br><span class="line"><span class="class"><span class="params">    process_links = None, </span></span></span><br><span class="line"><span class="class"><span class="params">    process_request = None</span></span></span><br><span class="line"><span class="class"><span class="params">)</span></span></span><br></pre></td></tr></table></figure>
-<p>主要参数讲解：</p>
-<ul>
-<li><code>link_extractor</code>：一个<code>LinkExtractor</code>对象，用于定义爬取规则。</li>
-<li><code>callback</code>：满足这个规则的url，应该要执行哪个回调函数。因为<code>CrawlSpider</code>使用了<code>parse</code>作为回调函数，因此不要覆盖<code>parse</code>作为回调函数自己的回调函数。</li>
-<li><code>follow</code>：指定根据该规则从response中提取的链接是否需要跟进。</li>
-<li><code>process_links</code>：从<code>link_extractor</code>中获取到链接后会传递给这个函数，用来过滤不需要爬取的链接。</li>
-</ul>
-<h2 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h2><p><code>LinkExtractor</code>和<code>Rule</code>决定爬虫的具体走向。</p>
-<ol>
-<li><code>allow</code>设置规则的方法：能够限制在我们想要的url上，不与其它的url相同的正则表达式即可。</li>
-<li><code>follow</code>使用场景：如果在爬取页面的时候，需要将满足当前条件的url再进行跟进，那么就设置为<code>True</code>。否则设置为<code>False</code>。</li>
-<li><code>callback</code>使用场景：如果这个url对应的页面，只是为了获取更多的url，并不需要里面的数据，可以不指定callback。如果想获取url对应页面中的数据，那么久需要制定一个callback。</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scrapy.linkextractors <span class="keyword">import</span> LinkExtractor</span><br><span class="line"><span class="keyword">from</span> scrapy.spiders <span class="keyword">import</span> CrawlSpider, Rule</span><br><span class="line"><span class="keyword">from</span> wxapp.items <span class="keyword">import</span> WxappItem</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WxappSpiderSpider</span><span class="params">(CrawlSpider)</span>:</span></span><br><span class="line">    name = <span class="string">'wxapp_spider'</span></span><br><span class="line">    allowed_domains = [<span class="string">'wxapp-union.com'</span>]</span><br><span class="line">    start_urls = [<span class="string">'http://www.wxapp-union.com/portal.php?mod=list&amp;catid=2&amp;page=1'</span>]</span><br><span class="line"></span><br><span class="line">    rules = (</span><br><span class="line">        Rule(LinkExtractor(allow=<span class="string">r'.+mod=list&amp;catid=2&amp;page=/d'</span>), follow=<span class="keyword">True</span>),</span><br><span class="line">        Rule(LinkExtractor(allow=<span class="string">r'.+article-.+\.html'</span>), callback=<span class="string">'parse_detail'</span>, follow=<span class="keyword">False</span>),</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse_detail</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        title = response.xpath(<span class="string">"//h1[@class='ph']/text()"</span>).get()</span><br><span class="line">        author_p = response.xpath(<span class="string">"//p[@class='authors']"</span>)</span><br><span class="line">        author = author_p.xpath(<span class="string">"./a/text()"</span>).get()</span><br><span class="line">        pub_time = author_p.xpath(<span class="string">"./span/text()"</span>).get()</span><br><span class="line">        article_content = response.xpath(<span class="string">"//td[@id='article_content']//text()"</span>).getall()</span><br><span class="line">        content = <span class="string">''</span>.join(article_content).strip()</span><br><span class="line">        item = WxappItem(author=author, title=title, pub_time=pub_time,content=content)</span><br><span class="line">        <span class="keyword">yield</span> item</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/02/17/爬虫笔记/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -2306,494 +2713,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wuliuqi.top/2019/01/10/django笔记02/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="WP">
-      <meta itemprop="description" content="飞机从头顶飞过<br>流星也划破那夜空">
-      <meta itemprop="image" content="/images/memory.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="阿珍爱上了阿强">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/01/10/django笔记02/" class="post-title-link" itemprop="url">django笔记02-视图和url</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-01-10 17:48:48" itemprop="dateCreated datePublished" datetime="2019-01-10T17:48:48+08:00">2019-01-10</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-01-14 18:10:22" itemprop="dateModified" datetime="2019-01-14T18:10:22+08:00">2019-01-14</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/django/" itemprop="url" rel="index"><span itemprop="name">django</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/01/10/django笔记02/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/01/10/django笔记02/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-            <span id="/2019/01/10/django笔记02/" class="leancloud_visitors" data-flag-title="django笔记02-视图和url">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读次数：</span>
-              
-                <span class="leancloud-visitors-count"></span>
-            </span>
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">5k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">9 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="视图函数"><a href="#视图函数" class="headerlink" title="视图函数"></a>视图函数</h1><ol>
-<li>第一个参数必须是request</li>
-<li>返回值必须是<code>django.http.response.HttpResponseBase</code>的子类的对象</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">book</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">'图书首页'</span>)</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/01/10/django笔记02/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wuliuqi.top/2019/01/10/django笔记01/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="WP">
-      <meta itemprop="description" content="飞机从头顶飞过<br>流星也划破那夜空">
-      <meta itemprop="image" content="/images/memory.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="阿珍爱上了阿强">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/01/10/django笔记01/" class="post-title-link" itemprop="url">django笔记01-新建项目</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-01-10 10:54:43" itemprop="dateCreated datePublished" datetime="2019-01-10T10:54:43+08:00">2019-01-10</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-01-13 09:59:23" itemprop="dateModified" datetime="2019-01-13T09:59:23+08:00">2019-01-13</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/django/" itemprop="url" rel="index"><span itemprop="name">django</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/01/10/django笔记01/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/01/10/django笔记01/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-            <span id="/2019/01/10/django笔记01/" class="leancloud_visitors" data-flag-title="django笔记01-新建项目">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读次数：</span>
-              
-                <span class="leancloud-visitors-count"></span>
-            </span>
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">557</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">1 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h1><h2 id="命令行"><a href="#命令行" class="headerlink" title="命令行"></a>命令行</h2><ol>
-<li>创建项目：<code>django-admin startproject [项目名称]</code></li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">django startproject first_project</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>创建应用：在项目根目录，<code>python manage.py startapp [项目名称]</code></li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py startapp first_app</span><br></pre></td></tr></table></figure>
-<h2 id="pycharm专业版"><a href="#pycharm专业版" class="headerlink" title="pycharm专业版"></a>pycharm专业版</h2><p><strong>注</strong>：配置单例运行，防止无意中运行多个，造成新代码不生效<br>我选择vscode，没用pycharm</p>
-<h1 id="运行项目（命令行）"><a href="#运行项目（命令行）" class="headerlink" title="运行项目（命令行）"></a>运行项目（命令行）</h1><p>在项目根目录</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py runserver</span><br></pre></td></tr></table></figure>
-<p>指定端口，如9000</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py runserver 9000</span><br></pre></td></tr></table></figure>
-<h2 id="局域网访问"><a href="#局域网访问" class="headerlink" title="局域网访问"></a>局域网访问</h2><p>让局域网其它设备可以访问到</p>
-<ol>
-<li>运行IP为<code>0.0.0.0:[端口号]</code>，端口号要有</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py runserver 0.0.0.0:8000</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li><code>settings.py</code>文件中<code>ALLOWED_HOSTS</code>加入运行项目的本机IP，如<code>ALLOWED_HOSTS = [192.168.1.102]</code></li>
-</ol>
-<p><strong>注</strong>：仍然访问不到的话，检查防火墙</p>
-<h1 id="settings-py文件中"><a href="#settings-py文件中" class="headerlink" title="settings.py文件中"></a>settings.py文件中</h1><p><code>DEBUG = False</code>后，，只能通过<code>ALLOWED_HOSTS = []</code>中的IP地址或者域名来进行访问</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2843,7 +2762,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2897,7 +2816,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -2950,7 +2875,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">98k</span>
+    <span title="站点总字数">115k</span>
   
 
   
@@ -2961,7 +2886,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">2:58</span>
+    <span title="站点阅读时长">3:30</span>
   
 </div>
 

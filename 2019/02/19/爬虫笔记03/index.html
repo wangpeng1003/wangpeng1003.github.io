@@ -96,25 +96,25 @@
 
 
 
-  <meta name="description" content="join()join() 方法用于将序列中的元素以指定的字符连接生成一个新的字符串。str.join(item)，join函数是一个字符串操作函数。str表示字符串（字符），item表示一个成员，注意括号里必须只能有一个成员，比如&amp;#39;,&amp;#39;.join(&amp;#39;a&amp;#39;,&amp;#39;b&amp;#39;)这种写法是行不通的。 12#将字符串abc中的每个成员，以字符&apos;,&apos;分隔开再拼接成一个字">
-<meta name="keywords" content="python">
+  <meta name="description" content="urlliburllib库是Python中一个最基本的网络请求库。可以模拟浏览器的行为，向指定的服务器发送一个请求，并可以保存服务器返回的数据。">
+<meta name="keywords" content="urllib">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python笔记">
-<meta property="og:url" content="http://wuliuqi.top/2019/01/14/python笔记/index.html">
+<meta property="og:title" content="爬虫笔记03 - 网络请求">
+<meta property="og:url" content="http://wuliuqi.top/2019/02/19/爬虫笔记03/index.html">
 <meta property="og:site_name" content="阿珍爱上了阿强">
-<meta property="og:description" content="join()join() 方法用于将序列中的元素以指定的字符连接生成一个新的字符串。str.join(item)，join函数是一个字符串操作函数。str表示字符串（字符），item表示一个成员，注意括号里必须只能有一个成员，比如&amp;#39;,&amp;#39;.join(&amp;#39;a&amp;#39;,&amp;#39;b&amp;#39;)这种写法是行不通的。 12#将字符串abc中的每个成员，以字符&apos;,&apos;分隔开再拼接成一个字">
+<meta property="og:description" content="urlliburllib库是Python中一个最基本的网络请求库。可以模拟浏览器的行为，向指定的服务器发送一个请求，并可以保存服务器返回的数据。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-17T09:16:09.439Z">
+<meta property="og:updated_time" content="2019-02-22T04:44:02.887Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="python笔记">
-<meta name="twitter:description" content="join()join() 方法用于将序列中的元素以指定的字符连接生成一个新的字符串。str.join(item)，join函数是一个字符串操作函数。str表示字符串（字符），item表示一个成员，注意括号里必须只能有一个成员，比如&amp;#39;,&amp;#39;.join(&amp;#39;a&amp;#39;,&amp;#39;b&amp;#39;)这种写法是行不通的。 12#将字符串abc中的每个成员，以字符&apos;,&apos;分隔开再拼接成一个字">
+<meta name="twitter:title" content="爬虫笔记03 - 网络请求">
+<meta name="twitter:description" content="urlliburllib库是Python中一个最基本的网络请求库。可以模拟浏览器的行为，向指定的服务器发送一个请求，并可以保存服务器返回的数据。">
 
 
 
 
 
 
-  <link rel="canonical" href="http://wuliuqi.top/2019/01/14/python笔记/">
+  <link rel="canonical" href="http://wuliuqi.top/2019/02/19/爬虫笔记03/">
 
 
 
@@ -124,7 +124,7 @@
   };
 </script>
 
-  <title>python笔记 | 阿珍爱上了阿强</title>
+  <title>爬虫笔记03 - 网络请求 | 阿珍爱上了阿强</title>
   
 
 
@@ -344,7 +344,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wuliuqi.top/2019/01/14/python笔记/">
+    <link itemprop="mainEntityOfPage" href="http://wuliuqi.top/2019/02/19/爬虫笔记03/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="WP">
@@ -361,7 +361,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">python笔记
+          <h1 class="post-title" itemprop="name headline">爬虫笔记03 - 网络请求
 
               
             
@@ -387,7 +387,7 @@
                 
               
 
-              <time title="创建时间：2019-01-14 10:35:47" itemprop="dateCreated datePublished" datetime="2019-01-14T10:35:47+08:00">2019-01-14</time>
+              <time title="创建时间：2019-02-19 16:45:28" itemprop="dateCreated datePublished" datetime="2019-02-19T16:45:28+08:00">2019-02-19</time>
             
 
             
@@ -404,7 +404,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-17 17:16:09" itemprop="dateModified" datetime="2019-02-17T17:16:09+08:00">2019-02-17</time>
+                <time title="修改时间：2019-02-22 12:44:02" itemprop="dateModified" datetime="2019-02-22T12:44:02+08:00">2019-02-22</time>
               
             
           </span>
@@ -428,7 +428,7 @@
                   ，
                 
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/爬虫/" itemprop="url" rel="index"><span itemprop="name">爬虫</span></a></span>
 
                 
                 
@@ -443,8 +443,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/01/14/python笔记/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/01/14/python笔记/" itemprop="commentCount"></span>
+                <a href="/2019/02/19/爬虫笔记03/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/02/19/爬虫笔记03/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -452,7 +452,7 @@
 
           
           
-            <span id="/2019/01/14/python笔记/" class="leancloud_visitors" data-flag-title="python笔记">
+            <span id="/2019/02/19/爬虫笔记03/" class="leancloud_visitors" data-flag-title="爬虫笔记03 - 网络请求">
               <span class="post-meta-divider">|</span>
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
@@ -477,7 +477,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2.1k</span>
+                <span title="本文字数">2k</span>
               
 
               
@@ -511,36 +511,27 @@
       
 
       
-        <h1 id="join"><a href="#join" class="headerlink" title="join()"></a>join()</h1><p>join() 方法用于将序列中的元素以指定的字符连接生成一个新的字符串。<br><code>str.join(item)</code>，join函数是一个字符串操作函数。<br><code>str</code>表示字符串（字符），<code>item</code>表示一个成员，注意括号里必须只能有一个成员，比如<code>&#39;,&#39;.join(&#39;a&#39;,&#39;b&#39;)</code>这种写法是行不通的。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#将字符串abc中的每个成员，以字符','分隔开再拼接成一个字符串</span></span><br><span class="line"><span class="string">','</span>.join(<span class="string">'abc'</span>)</span><br></pre></td></tr></table></figure>
-<p>输出结果为<code>&#39;a,b,c&#39;</code></p>
-<p>join里放列表、元组、字典也是可以的</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">';'</span>.join([a,b,c])</span><br><span class="line">&gt;&gt;  <span class="string">'a;b;c'</span></span><br></pre></td></tr></table></figure>
-<p>参考：<a href="https://blog.csdn.net/chixujohnny/article/details/53301995" target="_blank" rel="noopener">Python中的 .join()用法</a></p>
+        <h1 id="urllib"><a href="#urllib" class="headerlink" title="urllib"></a>urllib</h1><p><code>urllib</code>库是<code>Python</code>中一个最基本的网络请求库。可以模拟浏览器的行为，向指定的服务器发送一个请求，并可以保存服务器返回的数据。</p>
 <a id="more"></a>
-<h1 id="split"><a href="#split" class="headerlink" title="split()"></a>split()</h1><p><code>str.split(sep=&quot;&quot;,num=string.count(str))[n]</code><br>拆分字符串。通过指定分隔符对字符串进行切片，并返回分割后的字符串列表（list），如果参数 num 有指定值，则仅分隔 num+1 个子字符串。</p>
+<h2 id="urlopen函数"><a href="#urlopen函数" class="headerlink" title="urlopen函数"></a>urlopen函数</h2><p>在<code>Python3</code>的<code>urllib</code>库中，所有和网络请求相关的方法，都被集到<code>urllib.request</code>模块下面了，以先来看下<code>urlopen</code>函数基本的使用：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request</span><br><span class="line">resp = request.urlopen(<span class="string">'http://www.baidu.com'</span>)</span><br><span class="line">print(resp.read())</span><br></pre></td></tr></table></figure>
+<p><code>urlopen</code>函数参数为：</p>
 <ul>
-<li><code>sep</code>：表示为分隔符，默认为所有的空字符，包括空格、换行(\n)、制表符(\t)等，但是不能为空(‘’)。若字符串中没有分隔符，则把整个字符串作为列表的一个元素</li>
-<li><code>num</code>：表示分割次数。如果存在参数num，则仅分隔成 num+1 个子字符串，并且每一个子字符串可以赋给新的变量</li>
-<li><code>[n]</code>：表示选取第n个分片</li>
+<li><code>url</code>：请求的url。</li>
+<li><code>data</code>：请求的data，如果设置了这个值，那么将变成post请求。</li>
 </ul>
-<ol>
-<li>无参数的情况</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="string">"my name is zhangkang"</span></span><br><span class="line">b=<span class="string">"my\nname\nis\nzhangkang"</span></span><br><span class="line">c=<span class="string">"my\tname\tis\tzhangkang"</span></span><br><span class="line"></span><br><span class="line">a=a.split()</span><br><span class="line">b=b.split()</span><br><span class="line">c=c.split()</span><br><span class="line"></span><br><span class="line">print(a)</span><br><span class="line">print(b)</span><br><span class="line">print(c)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出：</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[<span class="string">'my'</span>, <span class="string">'name'</span>, <span class="string">'is'</span>, <span class="string">'zhangkang'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[<span class="string">'my'</span>, <span class="string">'name'</span>, <span class="string">'is'</span>, <span class="string">'zhangkang'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[<span class="string">'my'</span>, <span class="string">'name'</span>, <span class="string">'is'</span>, <span class="string">'zhangkang'</span>]</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>有参数的情况</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">d=<span class="string">"my,name,is,zhangkang"</span></span><br><span class="line">e=<span class="string">"my;name;is;zhangkang"</span></span><br><span class="line">f=<span class="string">"my-name-is-zhangkang"</span></span><br><span class="line"></span><br><span class="line">d=d.split(<span class="string">","</span>)</span><br><span class="line">e=e.split(<span class="string">";"</span>)</span><br><span class="line">f=f.split(<span class="string">"-"</span>)</span><br><span class="line"></span><br><span class="line">print(d)</span><br><span class="line">print(e)</span><br><span class="line">print(f)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出：</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[<span class="string">'my'</span>, <span class="string">'name'</span>, <span class="string">'is'</span>, <span class="string">'zhangkang'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[<span class="string">'my'</span>, <span class="string">'name'</span>, <span class="string">'is'</span>, <span class="string">'zhangkang'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[<span class="string">'my'</span>, <span class="string">'name'</span>, <span class="string">'is'</span>, <span class="string">'zhangkang'</span>]</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>有两个参数的情况</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="string">"My,name,is,zhangkang,and,I,am,a,student"</span></span><br><span class="line">b1=a.split(<span class="string">","</span>,<span class="number">1</span>)</span><br><span class="line">b2=a.split(<span class="string">","</span>,<span class="number">2</span>)</span><br><span class="line">b8=a.split(<span class="string">","</span>,<span class="number">8</span>)</span><br><span class="line">b9=a.split(<span class="string">","</span>,<span class="number">9</span>)</span><br><span class="line"></span><br><span class="line">print(b1)</span><br><span class="line">print(b2)</span><br><span class="line">print(b8)</span><br><span class="line">print(b9)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出：</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[<span class="string">'My'</span>, <span class="string">'name,is,zhangkang,and,I,am,a,student'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[<span class="string">'My'</span>, <span class="string">'name'</span>, <span class="string">'is,zhangkang,and,I,am,a,student'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[<span class="string">'My'</span>, <span class="string">'name'</span>, <span class="string">'is'</span>, <span class="string">'zhangkang'</span>, <span class="string">'and'</span>, <span class="string">'I'</span>, <span class="string">'am'</span>, <span class="string">'a'</span>, <span class="string">'student'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[<span class="string">'My'</span>, <span class="string">'name'</span>, <span class="string">'is'</span>, <span class="string">'zhangkang'</span>, <span class="string">'and'</span>, <span class="string">'I'</span>, <span class="string">'am'</span>, <span class="string">'a'</span>, <span class="string">'student'</span>] <span class="comment">#超过最大分割次数，还是最大分割，不报错</span></span><br></pre></td></tr></table></figure>
-<p>参考：<a href="https://blog.csdn.net/csdn15698845876/article/details/74012511" target="_blank" rel="noopener">python中split()函数讲解</a></p>
-<h1 id="strip"><a href="#strip" class="headerlink" title="strip()"></a>strip()</h1><p>声明：<code>s</code>为字符串，<code>rm</code>为要删除的字符序列。<br>当<code>rm</code>为空时，默认删除空白符（包括<code>\n</code>, <code>\r</code>,  <code>\t</code>,  <code>&#39; &#39;</code>)</p>
-<p><code>s.strip(rm)</code>，删除s字符串中开头、结尾处，位于rm删除序列的字符<br><code>s.lstrip(rm)</code>，删除s字符串中开头处，位于rm删除序列的字符<br><code>s.rstrip(rm)</code>，删除s字符串中结尾处，位于rm删除序列的字符</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">b = <span class="string">'123abc'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b.strip(<span class="string">'12'</span>)</span><br><span class="line"><span class="string">'3abc'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b.strip(<span class="string">'21'</span>) <span class="comment"># 没有顺序</span></span><br><span class="line"><span class="string">'3abc'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b.strip(<span class="string">'31'</span>) <span class="comment"># 只要开头和结尾中含有rm中的字符 就删除</span></span><br><span class="line"><span class="string">'23abc'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b.strip(<span class="string">'bc'</span>)</span><br><span class="line"><span class="string">'123a'</span></span><br></pre></td></tr></table></figure>
-
+<p><code>urlopen</code>的返回值是一个<code>http.client.HTTPResponse</code>对象，这个对象是一个类文件句柄对象。有<code>read(size)</code>、<code>readline</code>、<code>readlines</code>以及<code>getcode</code>等方法。</p>
+<h2 id="urlretrieve函数"><a href="#urlretrieve函数" class="headerlink" title="urlretrieve函数"></a>urlretrieve函数</h2><p>这个函数可以方便的将网页上的一个文件保存到本地。以下代码可以非常方便的将百度的首页下载到本地：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request</span><br><span class="line">request.urlretrieve(<span class="string">'http://www.baidu.com/'</span>,<span class="string">'baidu.html'</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="urlencode函数"><a href="#urlencode函数" class="headerlink" title="urlencode函数"></a>urlencode函数</h2><p>用浏览器发送请求的时候，如果<code>url</code>中包含了中文或者其他特殊字符，那么浏览器会自动的给我们进行编码。而如果使用代码发送请求，那么就必须手动的进行编码，这时候就应该使用<code>urlencode</code>函数来实现。<code>urlencode</code>可以把字典数据转换为<code>URL</code>编码的数据。示例代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> parse</span><br><span class="line">data = &#123;<span class="string">'name'</span>:<span class="string">'爬虫基础'</span>,<span class="string">'greet'</span>:<span class="string">'hello world'</span>,<span class="string">'age'</span>:<span class="number">100</span>&#125;</span><br><span class="line">qs = parse.urlencode(data)</span><br><span class="line">print(qs)</span><br></pre></td></tr></table></figure>
+<h2 id="parse-qs函数"><a href="#parse-qs函数" class="headerlink" title="parse_qs函数"></a>parse_qs函数</h2><p>可以将经过编码后的url参数进行解码。示例代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> parse</span><br><span class="line">qs = <span class="string">"name=%E7%88%AC%E8%99%AB%E5%9F%BA%E7%A1%80&amp;greet=hello+world&amp;age=100"</span></span><br><span class="line">print(parse.parse_qs(qs))</span><br></pre></td></tr></table></figure>
+<h2 id="urlparse和urlsplit"><a href="#urlparse和urlsplit" class="headerlink" title="urlparse和urlsplit"></a><code>urlparse</code>和<code>urlsplit</code></h2><p>有时候拿到一个url，想要对这个url中的各个组成部分进行分割，那么这时候就可以使用<code>urlparse</code>或者是<code>urlsplit</code>来进行分割。示例代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> parse</span><br><span class="line"></span><br><span class="line">url = <span class="string">'http://www.baidu.com/s?username=zhiliao'</span></span><br><span class="line"></span><br><span class="line">result = parse.urlsplit(url)</span><br><span class="line"><span class="comment"># result = parse.urlparse(url)</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">'scheme:'</span>,result.scheme)</span><br><span class="line">print(<span class="string">'netloc:'</span>,result.netloc)</span><br><span class="line">print(<span class="string">'path:'</span>,result.path)</span><br><span class="line">print(<span class="string">'query:'</span>,result.query)</span><br></pre></td></tr></table></figure>
+<p><code>urlparse</code>和<code>urlsplit</code>基本上是一模一样的。唯一不一样的地方是，<code>urlparse</code>里面多了一个<code>params</code>属性，而<code>urlsplit</code>没有这个<code>params</code>属性。比如有一个url为：<code>url = &#39;http://www.baidu.com/s;hello?wd=python&amp;username=abc#1&#39;</code>，那么<code>urlparse</code>可以获取到<code>hello</code>，而<code>urlsplit</code>不可以获取到。<code>url</code>中的<code>params</code>也用得比较少。</p>
+<h2 id="request-Request类"><a href="#request-Request类" class="headerlink" title="request.Request类"></a>request.Request类</h2><p>如果想要在请求的时候增加一些请求头，那么就必须使用<code>request.Request</code>类来实现。比如要增加一个<code>User-Agent</code>，示例代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request</span><br><span class="line"></span><br><span class="line">headers = &#123;</span><br><span class="line"><span class="string">'User-Agent'</span>: <span class="string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36'</span></span><br><span class="line">&#125;</span><br><span class="line">req = request.Request(<span class="string">"http://www.baidu.com/"</span>,headers=headers)</span><br><span class="line">resp = request.urlopen(req)</span><br><span class="line">print(resp.read())</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -587,7 +578,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/python/" rel="tag"># python</a>
+            <a href="/tags/urllib/" rel="tag"># urllib</a>
           
         </div>
       
@@ -600,8 +591,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/10/django笔记02/" rel="next" title="django笔记02-视图和url">
-                <i class="fa fa-chevron-left"></i> django笔记02-视图和url
+              <a href="/2019/02/18/爬虫笔记02/" rel="next" title="爬虫笔记02 - 数据存储">
+                <i class="fa fa-chevron-left"></i> 爬虫笔记02 - 数据存储
               </a>
             
           </div>
@@ -610,8 +601,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/01/14/django笔记03/" rel="prev" title="django笔记03 - 模板">
-                django笔记03 - 模板 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/21/爬虫笔记04/" rel="prev" title="爬虫笔记04 - 进阶">
+                爬虫笔记04 - 进阶 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -784,7 +775,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#join"><span class="nav-number">1.</span> <span class="nav-text">join()</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#split"><span class="nav-number">2.</span> <span class="nav-text">split()</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#strip"><span class="nav-number">3.</span> <span class="nav-text">strip()</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#urllib"><span class="nav-number">1.</span> <span class="nav-text">urllib</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#urlopen函数"><span class="nav-number">1.1.</span> <span class="nav-text">urlopen函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#urlretrieve函数"><span class="nav-number">1.2.</span> <span class="nav-text">urlretrieve函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#urlencode函数"><span class="nav-number">1.3.</span> <span class="nav-text">urlencode函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#parse-qs函数"><span class="nav-number">1.4.</span> <span class="nav-text">parse_qs函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#urlparse和urlsplit"><span class="nav-number">1.5.</span> <span class="nav-text">urlparse和urlsplit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#request-Request类"><span class="nav-number">1.6.</span> <span class="nav-text">request.Request类</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/qi.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/qi.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="动态网页数据抓取AJAX简介AJAX（Asynchronouse JavaScript And XML）异步JavaScript和XML。过在后台与服务器进行少量数据交换，Ajax 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。传统的网页（不使用Ajax）如果需要更新内容，必须重载整个网页页面。因为传统的在传输数据格式方面，使用的是XML语法。因此叫做A">
+<meta name="keywords" content="Selenium">
+<meta property="og:type" content="article">
+<meta property="og:title" content="爬虫笔记04 - 进阶">
+<meta property="og:url" content="http://wuliuqi.top/2019/02/21/爬虫笔记04/index.html">
+<meta property="og:site_name" content="阿珍爱上了阿强">
+<meta property="og:description" content="动态网页数据抓取AJAX简介AJAX（Asynchronouse JavaScript And XML）异步JavaScript和XML。过在后台与服务器进行少量数据交换，Ajax 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。传统的网页（不使用Ajax）如果需要更新内容，必须重载整个网页页面。因为传统的在传输数据格式方面，使用的是XML语法。因此叫做A">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-02-22T02:06:47.740Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="爬虫笔记04 - 进阶">
+<meta name="twitter:description" content="动态网页数据抓取AJAX简介AJAX（Asynchronouse JavaScript And XML）异步JavaScript和XML。过在后台与服务器进行少量数据交换，Ajax 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。传统的网页（不使用Ajax）如果需要更新内容，必须重载整个网页页面。因为传统的在传输数据格式方面，使用的是XML语法。因此叫做A">
+
+
+
+
+
+
+  <link rel="canonical" href="http://wuliuqi.top/2019/02/21/爬虫笔记04/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>爬虫笔记04 - 进阶 | 阿珍爱上了阿强</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">阿珍爱上了阿强</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">在一个有星星的夜晚</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wuliuqi.top/2019/02/21/爬虫笔记04/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WP">
+      <meta itemprop="description" content="飞机从头顶飞过<br>流星也划破那夜空">
+      <meta itemprop="image" content="/images/memory.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="阿珍爱上了阿强">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">爬虫笔记04 - 进阶
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-21 13:43:49" itemprop="dateCreated datePublished" datetime="2019-02-21T13:43:49+08:00">2019-02-21</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-02-22 10:06:47" itemprop="dateModified" datetime="2019-02-22T10:06:47+08:00">2019-02-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/爬虫/" itemprop="url" rel="index"><span itemprop="name">爬虫</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/21/爬虫笔记04/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/02/21/爬虫笔记04/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2019/02/21/爬虫笔记04/" class="leancloud_visitors" data-flag-title="爬虫笔记04 - 进阶">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">6k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">11 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="动态网页数据抓取"><a href="#动态网页数据抓取" class="headerlink" title="动态网页数据抓取"></a>动态网页数据抓取</h1><h2 id="AJAX简介"><a href="#AJAX简介" class="headerlink" title="AJAX简介"></a>AJAX简介</h2><p><code>AJAX（Asynchronouse JavaScript And XML）</code>异步<code>JavaScript</code>和<code>XML</code>。过在后台与服务器进行少量数据交换，<code>Ajax</code> 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。传统的网页（不使用<code>Ajax</code>）如果需要更新内容，必须重载整个网页页面。因为传统的在传输数据格式方面，使用的是<code>XML</code>语法。因此叫做<code>AJAX</code>，其实现在数据交互基本上都是使用<code>JSON</code>。使用<code>AJAX</code>加载的数据，即使使用了<code>JS</code>，将数据渲染到了浏览器中，在右键-&gt;查看网页源代码还是不能看到通过<code>ajax</code>加载的数据，只能看到使用这个<code>url</code>加载的<code>html</code>代码。</p>
+<a id="more"></a>
+<h2 id="获取ajax数据的方式"><a href="#获取ajax数据的方式" class="headerlink" title="获取ajax数据的方式"></a>获取ajax数据的方式</h2><ol>
+<li>直接分析<code>ajax</code>调用的接口。然后通过代码请求这个接口。</li>
+<li>使用<code>Selenium+chromedriver</code>模拟浏览器行为获取数据。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分析接口</td>
+<td>直接可以请求到数据。不需要做一些解析工作。<br>代码量少，性能高</td>
+<td>分析接口比较复杂，特别是一些通过js混淆的接口，<br>要有一定的js功底。容易被发现是爬虫</td>
+</tr>
+<tr>
+<td>selenium</td>
+<td>直接模拟浏览器的行为。浏览器能请求到的，<br>使用selenium也能请求到。爬虫更稳定</td>
+<td>代码量多。性能低</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Selenium-chromedriver获取动态数据"><a href="#Selenium-chromedriver获取动态数据" class="headerlink" title="Selenium+chromedriver获取动态数据"></a>Selenium+chromedriver获取动态数据</h2><p><code>Selenium</code>相当于是一个机器人。可以模拟人类在浏览器上的一些行为，自动处理浏览器上的一些行为，比如点击，填充数据，删除<code>cookie</code>等。<code>chromedriver</code>是一个驱动<code>Chrome</code>浏览器的驱动程序，使用他才可以驱动浏览器。当然针对不同的浏览器有不同的<code>driver</code>。以下列出了不同浏览器及其对应的<code>driver</code>：</p>
+<ol>
+<li>Chrome：<a href="https://sites.google.com/a/chromium.org/chromedriver/downloads" target="_blank" rel="noopener">下载地址</a></li>
+<li>Firefox：<a href="https://github.com/mozilla/geckodriver/releases" target="_blank" rel="noopener">下载地址</a></li>
+<li>Edge：<a href="https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/" target="_blank" rel="noopener">下载地址</a></li>
+<li>Safari：<a href="https://webkit.org/blog/6900/webdriver-support-in-safari-10/" target="_blank" rel="noopener">下载地址</a></li>
+</ol>
+<h2 id="安装Selenium和chromedriver"><a href="#安装Selenium和chromedriver" class="headerlink" title="安装Selenium和chromedriver"></a>安装Selenium和chromedriver</h2><ol>
+<li>安装<code>Selenium</code>：Selenium有很多语言的版本，有java、ruby、python等。我们下载python版本的就可以了。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install selenium</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>安装<code>chromedriver</code>：下载完成后，放到不需要权限的纯英文目录下就可以了。</li>
+</ol>
+<h2 id="快速入门"><a href="#快速入门" class="headerlink" title="快速入门"></a>快速入门</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"></span><br><span class="line"><span class="comment"># chromedriver的绝对路径</span></span><br><span class="line">driver_path = <span class="string">r'D:\ProgramApp\chromedriver\chromedriver.exe'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化一个driver，并且指定chromedriver的路径</span></span><br><span class="line">driver = webdriver.Chrome(executable_path=driver_path)</span><br><span class="line"><span class="comment"># 请求网页</span></span><br><span class="line">driver.get(<span class="string">"https://www.baidu.com/"</span>)</span><br><span class="line"><span class="comment"># 通过page_source获取网页源代码</span></span><br><span class="line">print(driver.page_source)</span><br><span class="line"></span><br><span class="line">html = etree.HTML(driver.page_source)</span><br><span class="line">html.xpath(<span class="string">""</span>)</span><br></pre></td></tr></table></figure>
+<ol>
+<li>如果只是想要解析网页中的数据，那么推荐将网页源代码扔给<code>lxml</code>来解析。因为<code>lxml</code>底层使用的是c语言，所以解析效率会更高。</li>
+<li>如果是想要对元素进行一些操作，比如给一个文本框输入值，或者是点击某个按钮，那么就必须使用<code>selenium</code>提供的查找元素的方法。</li>
+</ol>
+<h1 id="selenium常用操作"><a href="#selenium常用操作" class="headerlink" title="selenium常用操作"></a>selenium常用操作</h1><h2 id="关闭界面"><a href="#关闭界面" class="headerlink" title="关闭界面"></a>关闭界面</h2><ol>
+<li><code>driver.close()</code>：关闭当前页面。</li>
+<li><code>driver.quit()</code>：退出整个浏览器。</li>
+</ol>
+<h2 id="定位元素"><a href="#定位元素" class="headerlink" title="定位元素"></a>定位元素</h2><ol>
+<li><code>find_element_by_id</code>：根据<code>id</code>来查找某个元素。等价于：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">submitTag = driver.find_element_by_id(<span class="string">'su'</span>)</span><br><span class="line">submitTag1 = driver.find_element(By.ID,<span class="string">'su'</span>)</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><code>find_element_by_class_name</code>：根据类名查找元素。 等价于：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">submitTag = driver.find_element_by_class_name(<span class="string">'su'</span>)</span><br><span class="line">submitTag1 = driver.find_element(By.CLASS_NAME,<span class="string">'su'</span>)</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li><code>find_element_by_name</code>：根据<code>name</code>属性的值来查找元素。等价于：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">submitTag = driver.find_element_by_name(<span class="string">'email'</span>)</span><br><span class="line">submitTag1 = driver.find_element(By.NAME,<span class="string">'email'</span>)</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li><code>find_element_by_tag_name</code>：根据标签名来查找元素。等价于：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">submitTag = driver.find_element_by_tag_name(<span class="string">'div'</span>)</span><br><span class="line">submitTag1 = driver.find_element(By.TAG_NAME,<span class="string">'div'</span>)</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li><code>find_element_by_xpath</code>：根据<code>xpath</code>语法来获取元素。等价于：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">submitTag = driver.find_element_by_xpath(<span class="string">'//div'</span>)</span><br><span class="line">submitTag1 = driver.find_element(By.XPATH,<span class="string">'//div'</span>)</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li><code>find_element_by_css_selector</code>：根据<code>css选择器</code>选择元素。等价于：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">submitTag = driver.find_element_by_css_selector(<span class="string">'//div'</span>)</span><br><span class="line">submitTag1 = driver.find_element(By.CSS_SELECTOR,<span class="string">'//div'</span>)</span><br></pre></td></tr></table></figure>
+<p>要注意，<code>find_element</code>是获取第一个满足条件的元素。<code>find_elements</code>是获取所有满足条件的元素。</p>
+<h2 id="操作表单元素"><a href="#操作表单元素" class="headerlink" title="操作表单元素"></a>操作表单元素</h2><h3 id="操作输入框"><a href="#操作输入框" class="headerlink" title="操作输入框"></a>操作输入框</h3><p>第一步：找到这个元素。<br>第二步：使用<code>send_keys(value)</code>，将数据填充进去。示例代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">inputTag = driver.find_element_by_id(<span class="string">'kw'</span>)</span><br><span class="line">inputTag.send_keys(<span class="string">'python'</span>)</span><br></pre></td></tr></table></figure>
+<p>使用<code>clear</code>方法可以清除输入框中的内容。示例代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">inputTag.clear()</span><br></pre></td></tr></table></figure>
+<h3 id="操作checkbox"><a href="#操作checkbox" class="headerlink" title="操作checkbox"></a>操作checkbox</h3><p>因为要选中<code>checkbox</code>标签，在网页中是通过鼠标点击的。因此想要选中<code>checkbox</code>标签，那么先选中这个标签，然后执行<code>click</code>事件。示例代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rememberTag = driver.find_element_by_name(<span class="string">"rememberMe"</span>)</span><br><span class="line">rememberTag.click()</span><br></pre></td></tr></table></figure>
+<h3 id="选择select"><a href="#选择select" class="headerlink" title="选择select"></a>选择select</h3><p><code>select</code>元素不能直接点击。因为点击后还需要选中元素。这时候<code>selenium</code>就专门为<code>select</code>标签提供了一个类<code>selenium.webdriver.support.ui.Select</code>。将获取到的元素当成参数传到这个类中，创建这个对象。以后就可以使用这个对象进行选择了。示例代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium.webdriver.support.ui <span class="keyword">import</span> Select</span><br><span class="line"></span><br><span class="line"><span class="comment"># 选中这个标签，然后使用Select创建对象</span></span><br><span class="line">selectTag = Select(driver.find_element_by_name(<span class="string">"jumpMenu"</span>))</span><br><span class="line"><span class="comment"># 根据索引选择</span></span><br><span class="line">selectTag.select_by_index(<span class="number">1</span>)</span><br><span class="line"><span class="comment"># 根据值选择</span></span><br><span class="line">selectTag.select_by_value(<span class="string">"http://www.95yueba.com"</span>)</span><br><span class="line"><span class="comment"># 根据可视的文本选择</span></span><br><span class="line">selectTag.select_by_visible_text(<span class="string">"95秀客户端"</span>)</span><br><span class="line"><span class="comment"># 取消选中所有选项</span></span><br><span class="line">selectTag.deselect_all()</span><br></pre></td></tr></table></figure>
+<h3 id="操作按钮"><a href="#操作按钮" class="headerlink" title="操作按钮"></a>操作按钮</h3><p>操作按钮有很多种方式。比如单击、右击、双击等。这里讲一个最常用的。就是点击。直接调用<code>click</code>函数就可以了。示例代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">inputTag = driver.find_element_by_id(<span class="string">'su'</span>)</span><br><span class="line">inputTag.click()</span><br></pre></td></tr></table></figure>
+<h3 id="行为链"><a href="#行为链" class="headerlink" title="行为链"></a>行为链</h3><p>有时候在页面中的操作可能要有很多步，那么这时候可以使用鼠标行为链类<code>ActionChains</code>来完成。比如现在要将鼠标移动到某个元素上并执行点击事件。那么示例代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">inputTag = driver.find_element_by_id(<span class="string">'kw'</span>)</span><br><span class="line">submitTag = driver.find_element_by_id(<span class="string">'su'</span>)</span><br><span class="line"></span><br><span class="line">actions = ActionChains(driver)</span><br><span class="line">actions.move_to_element(inputTag)</span><br><span class="line">actions.send_keys_to_element(inputTag,<span class="string">'python'</span>)</span><br><span class="line">actions.move_to_element(submitTag)</span><br><span class="line">actions.click(submitTag)</span><br><span class="line">actions.perform()</span><br></pre></td></tr></table></figure>
+<p>还有更多的鼠标相关的操作。</p>
+<ul>
+<li><code>click_and_hold(element)</code>：点击但不松开鼠标。</li>
+<li><code>context_click(element)</code>：右键点击。</li>
+<li><code>double_click(element)</code>：双击。</li>
+</ul>
+<h2 id="Cookie操作"><a href="#Cookie操作" class="headerlink" title="Cookie操作"></a>Cookie操作</h2><h3 id="获取所有的cookie"><a href="#获取所有的cookie" class="headerlink" title="获取所有的cookie"></a>获取所有的cookie</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> cookie <span class="keyword">in</span> driver.get_cookies():</span><br><span class="line">    print(cookie)</span><br></pre></td></tr></table></figure>
+<h3 id="根据cookie的key获取value："><a href="#根据cookie的key获取value：" class="headerlink" title="根据cookie的key获取value："></a>根据cookie的key获取value：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">value = driver.get_cookie(key)</span><br></pre></td></tr></table></figure>
+<h3 id="删除所有的cookie"><a href="#删除所有的cookie" class="headerlink" title="删除所有的cookie"></a>删除所有的cookie</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.delete_all_cookies()</span><br></pre></td></tr></table></figure>
+<h3 id="删除某个cookie："><a href="#删除某个cookie：" class="headerlink" title="删除某个cookie："></a>删除某个cookie：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.delete_cookie(key)</span><br></pre></td></tr></table></figure>
+<h2 id="页面等待"><a href="#页面等待" class="headerlink" title="页面等待"></a>页面等待</h2><p>现在的网页越来越多采用了<code>Ajax</code>技术，这样程序便不能确定何时某个元素完全加载出来了。如果实际页面等待时间过长导致某个元素还没出来，但是你的代码直接使用了这个<code>WebElement</code>，那么就会抛出<code>NullPointer</code>的异常。为了解决这个问题。所以<code>Selenium</code>提供了两种等待方式：一种是隐式等待、一种是显式等待。</p>
+<h3 id="隐式等待"><a href="#隐式等待" class="headerlink" title="隐式等待"></a>隐式等待</h3><p>调用<code>driver.implicitly_wait</code>。那么在获取不可用的元素之前，会先等待10秒中的时间。示例代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">driver = webdriver.Chrome(executable_path=driver_path)</span><br><span class="line">driver.implicitly_wait(<span class="number">10</span>)</span><br><span class="line"><span class="comment"># 请求网页</span></span><br><span class="line">driver.get(<span class="string">"https://www.douban.com/"</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="显示等待"><a href="#显示等待" class="headerlink" title="显示等待"></a>显示等待</h3><p>显示等待是表明某个条件成立后才执行获取元素的操作。也可以在等待的时候指定一个最大的时间，如果超过这个时间那么就抛出一个异常。显示等待应该使用<code>selenium.webdriver.support.excepted_conditions</code>期望的条件和<code>selenium.webdriver.support.ui.WebDriverWait</code>来配合完成。示例代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.common.by <span class="keyword">import</span> By</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support.ui <span class="keyword">import</span> WebDriverWait</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support <span class="keyword">import</span> expected_conditions <span class="keyword">as</span> EC</span><br><span class="line"></span><br><span class="line">driver = webdriver.Firefox()</span><br><span class="line">driver.get(<span class="string">"http://somedomain/url_that_delays_loading"</span>)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    element = WebDriverWait(driver, <span class="number">10</span>).until(</span><br><span class="line">        EC.presence_of_element_located((By.ID, <span class="string">"myDynamicElement"</span>))</span><br><span class="line">    )</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    driver.quit()</span><br></pre></td></tr></table></figure>
+<p>一些其他的等待条件：</p>
+<ul>
+<li><code>presence_of_element_located</code>：某个元素已经加载完毕了。</li>
+<li><code>presence_of_all_emement_located</code>：网页中所有满足条件的元素都加载完毕了。</li>
+<li><code>element_to_be_cliable</code>：某个元素是可以点击了。</li>
+</ul>
+<h2 id="切换页面"><a href="#切换页面" class="headerlink" title="切换页面"></a>切换页面</h2><p>有时候窗口中有很多子<code>tab</code>页面。这时候肯定是需要进行切换的。<code>selenium</code>提供了一个叫做<code>switch_to_window</code>来进行切换，具体切换到哪个页面，可以从<code>driver.window_handles</code>中找到。示例代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 打开一个新的页面</span></span><br><span class="line">self.driver.execute_script(<span class="string">"window.open('"</span>+url+<span class="string">"')"</span>)</span><br><span class="line"><span class="comment"># 切换到这个新的页面中</span></span><br><span class="line">self.driver.switch_to_window(self.driver.window_handles[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+<h2 id="设置代理ip"><a href="#设置代理ip" class="headerlink" title="设置代理ip"></a>设置代理ip</h2><p>有时候频繁爬取一些网页。服务器发现你是爬虫后会封掉你的ip地址。这时候我们可以更改代理ip。更改代理ip，不同的浏览器有不同的实现方式。这里以Chrome浏览器为例来讲解：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"></span><br><span class="line">options = webdriver.ChromeOptions()</span><br><span class="line">options.add_argument(<span class="string">"--proxy-server=http://110.73.2.248:8123"</span>)</span><br><span class="line">driver_path = <span class="string">r"D:\ProgramApp\chromedriver\chromedriver.exe"</span></span><br><span class="line">driver = webdriver.Chrome(executable_path=driver_path,chrome_options=options)</span><br><span class="line"></span><br><span class="line">driver.get(<span class="string">'http://httpbin.org/ip'</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="WebElement元素："><a href="#WebElement元素：" class="headerlink" title="WebElement元素："></a>WebElement元素：</h2><p><code>from selenium.webdriver.remote.webelement import WebElement</code>类是每个获取出来的元素的所属类。<br>有一些常用的属性：</p>
+<ul>
+<li><code>get_attribute</code>：这个标签的某个属性的值。</li>
+<li><code>screentshot</code>：获取当前页面的截图。这个方法只能在<code>driver</code>上使用。</li>
+</ul>
+<p><code>driver</code>的对象类，也是继承自<code>WebElement</code>。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>赞赏作者</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatreward.png" alt="WP 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Selenium/" rel="tag"># Selenium</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/19/爬虫笔记03/" rel="next" title="爬虫笔记03 - 网络请求">
+                <i class="fa fa-chevron-left"></i> 爬虫笔记03 - 网络请求
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/memory.jpg" alt="WP">
+            
+              <p class="site-author-name" itemprop="name">WP</p>
+              <p class="site-description motion-element" itemprop="description">飞机从头顶飞过<br>流星也划破那夜空</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#动态网页数据抓取"><span class="nav-number">1.</span> <span class="nav-text">动态网页数据抓取</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AJAX简介"><span class="nav-number">1.1.</span> <span class="nav-text">AJAX简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取ajax数据的方式"><span class="nav-number">1.2.</span> <span class="nav-text">获取ajax数据的方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Selenium-chromedriver获取动态数据"><span class="nav-number">1.3.</span> <span class="nav-text">Selenium+chromedriver获取动态数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Selenium和chromedriver"><span class="nav-number">1.4.</span> <span class="nav-text">安装Selenium和chromedriver</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速入门"><span class="nav-number">1.5.</span> <span class="nav-text">快速入门</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#selenium常用操作"><span class="nav-number">2.</span> <span class="nav-text">selenium常用操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关闭界面"><span class="nav-number">2.1.</span> <span class="nav-text">关闭界面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定位元素"><span class="nav-number">2.2.</span> <span class="nav-text">定位元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作表单元素"><span class="nav-number">2.3.</span> <span class="nav-text">操作表单元素</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#操作输入框"><span class="nav-number">2.3.1.</span> <span class="nav-text">操作输入框</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作checkbox"><span class="nav-number">2.3.2.</span> <span class="nav-text">操作checkbox</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择select"><span class="nav-number">2.3.3.</span> <span class="nav-text">选择select</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作按钮"><span class="nav-number">2.3.4.</span> <span class="nav-text">操作按钮</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#行为链"><span class="nav-number">2.3.5.</span> <span class="nav-text">行为链</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie操作"><span class="nav-number">2.4.</span> <span class="nav-text">Cookie操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取所有的cookie"><span class="nav-number">2.4.1.</span> <span class="nav-text">获取所有的cookie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#根据cookie的key获取value："><span class="nav-number">2.4.2.</span> <span class="nav-text">根据cookie的key获取value：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除所有的cookie"><span class="nav-number">2.4.3.</span> <span class="nav-text">删除所有的cookie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除某个cookie："><span class="nav-number">2.4.4.</span> <span class="nav-text">删除某个cookie：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#页面等待"><span class="nav-number">2.5.</span> <span class="nav-text">页面等待</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#隐式等待"><span class="nav-number">2.5.1.</span> <span class="nav-text">隐式等待</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显示等待"><span class="nav-number">2.5.2.</span> <span class="nav-text">显示等待</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#切换页面"><span class="nav-number">2.6.</span> <span class="nav-text">切换页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置代理ip"><span class="nav-number">2.7.</span> <span class="nav-text">设置代理ip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WebElement元素："><span class="nav-number">2.8.</span> <span class="nav-text">WebElement元素：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WP</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">115k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">3:30</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/three/three.min.js"></script>
+
+  
+  <script src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+
+
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail';
+  guest = guest.split(',').filter(function (item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'IrCihvbStzYVX1cVfwYfUjpt-gzGzoHsz',
+    appKey: 'U1FLNq52nK27I2BQq9TCSAdt',
+    placeholder: '来玩啊',
+    avatar: 'mp',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+</script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+</html>

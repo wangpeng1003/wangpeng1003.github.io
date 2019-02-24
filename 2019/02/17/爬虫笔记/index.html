@@ -97,17 +97,19 @@
 
 
   <meta name="description" content="安装scrapy框架 安装scrapy：pip install scrapy windows下，还需要安装pypiwin32，防止报错。pip install scrapy。报Visual C++ 14.0 is required错误的话，安装Visual C++ Build Tools，Visual C++ Build Tools 2015下载地址  创建项目和爬虫 创建项目：scapy sta">
-<meta name="keywords" content="scrapy">
+<meta name="keywords" content="scrapy,redis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="爬虫笔记 - scrapy">
 <meta property="og:url" content="http://wuliuqi.top/2019/02/17/爬虫笔记/index.html">
 <meta property="og:site_name" content="阿珍爱上了阿强">
 <meta property="og:description" content="安装scrapy框架 安装scrapy：pip install scrapy windows下，还需要安装pypiwin32，防止报错。pip install scrapy。报Visual C++ 14.0 is required错误的话，安装Visual C++ Build Tools，Visual C++ Build Tools 2015下载地址  创建项目和爬虫 创建项目：scapy sta">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-18T14:43:39.071Z">
+<meta property="og:image" content="https://developers.whatismybrowser.com/">
+<meta property="og:updated_time" content="2019-02-23T03:50:25.878Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="爬虫笔记 - scrapy">
 <meta name="twitter:description" content="安装scrapy框架 安装scrapy：pip install scrapy windows下，还需要安装pypiwin32，防止报错。pip install scrapy。报Visual C++ 14.0 is required错误的话，安装Visual C++ Build Tools，Visual C++ Build Tools 2015下载地址  创建项目和爬虫 创建项目：scapy sta">
+<meta name="twitter:image" content="https://developers.whatismybrowser.com/">
 
 
 
@@ -404,7 +406,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-18 22:43:39" itemprop="dateModified" datetime="2019-02-18T22:43:39+08:00">2019-02-18</time>
+                <time title="修改时间：2019-02-23 11:50:25" itemprop="dateModified" datetime="2019-02-23T11:50:25+08:00">2019-02-23</time>
               
             
           </span>
@@ -477,7 +479,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">5.6k</span>
+                <span title="本文字数">13k</span>
               
 
               
@@ -491,7 +493,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">10 分钟</span>
+                <span title="阅读时长">24 分钟</span>
               
             </div>
           
@@ -519,6 +521,7 @@
 <li>创建项目：<code>scapy startproject [项目名称]</code></li>
 <li>创建爬虫：命令行下，进入项目所在的路径，执行命令<code>scapy genspider [爬虫名字] [爬取的域名]</code>。注意：爬虫的名字不能和项目名字一样。</li>
 </ol>
+<a id="more"></a>
 <h1 id="项目目录结构"><a href="#项目目录结构" class="headerlink" title="项目目录结构"></a>项目目录结构</h1><ol>
 <li><code>items.py</code>：用来存放爬虫爬取下来数据的模型。</li>
 <li><code>middlewares.py</code>：用来存放各种中间件的文件。</li>
@@ -567,7 +570,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scrapy.exporters <span class="keyword">import</span> JsonLinesItemExporter</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">QsbkPipeline</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.fp = open(<span class="string">'duanzi.json'</span>, <span class="string">'wb'</span>)</span><br><span class="line">        self.exporter = JsonLinesItemExporter(self.fp, ensure_ascii=<span class="keyword">False</span>, encoding=<span class="string">'utf-8'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">open_spider</span><span class="params">(self,spider)</span>:</span></span><br><span class="line">        print(<span class="string">'爬虫开始'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        self.exporter.export_item(item)</span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">close_spider</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.fp.close()</span><br><span class="line">        print(<span class="string">'爬虫结束'</span>)</span><br></pre></td></tr></table></figure>
 <h1 id="CrawlSpider"><a href="#CrawlSpider" class="headerlink" title="CrawlSpider"></a>CrawlSpider</h1><p>可以实现，只要满足某个条件的<code>url</code>，都进行爬取。<code>CrawlSpider</code>继承自<code>Spider</code>，只不过是在之前的基础之上增加了新的功能，可以定义爬取的<code>url</code>的规则，以后<code>scrapy</code>碰到满足条件的<code>url</code>都进行爬取，而不用手动的<code>yield Request</code>。</p>
 <h2 id="创建CrawlSpider爬虫"><a href="#创建CrawlSpider爬虫" class="headerlink" title="创建CrawlSpider爬虫"></a>创建<code>CrawlSpider</code>爬虫</h2><p>之前创建爬虫的方式是通过s<code>crapy genspider [爬虫名字] [域名]</code>的方式创建的。如果想要创建<code>CrawlSpider</code>爬虫，那么应该通过以下命令创建：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy genspider -c crawl [爬虫名字] [域名]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy genspider -t crawl [爬虫名字] [域名]</span><br></pre></td></tr></table></figure>
 <h2 id="LinkExtractors链接提取器"><a href="#LinkExtractors链接提取器" class="headerlink" title="LinkExtractors链接提取器"></a>LinkExtractors链接提取器</h2><p>使用<code>LinkExtractors</code>可以不用程序员自己提取想要的<code>url</code>，然后发送请求。这些工作都可以交给<code>LinkExtractors</code>，他会在所有爬的页面中找到满足规则的<code>url</code>，实现自动的爬取。以下对<code>LinkExtractors</code>类做一个简单的介绍：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">scrapy</span>.<span class="title">linkextractors</span>.<span class="title">LinkExtractor</span><span class="params">(</span></span></span><br><span class="line"><span class="class"><span class="params">    allow = <span class="params">()</span>,</span></span></span><br><span class="line"><span class="class"><span class="params">    deny = <span class="params">()</span>,</span></span></span><br><span class="line"><span class="class"><span class="params">    allow_domains = <span class="params">()</span>,</span></span></span><br><span class="line"><span class="class"><span class="params">    deny_domains = <span class="params">()</span>,</span></span></span><br><span class="line"><span class="class"><span class="params">    deny_extensions = None,</span></span></span><br><span class="line"><span class="class"><span class="params">    restrict_xpaths = <span class="params">()</span>,</span></span></span><br><span class="line"><span class="class"><span class="params">    tags = <span class="params">(<span class="string">'a'</span>,<span class="string">'area'</span>)</span>,</span></span></span><br><span class="line"><span class="class"><span class="params">    attrs = <span class="params">(<span class="string">'href'</span>)</span>,</span></span></span><br><span class="line"><span class="class"><span class="params">    canonicalize = True,</span></span></span><br><span class="line"><span class="class"><span class="params">    unique = True,</span></span></span><br><span class="line"><span class="class"><span class="params">    process_value = None</span></span></span><br><span class="line"><span class="class"><span class="params">)</span></span></span><br></pre></td></tr></table></figure>
 <p>主要参数讲解：</p>
@@ -593,6 +596,234 @@
 <li><code>callback</code>使用场景：如果这个url对应的页面，只是为了获取更多的url，并不需要里面的数据，可以不指定callback。如果想获取url对应页面中的数据，那么久需要制定一个callback。</li>
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scrapy.linkextractors <span class="keyword">import</span> LinkExtractor</span><br><span class="line"><span class="keyword">from</span> scrapy.spiders <span class="keyword">import</span> CrawlSpider, Rule</span><br><span class="line"><span class="keyword">from</span> wxapp.items <span class="keyword">import</span> WxappItem</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WxappSpiderSpider</span><span class="params">(CrawlSpider)</span>:</span></span><br><span class="line">    name = <span class="string">'wxapp_spider'</span></span><br><span class="line">    allowed_domains = [<span class="string">'wxapp-union.com'</span>]</span><br><span class="line">    start_urls = [<span class="string">'http://www.wxapp-union.com/portal.php?mod=list&amp;catid=2&amp;page=1'</span>]</span><br><span class="line"></span><br><span class="line">    rules = (</span><br><span class="line">        Rule(LinkExtractor(allow=<span class="string">r'.+mod=list&amp;catid=2&amp;page=/d'</span>), follow=<span class="keyword">True</span>),</span><br><span class="line">        Rule(LinkExtractor(allow=<span class="string">r'.+article-.+\.html'</span>), callback=<span class="string">'parse_detail'</span>, follow=<span class="keyword">False</span>),</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse_detail</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        title = response.xpath(<span class="string">"//h1[@class='ph']/text()"</span>).get()</span><br><span class="line">        author_p = response.xpath(<span class="string">"//p[@class='authors']"</span>)</span><br><span class="line">        author = author_p.xpath(<span class="string">"./a/text()"</span>).get()</span><br><span class="line">        pub_time = author_p.xpath(<span class="string">"./span/text()"</span>).get()</span><br><span class="line">        article_content = response.xpath(<span class="string">"//td[@id='article_content']//text()"</span>).getall()</span><br><span class="line">        content = <span class="string">''</span>.join(article_content).strip()</span><br><span class="line">        item = WxappItem(author=author, title=title, pub_time=pub_time,content=content)</span><br><span class="line">        <span class="keyword">yield</span> item</span><br></pre></td></tr></table></figure>
+<h1 id="Scrapy-Shell"><a href="#Scrapy-Shell" class="headerlink" title="Scrapy Shell"></a>Scrapy Shell</h1><p>我们想要在爬虫中使用<code>xpath</code>、<code>beautifulsoup</code>、<code>正则表达式</code>、<code>css选择器</code>等来提取想要的数据。但是因为<code>scrapy</code>是一个比较重的框架。每次运行起来都要等待一段时间。因此要去验证我们写的提取规则是否正确，是一个比较麻烦的事情。因此<code>scrapy</code>提供了一个<code>shell</code>，用来方便的测试规则。当然也不仅仅局限于这一个功能。</p>
+<h2 id="打开Scrapy-Shell"><a href="#打开Scrapy-Shell" class="headerlink" title="打开Scrapy Shell"></a>打开Scrapy Shell</h2><ol>
+<li>打开<code>cmd</code>终端，进入到<code>scrapy</code>框架所在的虚拟环境中，输入命令<code>scrapy shell [链接]</code>。就会进入到<code>scrapy</code>的<code>shell</code>环境中。在这个环境中，你可以跟在爬虫的<code>parse</code>方法中一样使用了</li>
+<li>如果想读取某个项目的配置信息，应先进入到这个项目目录，再执行<code>scrapy shell</code>命令</li>
+</ol>
+<h1 id="Request和Response对象"><a href="#Request和Response对象" class="headerlink" title="Request和Response对象"></a>Request和Response对象</h1><h2 id="Request对象"><a href="#Request对象" class="headerlink" title="Request对象"></a>Request对象</h2><p><code>Request</code>对象在我们写爬虫，爬取一页的数据需要重新发送一个请求的时候调用。这个类需要传递一些参数，其中比较常用的参数有：</p>
+<ol>
+<li><code>url</code>：这个<code>request</code>对象发送请求的<code>url</code>。</li>
+<li><code>callback</code>：在下载器下载完成相应的数据后执行的回调函数</li>
+<li><code>method</code>：请求的方法。默认为<code>GET</code>方法，可以设置为其它方法。</li>
+<li><code>headers</code>：请求头，对于一些固定的设置，放在<code>settings.py</code>中指定就可以了。对于那些非固定的，可以在发送请求的时候指定。</li>
+<li><code>meta</code>：比较常用。用于在不同的请求之间传递数据用的</li>
+<li><code>encoding</code>：编码。默认为<code>utf-8</code>，使用默认的即可。</li>
+<li><code>dot_filter</code>：表示不由调度器过滤。在执行多次重复的请求时用得比较多。</li>
+<li><code>errback</code>：在发生错误时执行的函数。</li>
+</ol>
+<h2 id="Response"><a href="#Response" class="headerlink" title="Response"></a>Response</h2><p><code>Response</code>对象一般是由<code>Scrapy</code>自动构建的。因此开发者不需要关心如何创建<code>Response</code>对象，而是要了解如何使用。<code>Response</code>对象有很多属性，可以用来提取数据：</p>
+<ol>
+<li><code>meta</code>：从其它请求传过来的<code>meta</code>属性，可以用来保持多个请求之间的数据连接。</li>
+<li><code>encoding</code>：返回当前字符串编码和解码的格式</li>
+<li><code>text</code>：将返回来的数据作为<code>Unicode</code>字符串返回</li>
+<li><code>body</code>：将返回的数据作为<code>bytes</code>字符串返回</li>
+<li><code>xpath</code>：<code>xpath</code>选择器</li>
+<li><code>css</code>：<code>css</code>选择器</li>
+</ol>
+<h1 id="发送POST请求"><a href="#发送POST请求" class="headerlink" title="发送POST请求"></a>发送POST请求</h1><p>有时候想要在请求数据的时候发送<code>post</code>请求，那么这时候需要使用<code>Request</code>的子类<code>FormRequest</code>来实现。如果想要在爬虫一开始的时候就发送<code>POST</code>请求，需要在爬虫类中重写<code>start_request(self)</code>方法，并且不再调用<code>start_urls</code>里的<code>url</code>。</p>
+<h1 id="下载文件和图片"><a href="#下载文件和图片" class="headerlink" title="下载文件和图片"></a>下载文件和图片</h1><p><code>Scrapy</code>为下载<code>item</code>中包含的文件（比如图片）提供了一个可重用的<code>item pipelines</code>。这些<code>pipeline</code>有些共同的方法和结构（我们称之为<code>media pipeline</code>）。一般来说会使用<code>Files Pipeline</code>或<code>Images Pipeline</code>。</p>
+<h2 id="scrapy内置下载文件方法的优点"><a href="#scrapy内置下载文件方法的优点" class="headerlink" title="scrapy内置下载文件方法的优点"></a>scrapy内置下载文件方法的优点</h2><ol>
+<li>避免重新下载最近已经下载过的数据</li>
+<li>可以方便的指定文件存储的路径</li>
+<li>可以将下载的图片转换成通用的格式。比如<code>png</code>或<code>jpg</code>。</li>
+<li>可以方便的生成缩略图</li>
+<li>可以方便的检测图片的宽和高，确保他们满足最小限制</li>
+<li>异步下载，效率非常高</li>
+</ol>
+<h2 id="下载文件的Files-Pipline"><a href="#下载文件的Files-Pipline" class="headerlink" title="下载文件的Files Pipline"></a>下载文件的Files Pipline</h2><p>当使用<code>Files Pipline</code>下载文件的时候，按照以下步骤来完成：</p>
+<ol>
+<li>定义好一个<code>Item</code>，然后在这个<code>Item</code>中定义两个属性，分别为<code>file_urls</code>以及<code>files</code>。<code>file_urls</code>是用来存储需要下载的图片的<code>url</code>链接，需要给一个列表</li>
+<li>当文件下载完成后，会把文件下载的相关信息存储到<code>item</code>的<code>files</code>属性中。比如下载路径、下载的url和文件的校验码等</li>
+<li>在配置文件<code>settings.py</code>中配置<code>FILES_STORE</code>，这个配置是用来设置文件下载下来的路径</li>
+<li>启动<code>pipeline</code>：在<code>ITEM_PIPELINES</code>中设置<code>scrapy.pipeline.files.FilesPipeline: 1</code></li>
+</ol>
+<h2 id="下载图片的Images-Pipeline"><a href="#下载图片的Images-Pipeline" class="headerlink" title="下载图片的Images Pipeline"></a>下载图片的Images Pipeline</h2><p>当使用<code>Images Pipeline</code>下载文件的时候，按照以下步骤来完成：</p>
+<ol>
+<li>定义好一个<code>Item</code>，然后再这个<code>item</code>中定义两个属性，分别为<code>image_urls</code>以及<code>images</code>。<code>image_urls</code>是用来存储需要下载的图片的<code>url</code>链接，需要给一个列表</li>
+<li>当文件下载完成后，会把文件下载的相关细信息存储到<code>item</code>的<code>images</code>属性中。比如下载路径、下载的<code>url</code>和图片的校验码等。</li>
+<li>在配置文件<code>settings.py</code>中配置<code>IMAGES_STORE</code>，这个配置是用来设置图片下载下来的路径。</li>
+<li>启动<code>pipeline</code>：在<code>ITEM_PIPELINES</code>中设置<code>scrapy.pipelines.images.ImagesPipeline: 1</code></li>
+</ol>
+<h1 id="Downloader-Middlewares（下载器中间件）"><a href="#Downloader-Middlewares（下载器中间件）" class="headerlink" title="Downloader Middlewares（下载器中间件）"></a>Downloader Middlewares（下载器中间件）</h1><p>下载器中间件是引擎和下载器之间通信的中间件。在这个中间件中可以设置代理、更换请求头等来达到反反爬虫的目的。要写下载器中间件，可以在下载器中实现两个方法。一个是<code>process_request(self, request, spider)</code>，这个方法是在请求发送之前会执行，还有一个是<code>process_response(self, request, response, spider)</code>，这个方法是数据下载到引擎之前执行。</p>
+<h2 id="process-request-self-request-spider-："><a href="#process-request-self-request-spider-：" class="headerlink" title="process_request(self, request, spider)："></a>process_request(self, request, spider)：</h2><p>这个方法是下载器在发送请求之前会执行的。一般可以在这个里面设置随机代理ip等。</p>
+<ol>
+<li>参数：</li>
+</ol>
+<ul>
+<li><code>request</code>：发送请求的request对象</li>
+<li><code>spider</code>：发送请求的spider对象</li>
+</ul>
+<ol start="2">
+<li>返回值：</li>
+</ol>
+<ul>
+<li>返回<code>None</code>：如果返回<code>None</code>，<code>Scrapy</code>将继续处理该<code>request</code>，执行其它中间件中的相应方法，知道合适的下载器处理函数被调用，</li>
+<li>返回<code>Response</code>对象：<code>Scrapy</code>将不会调用任何其它的<code>process_request</code>方法，将直接返回这个<code>response</code>对象。已经激活的中间件的<code>process_response()</code>方法则会在每个<code>response</code>返回时调用。(有疑问)</li>
+<li>返回<code>Request</code>对象：不在使用之前的<code>request</code>对象去下载数据，而是根据现在返回的<code>request</code>对象返回数据。</li>
+<li>如果这个方法中抛出了异常，则会调用<code>process_exception</code>方法</li>
+</ul>
+<h2 id="process-response-self-request-response-spider"><a href="#process-response-self-request-response-spider" class="headerlink" title="process_response(self, request, response, spider)"></a>process_response(self, request, response, spider)</h2><p>这个是下载器下载的数据到引擎中间会执行的方法</p>
+<ol>
+<li>参数：</li>
+</ol>
+<ul>
+<li>request：request对象</li>
+<li>response：被处理的response对象</li>
+<li>spider：spider对象</li>
+</ul>
+<ol start="2">
+<li>返回值：</li>
+</ol>
+<ul>
+<li>返回<code>Response</code>对象：会将这个新的<code>response</code>对象传给其它中间件，最终传给爬虫</li>
+<li>返回<code>Request</code>对象：下载器链被切断，返回的<code>request</code>会重新被下载器调度下载</li>
+<li>如果抛出一个异常，那么调用<code>request</code>的<code>errback</code>方法，如果没有指定这个方法，那么会抛出一个异常。</li>
+</ul>
+<h2 id="随机请求头中间件"><a href="#随机请求头中间件" class="headerlink" title="随机请求头中间件"></a>随机请求头中间件</h2><p>爬虫在频繁访问一个页面的时候，这个请求头如果一直保持一直。那么很容易被服务器发现，从而禁止这个请求头的访问。因此我们要在访问这个页面之前随机的更改请求头，这样才可以避免爬虫被抓。随机更改请求头，可以在下载器中间件中实现。在请求发送给服务器之前，随机的选择一个请求头。示例代码如下：</p>
+<p><img src="https://developers.whatismybrowser.com/" alt="User_Agent网站"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserAgentDownloadMiddleware</span><span class="params">(object)</span>:</span></span><br><span class="line">    USER_AGENT = [</span><br><span class="line">        <span class="string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'</span>,</span><br><span class="line">        <span class="string">'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36'</span>,</span><br><span class="line">        <span class="string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36'</span>,</span><br><span class="line">        <span class="string">'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:54.0) Gecko/20100101 Firefox/54.0'</span>,</span><br><span class="line">        <span class="string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0'</span>,</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_request</span><span class="params">(self, request, spider)</span>:</span></span><br><span class="line">        user_agent = random.choice(self.USER_AGENT)</span><br><span class="line">        request.headers[<span class="string">'user-agent'</span>] = user_agent</span><br></pre></td></tr></table></figure>
+<h2 id="ip代理池中间件"><a href="#ip代理池中间件" class="headerlink" title="ip代理池中间件"></a>ip代理池中间件</h2><h3 id="购买代理"><a href="#购买代理" class="headerlink" title="购买代理"></a>购买代理</h3><p>芝麻地理，太阳代理等</p>
+<h3 id="使用ip代理池"><a href="#使用ip代理池" class="headerlink" title="使用ip代理池"></a>使用ip代理池</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 中间件</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IPProxyDownloadMiddleware</span><span class="params">(object)</span>:</span></span><br><span class="line">    PROXIES = [</span><br><span class="line">        <span class="string">'111.177.188.158:9999'</span>,</span><br><span class="line">        <span class="string">'117.191.11.102:8080'</span></span><br><span class="line">    ]</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_request</span><span class="params">(self, request,spider)</span>:</span></span><br><span class="line">        proxy = random.choice(self.PROXIES)</span><br><span class="line">        request.meta[<span class="string">'proxy'</span>] = <span class="string">'http://'</span> + proxy</span><br></pre></td></tr></table></figure>
+<p>使用独享代理的话：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 中间件</span></span><br><span class="line"><span class="comment"># 快代理，独享代理</span></span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IPProxyDownloadMiddleware</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_request</span><span class="params">(self, request,spider)</span>:</span></span><br><span class="line">        proxy = <span class="string">'121.199.6.124:16816'</span></span><br><span class="line">        user_password = <span class="string">'970138076: reessc13'</span></span><br><span class="line">        request.meta[<span class="string">'proxy'</span>] = <span class="string">'http://'</span> + proxy  <span class="comment">#教程里没加'http://'</span></span><br><span class="line">        b64_user_password = base64.b64encode(user_password.encode(utf<span class="number">-8</span>))</span><br><span class="line">        request.headers[<span class="string">'Proxy-Authorization'</span>] = <span class="string">'Basic'</span> + b64_user_password.decode(<span class="string">'utf-8'</span>) <span class="comment">#不明白为什么要先编码再解码</span></span><br></pre></td></tr></table></figure>
+<h1 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h1><p><code>redis</code>是一种支持分布式的<code>nosql</code>数据库,他的数据是保存在内存中，同时<code>redis</code>可以定时把内存数据同步到磁盘，即可以将数据持久化，并且他比<code>memcached</code>支持更多的数据结构(<code>string</code>,<code>list列表[队列和栈]</code>,<code>set[集合]</code>,<code>sorted set[有序集合]</code>,<code>hash(hash表)</code>)。相关参考文档：<a href="http://redisdoc.com/index.html" target="_blank" rel="noopener">Redis 命令参考</a></p>
+<h2 id="redis使用场景："><a href="#redis使用场景：" class="headerlink" title="redis使用场景："></a>redis使用场景：</h2><ol>
+<li>登录会话存储：存储在<code>redis</code>中，与<code>memcached</code>相比，数据不会丢失。</li>
+<li>排行版/计数器：比如一些秀场类的项目，经常会有一些前多少名的主播排名。还有一些文章阅读量的技术，或者新浪微博的点赞数等。</li>
+<li>作为消息队列：比如<code>celery</code>就是使用<code>redis</code>作为中间人。</li>
+<li>当前在线人数：还是之前的秀场例子，会显示当前系统有多少在线人数。</li>
+<li>一些常用的数据缓存：比如我们的BBS论坛，板块不会经常变化的，但是每次访问首页都要从<code>mysql</code>中获取，可以在<code>redis</code>中缓存起来，不用每次请求数据库。</li>
+<li>把前200篇文章缓存或者评论缓存：一般用户浏览网站，只会浏览前面一部分文章或者评论，那么可以把前面200篇文章和对应的评论缓存起来。用户访问超过的，就访问数据库，并且以后文章超过200篇，则把之前的文章删除。</li>
+<li>好友关系：微博的好友关系使用redis实现。</li>
+<li>发布和订阅功能：可以用来做聊天软件。</li>
+</ol>
+<h2 id="redis和memcached的比较"><a href="#redis和memcached的比较" class="headerlink" title="redis和memcached的比较"></a>redis和memcached的比较</h2><table>
+<thead>
+<tr>
+<th></th>
+<th>memecached</th>
+<th>redis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>类型</td>
+<td>纯内存数据库</td>
+<td>内存磁盘同步数据库</td>
+</tr>
+<tr>
+<td>数据类型</td>
+<td>在定义value时就要固定数据类型</td>
+<td>不需要</td>
+</tr>
+<tr>
+<td>虚拟内存</td>
+<td>不支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>过期策略</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>存储数据安全</td>
+<td>不支持</td>
+<td>可以将数据同步到dump.db中</td>
+</tr>
+<tr>
+<td>灾难恢复</td>
+<td>不支持</td>
+<td>可以将磁盘中的数据恢复到内存中</td>
+</tr>
+<tr>
+<td>分布式</td>
+<td>支持</td>
+<td>主从同步</td>
+</tr>
+<tr>
+<td>订阅与发布</td>
+<td>不支持</td>
+<td>支持</td>
+</tr>
+</tbody>
+</table>
+<h2 id="其它机器访问本机redis服务器"><a href="#其它机器访问本机redis服务器" class="headerlink" title="其它机器访问本机redis服务器"></a>其它机器访问本机redis服务器</h2><p>想要让其他机器访问本机的<code>redis</code>服务器。那么要修改<code>redis.conf</code>的配置文件，将<code>bind</code>改成<code>bind [自己的ip地址或者0.0.0.0]</code>，其他机器才能访问。<br><strong>注意</strong>：<code>bind</code>绑定的是本机网卡的ip地址，而不是想让其他机器连接的ip地址。如果有多块网卡，那么可以绑定多个网卡的ip地址。如果绑定到额是<code>0.0.0.0</code>，那么意味着其他机器可以通过本机所有的ip地址进行访问。</p>
+<h2 id="对redis的操作"><a href="#对redis的操作" class="headerlink" title="对redis的操作"></a>对redis的操作</h2><p>对<code>redis</code>的操作可以用两种方式，第一种方式采用<code>redis-cli</code>，第二种方式采用编程语言，比如<code>Python</code>、<code>PHP</code>和<code>JAVA</code>等。下面使用<code>redis-cli</code>对<code>redis</code>进行操作。</p>
+<h3 id="字符串操作："><a href="#字符串操作：" class="headerlink" title="字符串操作："></a>字符串操作：</h3><p>启动redis：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service redis-server start</span><br></pre></td></tr></table></figure>
+<p>连接上redis-server：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -h [ip] -p [端口]</span><br></pre></td></tr></table></figure>
+<p>添加：<code>set key value</code>。将字符串值<code>value</code>关联到<code>key</code>。如果<code>key</code>已经持有其他值，<code>set</code>命令就覆写旧值，无视其类型。并且默认的过期时间是永久，即永远不会过期。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set username xiaotuo</span><br></pre></td></tr></table></figure>
+<p>删除：<code>del key</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">del username</span><br></pre></td></tr></table></figure>
+<p>设置过期时间：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expire key timeout(单位为秒)</span><br></pre></td></tr></table></figure>
+<p>也可以在设置值的时候，一同指定过期时间：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set key value EX timeout</span><br><span class="line"><span class="meta">#</span> 或下面的写法</span><br><span class="line">setex key timeout value</span><br></pre></td></tr></table></figure>
+<p>查看过期时间：<code>ttl key</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ttl username</span><br></pre></td></tr></table></figure>
+<p>查看当前<code>redis</code>中的所有<code>key</code>：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keys *</span><br></pre></td></tr></table></figure>
+<h3 id="列表操作"><a href="#列表操作" class="headerlink" title="列表操作"></a>列表操作</h3><p>在列表左边添加元素：将值<code>value</code>插入到列表<code>key</code>的表头。如果<code>key</code>不存在，一个空列表会被创建并执行<code>lpush</code>操作。当<code>key</code>存在但不是列表类型时，将返回一个错误。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lpush key value</span><br></pre></td></tr></table></figure>
+<p>在列表右边添加元素：将值<code>value</code>插入到列表<code>key</code>的表尾。如果<code>key</code>不存在，一个空列表会被创建并执行<code>rpush</code>操作。当<code>key</code>存在但不是列表类型时，返回一个错误。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpush key value</span><br></pre></td></tr></table></figure>
+<p>查看列表中的元素：返回列表<code>key</code>中指定区间内的元素，区间以偏移量<code>start</code>和<code>stop</code>指定,如果要左边的第一个到最后的一个<code>lrange key 0 -1</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lrange key start stop</span><br></pre></td></tr></table></figure>
+<p>移除列表中的元素：</p>
+<p>移除并返回列表key的头元素：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lpop key</span><br></pre></td></tr></table></figure>
+<p>移除并返回列表的尾元素：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpop key</span><br></pre></td></tr></table></figure>
+<p>移除并返回列表<code>key</code>的中间元素：将删除key这个列表中，值为value的元素，count为指定个数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lrem key count value</span><br></pre></td></tr></table></figure>
+<p>指定返回第几个元素：将返回<code>key</code>这个列表中，索引为<code>index</code>的这个元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lindex key index</span><br></pre></td></tr></table></figure>
+<p>获取列表中的元素个数：<code>llen key</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">llen languages</span><br></pre></td></tr></table></figure>
+<p>删除指定的元素：<code>lrem key count value</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lrem languages 0 php</span><br></pre></td></tr></table></figure>
+<p>根据参数<code>count</code>的值，移除列表中与参数<code>value</code>相等的元素。<code>count</code>的值可以是以下几种：</p>
+<ul>
+<li>count &gt; 0：从表头开始向表尾搜索，移除与<code>value</code>相等的元素，数量为<code>count</code>。</li>
+<li>count &lt; 0：从表尾开始向表头搜索，移除与<code>value</code>相等的元素，数量为<code>count</code>的绝对值。</li>
+<li>count = 0：移除表中所有与<code>value</code>相等的值。</li>
+</ul>
+<h3 id="set集合的操作"><a href="#set集合的操作" class="headerlink" title="set集合的操作"></a>set集合的操作</h3><p>添加元素：<code>sadd set value1 value2....</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sadd team xiaotuo datuo</span><br></pre></td></tr></table></figure>
+<p>查看元素：<code>smembers set</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">smembers team</span><br></pre></td></tr></table></figure>
+<p>移除元素：<code>srem set member...</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">srem team xiaotuo datuo</span><br></pre></td></tr></table></figure>
+<p>查看集合中的元素个数：<code>scard set</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scard team1</span><br></pre></td></tr></table></figure>
+<p>获取多个集合的交集：<code>sinter set1 set2</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sinter team1 team2</span><br></pre></td></tr></table></figure>
+<p>获取多个集合的并集：<code>sunion set1 set2</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sunion team1 team2</span><br></pre></td></tr></table></figure>
+<p>获取多个集合的差集：<code>sdiff set1 set2</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sdiff team1 team2</span><br></pre></td></tr></table></figure>
+<h3 id="hash哈希操作"><a href="#hash哈希操作" class="headerlink" title="hash哈希操作"></a>hash哈希操作</h3><p>添加一个新值：<code>hset key field value</code>。将哈希表<code>key</code>中的域<code>field</code>的值设为<code>value</code>。如果<code>key</code>不存在，一个新的哈希表被创建并进行<code>hset</code>操作。如果域<code>field</code>已经存在于哈希表中，旧值将被覆盖。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hset website baidu baidu.com</span><br></pre></td></tr></table></figure>
+<p>获取哈希中的<code>field</code>对应的值：<code>hget key field</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hget website baidu</span><br></pre></td></tr></table></figure>
+<p>删除<code>field</code>中的某个<code>field</code>：<code>hdel key field</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdel website baidu</span><br></pre></td></tr></table></figure>
+<p>获取某个哈希中所有的<code>field</code>和<code>value</code>：<code>hgetall key</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hgetall website</span><br></pre></td></tr></table></figure>
+<p>获取某个哈希中所有的<code>field</code>：<code>hkeys key</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hkeys website</span><br></pre></td></tr></table></figure>
+<p>获取某个哈希中所有的值：<code>hvals key</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hvals website</span><br></pre></td></tr></table></figure>
+<p>判断哈希中是否存在某个<code>field</code>：<code>hexists key field</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexists website baidu</span><br></pre></td></tr></table></figure>
+<p>获取哈希中键值对的数量：<code>hlen field</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hlen website</span><br></pre></td></tr></table></figure>
+<p>其它知识点用到再补充</p>
+
       
     </div>
 
@@ -640,6 +871,8 @@
         <div class="post-tags">
           
             <a href="/tags/scrapy/" rel="tag"># scrapy</a>
+          
+            <a href="/tags/redis/" rel="tag"># redis</a>
           
         </div>
       
@@ -740,7 +973,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -794,7 +1027,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -830,7 +1069,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装scrapy框架"><span class="nav-number">1.</span> <span class="nav-text">安装scrapy框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建项目和爬虫"><span class="nav-number">2.</span> <span class="nav-text">创建项目和爬虫</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目目录结构"><span class="nav-number">3.</span> <span class="nav-text">项目目录结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改settings-py代码"><span class="nav-number">4.</span> <span class="nav-text">修改settings.py代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行scrapy项目"><span class="nav-number">5.</span> <span class="nav-text">运行scrapy项目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#糗事百科Scrapy爬虫笔记"><span class="nav-number">6.</span> <span class="nav-text">糗事百科Scrapy爬虫笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JsonItemExporter和JsonLinesItemExporter："><span class="nav-number">6.1.</span> <span class="nav-text">JsonItemExporter和JsonLinesItemExporter：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JsonItemExport"><span class="nav-number">6.1.1.</span> <span class="nav-text">JsonItemExport</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JsonLinesItemExporter"><span class="nav-number">6.1.2.</span> <span class="nav-text">JsonLinesItemExporter</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CrawlSpider"><span class="nav-number">7.</span> <span class="nav-text">CrawlSpider</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建CrawlSpider爬虫"><span class="nav-number">7.1.</span> <span class="nav-text">创建CrawlSpider爬虫</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LinkExtractors链接提取器"><span class="nav-number">7.2.</span> <span class="nav-text">LinkExtractors链接提取器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rule规则类"><span class="nav-number">7.3.</span> <span class="nav-text">Rule规则类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用说明"><span class="nav-number">7.4.</span> <span class="nav-text">使用说明</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装scrapy框架"><span class="nav-number">1.</span> <span class="nav-text">安装scrapy框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建项目和爬虫"><span class="nav-number">2.</span> <span class="nav-text">创建项目和爬虫</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目目录结构"><span class="nav-number">3.</span> <span class="nav-text">项目目录结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改settings-py代码"><span class="nav-number">4.</span> <span class="nav-text">修改settings.py代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行scrapy项目"><span class="nav-number">5.</span> <span class="nav-text">运行scrapy项目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#糗事百科Scrapy爬虫笔记"><span class="nav-number">6.</span> <span class="nav-text">糗事百科Scrapy爬虫笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JsonItemExporter和JsonLinesItemExporter："><span class="nav-number">6.1.</span> <span class="nav-text">JsonItemExporter和JsonLinesItemExporter：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JsonItemExport"><span class="nav-number">6.1.1.</span> <span class="nav-text">JsonItemExport</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JsonLinesItemExporter"><span class="nav-number">6.1.2.</span> <span class="nav-text">JsonLinesItemExporter</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CrawlSpider"><span class="nav-number">7.</span> <span class="nav-text">CrawlSpider</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建CrawlSpider爬虫"><span class="nav-number">7.1.</span> <span class="nav-text">创建CrawlSpider爬虫</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LinkExtractors链接提取器"><span class="nav-number">7.2.</span> <span class="nav-text">LinkExtractors链接提取器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rule规则类"><span class="nav-number">7.3.</span> <span class="nav-text">Rule规则类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用说明"><span class="nav-number">7.4.</span> <span class="nav-text">使用说明</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Scrapy-Shell"><span class="nav-number">8.</span> <span class="nav-text">Scrapy Shell</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#打开Scrapy-Shell"><span class="nav-number">8.1.</span> <span class="nav-text">打开Scrapy Shell</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Request和Response对象"><span class="nav-number">9.</span> <span class="nav-text">Request和Response对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Request对象"><span class="nav-number">9.1.</span> <span class="nav-text">Request对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Response"><span class="nav-number">9.2.</span> <span class="nav-text">Response</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#发送POST请求"><span class="nav-number">10.</span> <span class="nav-text">发送POST请求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#下载文件和图片"><span class="nav-number">11.</span> <span class="nav-text">下载文件和图片</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#scrapy内置下载文件方法的优点"><span class="nav-number">11.1.</span> <span class="nav-text">scrapy内置下载文件方法的优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载文件的Files-Pipline"><span class="nav-number">11.2.</span> <span class="nav-text">下载文件的Files Pipline</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载图片的Images-Pipeline"><span class="nav-number">11.3.</span> <span class="nav-text">下载图片的Images Pipeline</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Downloader-Middlewares（下载器中间件）"><span class="nav-number">12.</span> <span class="nav-text">Downloader Middlewares（下载器中间件）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#process-request-self-request-spider-："><span class="nav-number">12.1.</span> <span class="nav-text">process_request(self, request, spider)：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#process-response-self-request-response-spider"><span class="nav-number">12.2.</span> <span class="nav-text">process_response(self, request, response, spider)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机请求头中间件"><span class="nav-number">12.3.</span> <span class="nav-text">随机请求头中间件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ip代理池中间件"><span class="nav-number">12.4.</span> <span class="nav-text">ip代理池中间件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#购买代理"><span class="nav-number">12.4.1.</span> <span class="nav-text">购买代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用ip代理池"><span class="nav-number">12.4.2.</span> <span class="nav-text">使用ip代理池</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis"><span class="nav-number">13.</span> <span class="nav-text">redis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#redis使用场景："><span class="nav-number">13.1.</span> <span class="nav-text">redis使用场景：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redis和memcached的比较"><span class="nav-number">13.2.</span> <span class="nav-text">redis和memcached的比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其它机器访问本机redis服务器"><span class="nav-number">13.3.</span> <span class="nav-text">其它机器访问本机redis服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对redis的操作"><span class="nav-number">13.4.</span> <span class="nav-text">对redis的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串操作："><span class="nav-number">13.4.1.</span> <span class="nav-text">字符串操作：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列表操作"><span class="nav-number">13.4.2.</span> <span class="nav-text">列表操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set集合的操作"><span class="nav-number">13.4.3.</span> <span class="nav-text">set集合的操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hash哈希操作"><span class="nav-number">13.4.4.</span> <span class="nav-text">hash哈希操作</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -864,7 +1103,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">98k</span>
+    <span title="站点总字数">115k</span>
   
 
   
@@ -875,7 +1114,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">2:58</span>
+    <span title="站点阅读时长">3:30</span>
   
 </div>
 
