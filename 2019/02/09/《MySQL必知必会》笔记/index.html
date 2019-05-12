@@ -105,7 +105,7 @@
 <meta property="og:description" content="第1章 了解SQL在使用多列作为主键时，上述条件必须应用到构成主键的所有列，所有列值的组合必须是唯一的（但单个列的值可以不唯一） SQL（发音为字母S-Q-L或sequel）是结构化查询语言（Structured Query Language） 第2章 MySQL简介数据的所有存储、检索、管理和处理实际上是由数据库软件——DBMS（数据库管理系统-DataBase Management Syste">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://wuliuqi.top/2019/02/09/《MySQL必知必会》笔记/AS关键字.jpg">
-<meta property="og:updated_time" content="2019-05-11T11:57:56.620Z">
+<meta property="og:updated_time" content="2019-05-12T12:28:47.887Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《MySQL必知必会》笔记">
 <meta name="twitter:description" content="第1章 了解SQL在使用多列作为主键时，上述条件必须应用到构成主键的所有列，所有列值的组合必须是唯一的（但单个列的值可以不唯一） SQL（发音为字母S-Q-L或sequel）是结构化查询语言（Structured Query Language） 第2章 MySQL简介数据的所有存储、检索、管理和处理实际上是由数据库软件——DBMS（数据库管理系统-DataBase Management Syste">
@@ -406,7 +406,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-05-11 19:57:56" itemprop="dateModified" datetime="2019-05-11T19:57:56+08:00">2019-05-11</time>
+                <time title="修改时间：2019-05-12 20:28:47" itemprop="dateModified" datetime="2019-05-12T20:28:47+08:00">2019-05-12</time>
               
             
           </span>
@@ -479,7 +479,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">40k</span>
+                <span title="本文字数">48k</span>
               
 
               
@@ -493,7 +493,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1:13</span>
+                <span title="阅读时长">1:28</span>
               
             </div>
           
@@ -1605,6 +1605,253 @@
 <li>触发器的一种非常有意义的使用是创建审计跟踪。使用触发器，把更改（如果需要，甚至还有之前和之后的状态）记录到另一个表非常容易。</li>
 <li>遗憾的是，MySQL触发器中不支持<code>CALL</code>语句。这表示不能从触发器内调用存储过程。所需的存储过程代码需要复制到触发器内。</li>
 </ul>
+<h1 id="第26章-管理事务处理"><a href="#第26章-管理事务处理" class="headerlink" title="第26章 管理事务处理"></a>第26章 管理事务处理</h1><p>事务处理（transaction processing）可以用来维护数据库的完整性，它保证成批的MySQL操作要么完全执行，要么完全不执行。</p>
+<ul>
+<li>事务（transaction）指一组SQL语句；</li>
+<li>回退（rollback）指撤销指定SQL语句的过程；</li>
+<li>提交（commit）指将未存储的SQL语句结果写入数据库表；</li>
+<li>保留点（savepoint）指事务处理中设置的临时占位符（place-holder），你可以对它发布回退（与回退整个事务处理不同）。</li>
+</ul>
+<p>管理事务处理的关键在于将SQL语句组分解为逻辑块，并明确规定数据何时应该回退，何时不应该回退。<br>MySQL使用下面的语句来标识事务的开始：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">START</span> <span class="keyword">TRANSACTION</span></span><br></pre></td></tr></table></figure>
+<h2 id="使用ROLLBACK"><a href="#使用ROLLBACK" class="headerlink" title="使用ROLLBACK"></a>使用ROLLBACK</h2><p>MySQL的<code>ROLLBACK</code>命令用来回退（撤销）MySQL语句，请看下面的语句：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> ordertotals;</span><br><span class="line"><span class="keyword">START</span> <span class="keyword">TRANSACTION</span>;</span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> ordertotals;</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> ordertotals;</span><br><span class="line"><span class="keyword">ROLLBACK</span>;</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> ordertotals;</span><br></pre></td></tr></table></figure>
+<p>这个例子从显示<code>ordertotals</code>表（此表在第24章中填充）的内容开始。首先执行一条<code>SELECT</code>以显示该表不为空。然后开始一个事务处理，用一条<code>DELETE</code>语句删除<code>ordertotals</code>中的所有行。另一条<code>SELECT</code>语句验证<code>ordertotals</code>确实为空。这时用一条<code>ROLLBACK</code>语句回退<code>START TRANSACTION</code>之后的所有语句，最后一条<code>SELECT</code>语句显示该表不为空。<br>显然，<code>ROLLBACK</code>只能在一个事务处理内使用（在执行一条<code>STARTTRANSACTION</code>命令之后）。</p>
+<p>事务处理用来管理<code>INSERT</code>、<code>UPDATE</code>和<code>DELETE</code>语句。你不能回退<code>SELECT</code>语句。（这样做也没有什么意义。）你不能回退<code>CREATE</code>或<code>DROP</code>操作。事务处理块中可以使用这两条语句，但如果你执行回退，它们不会被撤销。</p>
+<h2 id="使用COMMIT"><a href="#使用COMMIT" class="headerlink" title="使用COMMIT"></a>使用COMMIT</h2><p>一般的MySQL语句都是直接针对数据库表执行和编写的。这就是所谓的隐含提交（implicit commit），即提交（写或保存）操作是自动进行的。但是，在事务处理块中，提交不会隐含地进行。为进行明确的提交，使用<code>COMMIT</code>语句，如下所示：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">START</span> <span class="keyword">TRANSACTION</span>;</span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> orderitems <span class="keyword">WHERE</span> order_num = <span class="number">20010</span>;</span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> orders <span class="keyword">WHERE</span> order_num = <span class="number">20010</span>;</span><br><span class="line"><span class="keyword">COMMIT</span>;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，从系统中完全删除订单<code>20010</code>。因为涉及更新两个数据库表<code>orders</code>和<code>orderItems</code>，所以使用事务处理块来保证订单不被部分删除。最后的<code>COMMIT</code>语句仅在不出错时写出更改。如果第一条<code>DELETE</code>起作用，但第二条失败，则<code>DELETE</code>不会提交（实际上，它是被自动撤销的）。<br><strong>隐含事务关闭</strong>：当<code>COMMIT</code>或<code>ROLLBACK</code>语句执行后，事务会自动关闭（将来的更改会隐含提交）。</p>
+<h2 id="使用保留点"><a href="#使用保留点" class="headerlink" title="使用保留点"></a>使用保留点</h2><p>简单的<code>ROLLBACK</code>和<code>COMMIT</code>语句就可以写入或撤销整个事务处理。但是，只是对简单的事务处理才能这样做，更复杂的事务处理可能需要部分提交或回退。<br>例如，前面描述的添加订单的过程为一个事务处理。如果发生错误，只需要返回到添加<code>orders</code>行之前即可，不需要回退到<code>customers</code>表（如果存在的话）。<br>为了支持回退部分事务处理，必须能在事务处理块中合适的位置放置占位符。这样，如果需要回退，可以回退到某个占位符。<br>这些占位符称为保留点。为了创建占位符，可如下使用<code>SAVEPOINT</code>语句：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SAVEPOINT</span> deletel;</span><br></pre></td></tr></table></figure>
+<p>每个保留点都取标识它的唯一名字，以便在回退时，<code>MySQL</code>知道要回退到何处。为了回退到本例给出的保留点，可如下进行：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ROLLBACK</span> <span class="keyword">TO</span> deletel;</span><br></pre></td></tr></table></figure>
+<p>可以在MySQL代码中设置任意多的保留点，越多越好。为什么呢？因为保留点越多，你就越能按自己的意愿灵活地进行回退。</p>
+<p>保留点在事务处理完成（执行一条<code>ROLLBACK</code>或<code>COMMIT</code>）后自动释放。自MySQL 5以来，也可以用<code>RELEASE SAVEPOINT</code>明确地释放保留点。</p>
+<h2 id="更改默认的提交行为"><a href="#更改默认的提交行为" class="headerlink" title="更改默认的提交行为"></a>更改默认的提交行为</h2><p>正如所述，默认的MySQL行为是自动提交所有更改。换句话说，任何时候你执行一条MySQL语句，该语句实际上都是针对表执行的，而且所做的更改立即生效。为指示MySQL不自动提交更改，需要使用以下语句：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> autocommit=<span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p><code>autocommit</code>标志决定是否自动提交更改，不管有没有<code>COMMIT</code>语句。设置<code>autocommit</code>为0（假）指示MySQL不自动提交更改（直到<code>autocommit</code>被设置为真为止）。</p>
+<p>标志为连接专用：<code>autocommit</code>标志是针对每个连接而不是服务器的。</p>
+<h1 id="第27章-全球化和本地化"><a href="#第27章-全球化和本地化" class="headerlink" title="第27章 全球化和本地化"></a>第27章 全球化和本地化</h1><p>数据库表被用来存储和检索数据。不同的语言和字符集需要以不同的方式存储和检索。因此，MySQL需要适应不同的字符集（不同的字母和字符），适应不同的排序和检索数据的方法。</p>
+<ul>
+<li>字符集为字母和符号的集合；</li>
+<li>编码为某个字符集成员的内部表示；</li>
+<li>校对为规定字符如何比较的指令。</li>
+</ul>
+<p>在MySQL的正常数据库活动（<code>SELECT</code>、<code>INSERT</code>等）中，不需要操心太多的东西。使用何种字符集和校对的决定在服务器、数据库和表级进行。</p>
+<p>MySQL支持众多的字符集。为查看所支持的字符集完整列表，使用以下语句：<br>这条语句显示所有可用的字符集以及每个字符集的描述和默认校对</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span>;</span><br></pre></td></tr></table></figure>
+<p>为了查看所支持校对的完整列表，使用以下语句：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="keyword">COLLATION</span>;</span><br></pre></td></tr></table></figure>
+<p>此语句显示所有可用的校对，以及它们适用的字符集。可以看到有的字符集具有不止一种校对。例如，<code>latin1</code>对不同的欧洲语言有几种校对，而且许多校对出现两次，一次区分大小写（由<code>_cs</code>表示），一次不区分大小写（由<code>_ci</code>表示）。</p>
+<p>通常系统管理在安装时定义一个默认的字符集和校对。此外，也可以在创建数据库时，指定默认的字符集和校对。为了确定所用的字符集和校对，可以使用以下语句：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="keyword">VARIABLES</span> <span class="keyword">LIKE</span> <span class="string">'character%'</span>;</span><br><span class="line"><span class="keyword">SHOW</span> <span class="keyword">VARIABLES</span> <span class="keyword">LIKE</span> <span class="string">'collation%'</span>;</span><br></pre></td></tr></table></figure>
+<p>实际上，字符集很少是服务器范围（甚至数据库范围）的设置。不同的表，甚至不同的列都可能需要不同的字符集，而且两者都可以在创建表时指定。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> mytable</span><br><span class="line">(</span><br><span class="line">    columnn1    <span class="built_in">INT</span>,</span><br><span class="line">    columnn2    <span class="built_in">VARCHAR</span>(<span class="number">10</span>)</span><br><span class="line">)<span class="keyword">DEFAULT</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> hebrew</span><br><span class="line"><span class="keyword">COLLATE</span> hebrew_general_ci;</span><br></pre></td></tr></table></figure>
+<p>此语句创建一个包含两列的表，并且指定一个字符集和一个校对顺序。<br>这个例子中指定了 CHARACTER SET 和 COLLATE 两者。一般，MySQL如下确定使用什么样的字符集和校对。</p>
+<ul>
+<li>如果指定<code>CHARACTER SET</code>和<code>COLLATE</code>两者，则使用这些值。</li>
+<li>如果只指定<code>CHARACTER SET</code>，则使用此字符集及其默认的校对（如<code>SHOW CHARACTER SET</code>的结果中所示）。</li>
+<li>如果既不指定<code>CHARACTER SET</code>，也不指定<code>COLLATE</code>，则使用数据库默认。</li>
+</ul>
+<p>除了能指定字符集和校对的表范围外，MySQL还允许对每个列设置它们，如下所示：<br>这里对整个表以及一个特定的列指定了<code>CHARACTER SET</code>和<code>COLLATE</code>。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> mytable</span><br><span class="line">(</span><br><span class="line">    columnn1    <span class="built_in">INT</span>,</span><br><span class="line">    columnn2    <span class="built_in">VARCHAR</span>(<span class="number">10</span>)</span><br><span class="line">    columnn2    <span class="built_in">VARCHAR</span>(<span class="number">10</span>) <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> latin1 <span class="keyword">COLLATE</span> latin1_general_ci</span><br><span class="line">)<span class="keyword">DEFAULT</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> hebrew</span><br><span class="line"><span class="keyword">COLLATE</span> hebrew_general_ci;</span><br></pre></td></tr></table></figure>
+<p>如前所述，校对在对用<code>ORDER BY</code>子句检索出来的数据排序时起重要的作用。如果你需要用与创建表时不同的校对顺序排序特定的<code>SELECT</code>语句，可以在<code>SELECT</code>语句自身中进行：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> customers</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> lastname, firstname <span class="keyword">COLLATE</span> latin1_general_cs;</span><br></pre></td></tr></table></figure>
+<p>此<code>SELECT</code>使用<code>COLLATE</code>指定一个备用的校对顺序（在这个例子中，为区分大小写的校对）。这显然将会影响到结果排序的次序。<br>上面的 SELECT 语句演示了在通常不区分大小写的表上进行区分大小写搜索的一种技术。当然，反过来也是可以的。<br>除了这里看到的在<code>ORDER BY</code>子句 中使用以外，<code>COLLATE</code>还可以用于<code>GROUP BY</code>、<code>HAVING</code>、聚集函数、别名等。</p>
+<h1 id="第28章-安全管理"><a href="#第28章-安全管理" class="headerlink" title="第28章 安全管理"></a>第28章 安全管理</h1><p><code>MySQL</code>用户账号和信息存储在名为<code>mysql</code>的<code>MySQL</code>数据库中。一般不需要直接访问<code>mysql</code>数据库和表（你稍后会明白这一点），但有时需要直接访问。需要直接访问它的时机之一是在需要获得所有用户账号列表时。为此，可使用以下代码：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">USE</span> mysql</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">user</span> <span class="keyword">FROM</span> <span class="keyword">user</span>;</span><br></pre></td></tr></table></figure>
+<p>为了创建一个新用户账号，使用<code>CREATE USER</code>语句，如下所示：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> ben <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'p@$$w0rd'</span>;</span><br></pre></td></tr></table></figure>
+<p>为重新命名一个用户账号，使用<code>RENAME USER</code>语句，如下所示：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RENAME</span> <span class="keyword">USER</span> ben <span class="keyword">TO</span> bforta;</span><br></pre></td></tr></table></figure>
+<p>为了删除一个用户账号（以及相关的权限），使用<code>DROP USER</code>语句，如下所示：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">USER</span> bforta;</span><br></pre></td></tr></table></figure>
+<p>在创建用户账号后，必须接着分配访问权限。新创建的用户账号没有访问权限。它们能登录<code>MySQL</code>，但不能看到数据，不能执行任何数据库操作。为看到赋予用户账号的权限，使用<code>SHOW GRANTS FOR</code>，如下所示</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="keyword">GRANTS</span> <span class="keyword">FOR</span> bforta</span><br></pre></td></tr></table></figure>
+<p>输出结果显示用户<code>bforta</code>有一个权限<code>USAGE ON *.*</code>。<code>USAGE</code>表示根本没有权限（我知道，这不很直观），所以，此结果表示在任意数据库和任意表上对任何东西没有权限。</p>
+<p>为设置权限，使用<code>GRANT</code>语句。<code>GRANT</code>要求你至少给出以下信息：</p>
+<ul>
+<li>要被授予的权限</li>
+<li>要被授予访问权限的数据库或表</li>
+<li>用户名</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GRANT</span> <span class="keyword">SELECT</span> <span class="keyword">ON</span> crashcourse.* <span class="keyword">TO</span> bforta;</span><br></pre></td></tr></table></figure>
+<p>此<code>GRANT</code>允许用户在<code>crashcourse.*</code>（<code>crashcourse</code>数据库的所有表）上使用<code>SELECT</code>。通过只授予<code>SELECT</code>访问权限，用户<code>bforta</code>对<code>crashcourse</code>数据库中的所有数据具有只读访问权限。<br>每个<code>GRANT</code>添加（或更新）用户的一个权限。<code>MySQL</code>读取所有授权，并根据它们确定权限。</p>
+<p><code>GRANT</code>的反操作为<code>REVOKE</code>，用它来撤销特定的权限。下面举一个例子：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">REVOKE</span> <span class="keyword">SELECT</span> <span class="keyword">ON</span> crashcourse.* <span class="keyword">FROM</span> bforta</span><br></pre></td></tr></table></figure>
+<p>这条<code>REVOKE</code>语句取消刚赋予用户<code>bforta</code>的<code>SELECT</code>访问权限。被撤销的访问权限必须存在，否则会出错。</p>
+<p><code>GRANT</code>和<code>REVOKE</code>可在几个层次上控制访问权限：</p>
+<ul>
+<li>整个服务器，使用<code>GRANT ALL</code>和<code>REVOKE ALL</code>；</li>
+<li>整个数据库，使用<code>ON database.*</code>；</li>
+<li>特定的表，使用<code>ON database.table</code>；</li>
+<li>特定的列；</li>
+<li>特定的存储过程。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>权限</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ALL</td>
+<td>除GRANT OPTION外的所有权限</td>
+</tr>
+<tr>
+<td>ALTER</td>
+<td>使用ALTER TABLE</td>
+</tr>
+<tr>
+<td>ALTER ROUTINE</td>
+<td>使用ALTER PROCEDURE和DROP ROCEDURE</td>
+</tr>
+<tr>
+<td>CREATE</td>
+<td>使用CREATE TABLE</td>
+</tr>
+<tr>
+<td>CREATE ROUTINE</td>
+<td>使用CREATE PROCEDURE</td>
+</tr>
+<tr>
+<td>CREATE TEMPORARY TABLES</td>
+<td>使用CREATE TEMPORARY TABLE</td>
+</tr>
+<tr>
+<td>CREATE USER</td>
+<td>使用CREATE USER、DROP USER、RENAME USER和REVOKE ALL PRIVILEGES</td>
+</tr>
+<tr>
+<td>CREATE VIEW</td>
+<td>使用CREATE VIEW</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>使用DELETE</td>
+</tr>
+<tr>
+<td>DROP</td>
+<td>使用DROP TABLE</td>
+</tr>
+<tr>
+<td>EXECUTE</td>
+<td>使用CALL和存储过程</td>
+</tr>
+<tr>
+<td>FILE</td>
+<td>使用SELECT INTO OUTFILE和LOAD DATA INFILE</td>
+</tr>
+<tr>
+<td>GRANT OPTION</td>
+<td>使用GRANT和REVOKE</td>
+</tr>
+<tr>
+<td>INDEX</td>
+<td>使用CREATE INDEX和DROP INDEX</td>
+</tr>
+<tr>
+<td>INSERT</td>
+<td>使用INSERT</td>
+</tr>
+<tr>
+<td>LOCK TABLES</td>
+<td>使用LOCK TABLES</td>
+</tr>
+<tr>
+<td>PROCESS</td>
+<td>使用SHOW FULL PROCESSLIST</td>
+</tr>
+<tr>
+<td>RELOAD</td>
+<td>使用FLUSH</td>
+</tr>
+<tr>
+<td>REPLICATION CLIENT</td>
+<td>服务器位置的访问</td>
+</tr>
+<tr>
+<td>REPLICATION SLAVE</td>
+<td>由复制从属使用</td>
+</tr>
+<tr>
+<td>SELECT</td>
+<td>使用SELECT</td>
+</tr>
+<tr>
+<td>SHOW DATABASES</td>
+<td>使用SHOW DATABASES</td>
+</tr>
+<tr>
+<td>SHOW VIEW</td>
+<td>使用SHOW CREATE VIEW</td>
+</tr>
+<tr>
+<td>SHUTDOWN</td>
+<td>使用mysqladmin shutdown（用来关闭MySQL）</td>
+</tr>
+<tr>
+<td>SUPER</td>
+<td>使用CHANGE MASTER、KILL、LOGS、PURGE、MASTER和SET GLOBAL。还允许mysqladmin调试登录</td>
+</tr>
+<tr>
+<td>UPDATE</td>
+<td>使用UPDATE</td>
+</tr>
+<tr>
+<td>USAGE</td>
+<td>无访问权限</td>
+</tr>
+</tbody>
+</table>
+<p>为了更改用户口令，可使用<code>SET PASSWORD</code>语句。新口令必须如下加密：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> <span class="keyword">PASSWORD</span> <span class="keyword">FOR</span> bforta = <span class="keyword">Password</span>(<span class="string">'n3w p@$$w0rd'</span>);</span><br></pre></td></tr></table></figure>
+<p><code>SET PASSWORD</code>还可以用来设置你自己的口令：<br>在不指定用户名时，<code>SET PASSWORD</code>更新当前登录用户的口令。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> <span class="keyword">PASSWORD</span> = <span class="keyword">Password</span>(<span class="string">'n3w p@$$w0rd'</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="第29章-数据库维护"><a href="#第29章-数据库维护" class="headerlink" title="第29章 数据库维护"></a>第29章 数据库维护</h1><p>为了保证所有数据被写到磁盘（包括索引数据），可能需要在进行备份前使用<code>FLUSH TABLES</code>语句。</p>
+<p><code>ANALYZE TABLE</code>，用来检查表键是否正确。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ANALYZE</span> <span class="keyword">TABLE</span> orders;</span><br></pre></td></tr></table></figure>
+<p><code>CHECK TABLE</code>用来针对许多问题对表进行检查。在<code>MyISAM</code>表上还对索引进行检查。<code>CHECK TABLE</code>支持一系列的用于<code>MyISAM</code>表的方式。<code>CHANGED</code>检查自最后一次检查以来改动过的表。<code>EXTENDED</code>执行最彻底的检查， <code>FAST</code>只检查未正常关闭的表， <code>MEDIUM</code>检查所有被删除的链接并进行键检验，<code>QUICK</code>只进行快速扫描。如下所示，<code>CHECKTABLE</code>发现和修复问题：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CHECK</span> <span class="keyword">TABLE</span> orders, orderitems;</span><br></pre></td></tr></table></figure>
+<p>如果<code>MyISAM</code>表访问产生不正确和不一致的结果，可能需要用<code>REPAIR TABLE</code>来修复相应的表。这条语句不应该经常使用，如果需要经常使用，可能会有更大的问题要解决。</p>
+<p>如果从一个表中删除大量数据，应该使用<code>OPTIMIZE TABLE</code>来收回所用的空间，从而优化表的性能。</p>
+<p>在排除系统启动问题时，首先应该尽量用手动启动服务器。MySQL服务器自身通过在命令行上执行mysqld启动。下面是几个重要的mysqld命令行选项：</p>
+<ul>
+<li>–help 显示帮助——一个选项列表；</li>
+<li>–safe-mode 装载减去某些最佳配置的服务器；</li>
+<li>–verbose 显示全文本消息（为获得更详细的帮助消息与 –help联合使用）；</li>
+<li>–version 显示版本信息然后退出</li>
+</ul>
+<p>MySQL维护管理员依赖的一系列日志文件。主要的日志文件有以下几种。</p>
+<ul>
+<li>错误日志。它包含启动和关闭问题以及任意关键错误的细节。此日志通常名为<code>hostname.err</code>，位于<code>data</code>目录中。此日志名可用<code>--log-error</code>命令行选项更改。</li>
+<li>查询日志。它记录所有MySQL活动，在诊断问题时非常有用。此日志文件可能会很快地变得非常大，因此不应该长期使用它。此日志通常名为<code>hostname.log</code>，位于<code>data</code>目录中。此名字可以用<code>--log</code>命令行选项更改。</li>
+<li>二进制日志。它记录更新过数据（或者可能更新过数据）的所有语句。此日志通常名为<code>hostname-bin</code>，位于<code>data</code>目录内。此名字可以用<code>--log-bin</code>命令行选项更改。注意，这个日志文件是MySQL5中添加的，以前的MySQL版本中使用的是更新日志。</li>
+<li>缓慢查询日志。顾名思义，此日志记录执行缓慢的任何查询。这个日志在确定数据库何处需要优化很有用。此日志通常名为hostname-slow.log ，位于data目录中。此名字可以用<code>--log-slow-queries</code>命令行选项更改。</li>
+</ul>
+<p>在使用日志时，可用<code>FLUSH LOGS</code>语句来刷新和重新开始所有日志文件。</p>
+<h1 id="第30章-改善性能"><a href="#第30章-改善性能" class="headerlink" title="第30章 改善性能"></a>第30章 改善性能</h1><p>数据库管理员把他们生命中的相当一部分时间花在了调整、试验以改善DBMS性能之上。在诊断应用的滞缓现象和性能问题时，性能不良的数据库（以及数据库查询）通常是最常见的祸因。<br>可以看出，下面的内容并不能完全决定MySQL的性能。我们只是想回顾一下前面各章的重点，提供进行性能优化探讨和分析的一个出发点。</p>
+<ul>
+<li>首先，MySQL（与所有DBMS一样）具有特定的硬件建议。在学习和研究MySQL时，使用任何旧的计算机作为服务器都可以。但对用于生产的服务器来说，应该坚持遵循这些硬件建议。</li>
+<li>一般来说，关键的生产DBMS应该运行在自己的专用服务器上。</li>
+<li>MySQL是用一系列的默认设置预先配置的，这些设置开始通常是很好的。但过一段时间后你可能需要调整内存分配、缓冲区大小等。（为查看当前设置，可使用SHOW VARIABLES；和SHOW STATUS;。）</li>
+<li>MySQL是一个多用户多线程的DBMS，换言之，它经常同时执行多个任务。如果这些任务中的某一个执行缓慢，则所有请求都会执行缓慢。如果你遇到显著的性能不良，可使用SHOW PROCESSLIST显示所有活动进程（以及它们的线程ID和执行时间）。你还可以用KILL命令终结某个特定的进程（使用这个命令需要作为管理员登录）。</li>
+<li>总是有不止一种方法编写同一条SELECT语句。应该试验联结、并、子查询等，找出最佳的方法。</li>
+<li>使用EXPLAIN语句让MySQL解释它将如何执行一条SELECT语句。</li>
+<li>一般来说，存储过程执行得比一条一条地执行其中的各条MySQL语句快。</li>
+<li>应该总是使用正确的数据类型。</li>
+<li>决不要检索比需求还要多的数据。换言之，不要用SELECT *（除非你真正需要每个列）。</li>
+<li>有的操作（包括INSERT）支持一个可选的DELAYED关键字，如果使用它，将把控制立即返回给调用程序，并且一旦有可能就实际执行该操作。</li>
+<li>在导入数据时，应该关闭自动提交。你可能还想删除索引（包括FULLTEXT索引），然后在导入完成后再重建它们。</li>
+<li>必须索引数据库表以改善数据检索的性能。确定索引什么不是一件微不足道的任务，需要分析使用的SELECT语句以找出重复的WHERE和ORDER BY子句。如果一个简单的WHERE子句返回结果所花的时间太长，则可以断定其中使用的列（或几个列）就是需要索引的对象。</li>
+<li>你的SELECT语句中有一系列复杂的OR条件吗？通过使用多条SELECT语句和连接它们的UNION语句，你能看到极大的性能改进。</li>
+<li>索引改善数据检索的性能，但损害数据插入、删除和更新的性能。如果你有一些表，它们收集数据且不经常被搜索，则在有必要之前不要索引它们。（索引可根据需要添加和删除。）</li>
+<li>LIKE很慢。一般来说，最好是使用FULLTEXT而不是LIKE。</li>
+<li>数据库是不断变化的实体。一组优化良好的表一会儿后可能就面目全非了。由于表的使用和内容的更改，理想的优化和配置也会改变。</li>
+<li>最重要的规则就是，每条规则在某些条件下都会被打破。</li>
+</ul>
 
       
     </div>
@@ -1849,7 +2096,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第1章-了解SQL"><span class="nav-number">1.</span> <span class="nav-text">第1章 了解SQL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第2章-MySQL简介"><span class="nav-number">2.</span> <span class="nav-text">第2章 MySQL简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第3章-使用MySQL"><span class="nav-number">3.</span> <span class="nav-text">第3章 使用MySQL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第4章-检索数据"><span class="nav-number">4.</span> <span class="nav-text">第4章 检索数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第5章-排序检索数据"><span class="nav-number">5.</span> <span class="nav-text">第5章 排序检索数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第6章-过滤数据"><span class="nav-number">6.</span> <span class="nav-text">第6章 过滤数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第7章-数据过滤"><span class="nav-number">7.</span> <span class="nav-text">第7章 数据过滤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第8章-用通配符进行过滤"><span class="nav-number">8.</span> <span class="nav-text">第8章 用通配符进行过滤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第9章-用正则表达式进行搜索"><span class="nav-number">9.</span> <span class="nav-text">第9章 用正则表达式进行搜索</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第10章-创建计算字段"><span class="nav-number">10.</span> <span class="nav-text">第10章 创建计算字段</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第11章-使用数据处理函数"><span class="nav-number">11.</span> <span class="nav-text">第11章 使用数据处理函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第12章-汇总数据"><span class="nav-number">12.</span> <span class="nav-text">第12章 汇总数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第13章-分组数据"><span class="nav-number">13.</span> <span class="nav-text">第13章 分组数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第14章-使用子查询"><span class="nav-number">14.</span> <span class="nav-text">第14章 使用子查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第15章-联结表"><span class="nav-number">15.</span> <span class="nav-text">第15章 联结表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第16章-创建高级联结"><span class="nav-number">16.</span> <span class="nav-text">第16章 创建高级联结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第17章-组合查询"><span class="nav-number">17.</span> <span class="nav-text">第17章 组合查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第18章-全文本搜索"><span class="nav-number">18.</span> <span class="nav-text">第18章 全文本搜索</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第19章-插入数据"><span class="nav-number">19.</span> <span class="nav-text">第19章 插入数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第20章-更新和删除数据"><span class="nav-number">20.</span> <span class="nav-text">第20章 更新和删除数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第21章-创建和操纵表"><span class="nav-number">21.</span> <span class="nav-text">第21章 创建和操纵表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第22章-使用视图"><span class="nav-number">22.</span> <span class="nav-text">第22章 使用视图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第23章-使用存储过程"><span class="nav-number">23.</span> <span class="nav-text">第23章 使用存储过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第24章-使用游标"><span class="nav-number">24.</span> <span class="nav-text">第24章 使用游标</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第25章-使用触发器"><span class="nav-number">25.</span> <span class="nav-text">第25章 使用触发器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#INSERT触发器"><span class="nav-number">25.1.</span> <span class="nav-text">INSERT触发器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DELETE触发器"><span class="nav-number">25.2.</span> <span class="nav-text">DELETE触发器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UPDATE触发器"><span class="nav-number">25.3.</span> <span class="nav-text">UPDATE触发器</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第1章-了解SQL"><span class="nav-number">1.</span> <span class="nav-text">第1章 了解SQL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第2章-MySQL简介"><span class="nav-number">2.</span> <span class="nav-text">第2章 MySQL简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第3章-使用MySQL"><span class="nav-number">3.</span> <span class="nav-text">第3章 使用MySQL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第4章-检索数据"><span class="nav-number">4.</span> <span class="nav-text">第4章 检索数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第5章-排序检索数据"><span class="nav-number">5.</span> <span class="nav-text">第5章 排序检索数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第6章-过滤数据"><span class="nav-number">6.</span> <span class="nav-text">第6章 过滤数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第7章-数据过滤"><span class="nav-number">7.</span> <span class="nav-text">第7章 数据过滤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第8章-用通配符进行过滤"><span class="nav-number">8.</span> <span class="nav-text">第8章 用通配符进行过滤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第9章-用正则表达式进行搜索"><span class="nav-number">9.</span> <span class="nav-text">第9章 用正则表达式进行搜索</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第10章-创建计算字段"><span class="nav-number">10.</span> <span class="nav-text">第10章 创建计算字段</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第11章-使用数据处理函数"><span class="nav-number">11.</span> <span class="nav-text">第11章 使用数据处理函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第12章-汇总数据"><span class="nav-number">12.</span> <span class="nav-text">第12章 汇总数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第13章-分组数据"><span class="nav-number">13.</span> <span class="nav-text">第13章 分组数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第14章-使用子查询"><span class="nav-number">14.</span> <span class="nav-text">第14章 使用子查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第15章-联结表"><span class="nav-number">15.</span> <span class="nav-text">第15章 联结表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第16章-创建高级联结"><span class="nav-number">16.</span> <span class="nav-text">第16章 创建高级联结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第17章-组合查询"><span class="nav-number">17.</span> <span class="nav-text">第17章 组合查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第18章-全文本搜索"><span class="nav-number">18.</span> <span class="nav-text">第18章 全文本搜索</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第19章-插入数据"><span class="nav-number">19.</span> <span class="nav-text">第19章 插入数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第20章-更新和删除数据"><span class="nav-number">20.</span> <span class="nav-text">第20章 更新和删除数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第21章-创建和操纵表"><span class="nav-number">21.</span> <span class="nav-text">第21章 创建和操纵表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第22章-使用视图"><span class="nav-number">22.</span> <span class="nav-text">第22章 使用视图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第23章-使用存储过程"><span class="nav-number">23.</span> <span class="nav-text">第23章 使用存储过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第24章-使用游标"><span class="nav-number">24.</span> <span class="nav-text">第24章 使用游标</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第25章-使用触发器"><span class="nav-number">25.</span> <span class="nav-text">第25章 使用触发器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#INSERT触发器"><span class="nav-number">25.1.</span> <span class="nav-text">INSERT触发器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DELETE触发器"><span class="nav-number">25.2.</span> <span class="nav-text">DELETE触发器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UPDATE触发器"><span class="nav-number">25.3.</span> <span class="nav-text">UPDATE触发器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第26章-管理事务处理"><span class="nav-number">26.</span> <span class="nav-text">第26章 管理事务处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用ROLLBACK"><span class="nav-number">26.1.</span> <span class="nav-text">使用ROLLBACK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用COMMIT"><span class="nav-number">26.2.</span> <span class="nav-text">使用COMMIT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用保留点"><span class="nav-number">26.3.</span> <span class="nav-text">使用保留点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更改默认的提交行为"><span class="nav-number">26.4.</span> <span class="nav-text">更改默认的提交行为</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第27章-全球化和本地化"><span class="nav-number">27.</span> <span class="nav-text">第27章 全球化和本地化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第28章-安全管理"><span class="nav-number">28.</span> <span class="nav-text">第28章 安全管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第29章-数据库维护"><span class="nav-number">29.</span> <span class="nav-text">第29章 数据库维护</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第30章-改善性能"><span class="nav-number">30.</span> <span class="nav-text">第30章 改善性能</span></a></li></ol></div>
             
 
           </div>
@@ -1883,7 +2130,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">127k</span>
+    <span title="站点总字数">135k</span>
   
 
   
@@ -1894,7 +2141,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">3:51</span>
+    <span title="站点阅读时长">4:06</span>
   
 </div>
 
