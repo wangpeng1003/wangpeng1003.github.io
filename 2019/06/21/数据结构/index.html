@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="阿珍爱上了阿强">
 <meta property="og:description" content="第二章 线性表线性表的顺序表示顺序表的定义 静态分配  12345# define MaxSize 50typedef struct&amp;#123;    Elemtype data[MaxSize];    int length;&amp;#125;Sqlist;  动态分配  1234567891011# define InitSize 100typedef struct&amp;#123;    ElemTyp">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-21T03:06:17.234Z">
+<meta property="og:updated_time" content="2019-07-21T12:59:43.383Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据结构">
 <meta name="twitter:description" content="第二章 线性表线性表的顺序表示顺序表的定义 静态分配  12345# define MaxSize 50typedef struct&amp;#123;    Elemtype data[MaxSize];    int length;&amp;#125;Sqlist;  动态分配  1234567891011# define InitSize 100typedef struct&amp;#123;    ElemTyp">
@@ -387,12 +387,24 @@
                 
               
 
-              <time title="创建时间：2019-06-21 10:43:48 / 修改时间：11:06:17" itemprop="dateCreated datePublished" datetime="2019-06-21T10:43:48+08:00">2019-06-21</time>
+              <time title="创建时间：2019-06-21 10:43:48" itemprop="dateCreated datePublished" datetime="2019-06-21T10:43:48+08:00">2019-06-21</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-07-21 20:59:43" itemprop="dateModified" datetime="2019-07-21T20:59:43+08:00">2019-07-21</time>
               
             
           </span>
@@ -458,7 +470,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">365</span>
+                <span title="本文字数">1.3k</span>
               
 
               
@@ -472,7 +484,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长">2 分钟</span>
               
             </div>
           
@@ -501,7 +513,10 @@
 </ol>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="meta-keyword">define</span> InitSize 100</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    ElemType *data;</span><br><span class="line">    <span class="keyword">int</span> MaxSize,length;</span><br><span class="line">&#125;SeqList;</span><br><span class="line"></span><br><span class="line"><span class="comment">// C初始动态分配</span></span><br><span class="line">L.data = (ElemType*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(ElemType)*InitSize);</span><br><span class="line"></span><br><span class="line"><span class="comment">// C++初始动态分配</span></span><br><span class="line">L.data = <span class="keyword">new</span> ElemType[InitSize];</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<h3 id="顺序表基本操作的实现"><a href="#顺序表基本操作的实现" class="headerlink" title="顺序表基本操作的实现"></a>顺序表基本操作的实现</h3>
+<h3 id="顺序表基本操作的实现"><a href="#顺序表基本操作的实现" class="headerlink" title="顺序表基本操作的实现"></a>顺序表基本操作的实现</h3><h4 id="插入操作"><a href="#插入操作" class="headerlink" title="插入操作"></a>插入操作</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">ListInsert</span><span class="params">(SqList &amp;L, <span class="keyword">int</span> i, ElemType e)</span> <span class="comment">//将元素e插入到顺序表L中的第i个位置</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(i&lt;<span class="number">1</span> || i&gt;L.length+<span class="number">1</span>)    <span class="comment">//无效范围</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span>(L.length&gt;MaxSize)     <span class="comment">//空间已满</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j=L.length;j&gt;=i;j--)   <span class="comment">//将第i个元素及之后的元素后移</span></span><br><span class="line">        L.data[j]=L.data[j<span class="number">-1</span>];</span><br><span class="line">    L.data[i<span class="number">-1</span>]=e;     <span class="comment">//第i个位置放入e</span></span><br><span class="line">    L.length++;        <span class="comment">//线性表长度+1</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h4><p><code>`</code>c<br>bool ListDelete(SqList &amp;L, int i, Elemtype &amp;e){<br>    //删除顺序表L中的第i个位置元素，使用引用变量e返回<br>    if(i&lt;1||i&gt;L.length)    //无效范围<br>        return false;<br>    e = L.data[i-1];      //赋值给e<br>    for(int j=i;j&lt;L.length;j++)   //将第i个位置后的元素前移<br>        L.data[j-1] = L.data[j];<br>    L.length–;           //线性表长度-1<br>    return true;<br>}</p>
+<h4 id="按值查找"><a href="#按值查找" class="headerlink" title="按值查找"></a>按值查找</h4><p><code>`</code>c<br>int LocateElem(SqList L, ElemType e){<br>    //查找第一个值等于e的元素，返回位序<br>    int i;<br>    for(i=0;i&lt;L.length;i++)<br>        if(L.data[i]==e)<br>            return i+1;   //下标为i的元素值等于e，返回其位序i+1<br>    return 0   //没找到<br>}</p>
+
       
     </div>
 
@@ -755,7 +770,7 @@
 			
 
 			
-			  <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第二章-线性表"><span class="nav-number">1.</span> <span class="nav-text">第二章 线性表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#线性表的顺序表示"><span class="nav-number">1.1.</span> <span class="nav-text">线性表的顺序表示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序表的定义"><span class="nav-number">1.1.1.</span> <span class="nav-text">顺序表的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序表基本操作的实现"><span class="nav-number">1.1.2.</span> <span class="nav-text">顺序表基本操作的实现</span></a></li></ol></li></ol></li></ol></div>
+			  <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第二章-线性表"><span class="nav-number">1.</span> <span class="nav-text">第二章 线性表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#线性表的顺序表示"><span class="nav-number">1.1.</span> <span class="nav-text">线性表的顺序表示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序表的定义"><span class="nav-number">1.1.1.</span> <span class="nav-text">顺序表的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序表基本操作的实现"><span class="nav-number">1.1.2.</span> <span class="nav-text">顺序表基本操作的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#插入操作"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">插入操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除操作"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">删除操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#按值查找"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">按值查找</span></a></li></ol></li></ol></li></ol></li></ol></div>
 			
 
 		  </div>
@@ -790,7 +805,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">347k</span>
+    <span title="站点总字数">368k</span>
   
 
   
@@ -801,7 +816,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">10:31</span>
+    <span title="站点阅读时长">11:09</span>
   
 </div>
 
