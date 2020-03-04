@@ -15,7 +15,7 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -165,7 +165,7 @@
 
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -175,7 +175,7 @@
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta">
     
@@ -339,20 +339,20 @@
 
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://wuliuqi.top/2019/02/18/爬虫笔记02/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="WP">
       <meta itemprop="description" content="飞机从头顶飞过<br>流星也划破那夜空">
       <meta itemprop="image" content="/images/memory.jpg">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="阿珍爱上了阿强">
     </span>
 
@@ -421,14 +421,14 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a></span>
 
                 
                 
                   ，
                 
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/爬虫/" itemprop="url" rel="index"><span itemprop="name">爬虫</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/爬虫/" itemprop="url" rel="index"><span itemprop="name">爬虫</span></a></span>
 
                 
                 
@@ -520,7 +520,7 @@
 <li>字符串类型（字符串必须要用双引号，不能用单引号）。</li>
 </ol>
 <p>多个数据之间使用逗号分开。<br><strong>注意</strong>：json本质上就是一个字符串。</p>
-<h2 id="字典和列表转JSON"><a href="#字典和列表转JSON" class="headerlink" title="字典和列表转JSON"></a>字典和列表转JSON</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line">books = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'title'</span>: <span class="string">'钢铁是怎样练成的'</span>,</span><br><span class="line">        <span class="string">'price'</span>: <span class="number">9.8</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'title'</span>: <span class="string">'红楼梦'</span>,</span><br><span class="line">        <span class="string">'price'</span>: <span class="number">9.9</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">json_str = json.dumps(books,ensure_ascii=<span class="keyword">False</span>)</span><br><span class="line">print(json_str)</span><br></pre></td></tr></table></figure>
+<h2 id="字典和列表转JSON"><a href="#字典和列表转JSON" class="headerlink" title="字典和列表转JSON"></a>字典和列表转JSON</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line">books = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'title'</span>: <span class="string">'钢铁是怎样练成的'</span>,</span><br><span class="line">        <span class="string">'price'</span>: <span class="number">9.8</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'title'</span>: <span class="string">'红楼梦'</span>,</span><br><span class="line">        <span class="string">'price'</span>: <span class="number">9.9</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">json_str = json.dumps(books,ensure_ascii=<span class="literal">False</span>)</span><br><span class="line">print(json_str)</span><br></pre></td></tr></table></figure>
 <p>因为<code>json</code>在<code>dump</code>的时候，只能存放<code>ascii</code>的字符，因此会将中文进行转义，这时候我们可以使用<code>ensure_ascii=False</code>关闭这个特性。<br>在<code>Python</code>中。只有基本数据类型才能转换成<code>JSON</code>格式的字符串。也即：<code>int</code>、<code>float</code>、<code>str</code>、<code>list</code>、<code>dict</code>、<code>tuple</code>。</p>
 <h2 id="将json数据直接dump到文件中"><a href="#将json数据直接dump到文件中" class="headerlink" title="将json数据直接dump到文件中"></a>将<code>json</code>数据直接<code>dump</code>到文件中</h2><p><code>json</code>模块中除了<code>dumps</code>函数，还有一个<code>dump</code>函数，这个函数可以传入一个文件指针，直接将字符串<code>dump</code>到文件中。示例代码如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">books = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'title'</span>: <span class="string">'钢铁是怎样练成的'</span>,</span><br><span class="line">        <span class="string">'price'</span>: <span class="number">9.8</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'title'</span>: <span class="string">'红楼梦'</span>,</span><br><span class="line">        <span class="string">'price'</span>: <span class="number">9.9</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'a.json'</span>,<span class="string">'w'</span>) <span class="keyword">as</span> fp:</span><br><span class="line">    json.dump(books,fp)</span><br></pre></td></tr></table></figure>
@@ -538,7 +538,7 @@
 <li><code>fetchmany(size)</code>：可以获取指定条数的数据。</li>
 </ol>
 <p>示例代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">cursor = db.cursor()</span><br><span class="line"></span><br><span class="line">sql = <span class="string">"""</span></span><br><span class="line"><span class="string">select * from user</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line">cursor.execute(sql)</span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    result = cursor.fetchone()</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> result:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    print(result)</span><br><span class="line">db.close()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">cursor = db.cursor()</span><br><span class="line"></span><br><span class="line">sql = <span class="string">"""</span></span><br><span class="line"><span class="string">select * from user</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line">cursor.execute(sql)</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    result = cursor.fetchone()</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> result:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    print(result)</span><br><span class="line">db.close()</span><br></pre></td></tr></table></figure>
 <p>或者是直接使用<code>fetchall</code>，一次性可以把所有满足条件的数据都取出来：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">cursor = db.cursor()</span><br><span class="line"></span><br><span class="line">sql = <span class="string">"""</span></span><br><span class="line"><span class="string">select * from user</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line">cursor.execute(sql)</span><br><span class="line">results = cursor.fetchall()</span><br><span class="line"><span class="keyword">for</span> result <span class="keyword">in</span> results:</span><br><span class="line">    print(result)</span><br><span class="line">db.close()</span><br></pre></td></tr></table></figure>
 <p>或者是使用<code>fetchmany</code>，指定获取多少条数据：</p>
@@ -822,7 +822,7 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image" src="/images/memory.jpg" alt="WP">
             
@@ -962,7 +962,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-heart"></i>
   </span>
@@ -976,7 +976,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">416k</span>
+    <span title="站点总字数">348k</span>
   
 
   
@@ -987,7 +987,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">12:37</span>
+    <span title="站点阅读时长">10:32</span>
   
 </div>
 
