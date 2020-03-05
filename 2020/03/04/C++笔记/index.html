@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/qi.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/qi.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="输入cin结束条件：[enter],[space],[tab]处理方法：cin遇到缓冲区中的[enter],[space],[tab]会结束当前输入，并舍弃[enter],[space],[tab]，继续下一项输入，当有连续[space],[enter,[tab]会全部舍弃 12345678910#include &amp;lt;iostream&amp;gt;int main()&amp;#123;    using">
+<meta name="keywords" content="c++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++笔记">
+<meta property="og:url" content="http://wuliuqi.top/2020/03/04/C++笔记/index.html">
+<meta property="og:site_name" content="阿珍爱上了阿强">
+<meta property="og:description" content="输入cin结束条件：[enter],[space],[tab]处理方法：cin遇到缓冲区中的[enter],[space],[tab]会结束当前输入，并舍弃[enter],[space],[tab]，继续下一项输入，当有连续[space],[enter,[tab]会全部舍弃 12345678910#include &amp;lt;iostream&amp;gt;int main()&amp;#123;    using">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-03-05T14:45:30.640Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++笔记">
+<meta name="twitter:description" content="输入cin结束条件：[enter],[space],[tab]处理方法：cin遇到缓冲区中的[enter],[space],[tab]会结束当前输入，并舍弃[enter],[space],[tab]，继续下一项输入，当有连续[space],[enter,[tab]会全部舍弃 12345678910#include &amp;lt;iostream&amp;gt;int main()&amp;#123;    using">
+
+
+
+
+
+
+  <link rel="canonical" href="http://wuliuqi.top/2020/03/04/C++笔记/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>C++笔记 | 阿珍爱上了阿强</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">阿珍爱上了阿强</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">在一个有星星的夜晚</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wuliuqi.top/2020/03/04/C++笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WP">
+      <meta itemprop="description" content="飞机从头顶飞过<br>流星也划破那夜空">
+      <meta itemprop="image" content="/images/memory.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="阿珍爱上了阿强">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C++笔记
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-03-04 21:48:00" itemprop="dateCreated datePublished" datetime="2020-03-04T21:48:00+08:00">2020-03-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-03-05 22:45:30" itemprop="dateModified" datetime="2020-03-05T22:45:30+08:00">2020-03-05</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/03/04/C++笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2020/03/04/C++笔记/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2020/03/04/C++笔记/" class="leancloud_visitors" data-flag-title="C++笔记">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">4.3k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">8 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h1><h2 id="cin"><a href="#cin" class="headerlink" title="cin"></a>cin</h2><p>结束条件：[enter],[space],[tab]<br>处理方法：cin遇到缓冲区中的[enter],[space],[tab]会结束当前输入，并舍弃[enter],[space],[tab]，继续下一项输入，当有连续[space],[enter,[tab]会全部舍弃</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line">    <span class="keyword">char</span> a[<span class="number">10</span>],b[<span class="number">10</span>];</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt;a;<span class="number">12</span></span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt;b;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; a &lt;&lt;<span class="built_in">endl</span> &lt;&lt; b &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p><strong>输入</strong>：1234[enter]5678[enter]<br><strong>输出</strong>：1234  【此处换行】   5678</p>
+<p><strong>输入</strong>：1234[enter][enter[enter]   …   [enter]5678[enter]<br><strong>输出</strong>：1234  【此处换行】 5678  （说明不管缓冲区中有几个enter，cin都会无视，直到不是enter开始继续读入）tab，space同理<br>综上：cin的输入很简单，整体的看输入，遇到[enter],[space],[tab]表示当前输入结束，下一个输入从非[enter],[sapce],[tab]开始，两输入间无线多个[space][]enter[tab]都是无效的</p>
+<h2 id="cin-get"><a href="#cin-get" class="headerlink" title="cin.get()"></a>cin.get()</h2><h3 id="1个参数"><a href="#1个参数" class="headerlink" title="1个参数"></a>1个参数</h3><p>用法：<code>a = cin.get()</code>或者<code>cin.get(a)</code><br>结束条件：输入字符足够后回车<br>说明：这个是单字符的输入，用途是输入一个字符，把它的ASCALL码存入到a中<br>处理方法：与<code>cin</code>不同，<code>cin.get()</code>在缓冲区遇到[enter]，[space]，[tab]不会作为舍弃，而是继续留在缓冲区中</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> a,b,c,d;</span><br><span class="line">	a = <span class="built_in">cin</span>.get();</span><br><span class="line">	b = <span class="built_in">cin</span>.get();</span><br><span class="line">	c = <span class="built_in">cin</span>.get();</span><br><span class="line">	d = <span class="built_in">cin</span>.get();</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="keyword">int</span>(a)&lt;&lt;<span class="string">','</span>&lt;&lt;<span class="keyword">int</span>(b)&lt;&lt;<span class="string">','</span>&lt;&lt;<span class="keyword">int</span>(c)&lt;&lt;<span class="string">','</span>&lt;&lt;<span class="keyword">int</span>(d)&lt;&lt;<span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
+<p>输入：[enter]<br>输出：不会结束，因为需要输入4个字符才结束（结束需要字符数够后回车）</p>
+<p>输入：[enter][enter][enter][enter]<br>输出：10,10,10,10  </p>
+<p>输入：abcdef[enter]<br>输出：97,98,99,100   字符太多时取前几个</p>
+<p>输入：[tab][enter][space]a[enter]<br>输出：9,10,32,97（分别为[tab]，[enter]，[space]，a的ASCALL码）不舍弃[enter],[tab],[space],统一看成字符</p>
+<p>综上，一参数的cin.get()当输入字符足够后回车结束输入，把回车[enter],空格[space]也看成字符，在缓冲区中遇到不舍弃。当输入过多时，取前几个</p>
+<h3 id="2个参数"><a href="#2个参数" class="headerlink" title="2个参数"></a>2个参数</h3><p>用法：<code>cin.get(arrayname,size)</code> 把字符输入到<code>arrayname</code>中，长度不超过<code>size</code><br>注释：<code>arrayname</code>必须是<code>char[]</code>类型，即<code>char</code>数组类型，不可以为<code>string</code>类型；<code>size</code>是指输入长度，即允许输入的最大长度。<br>处理方法：假设把数据输入到<code>char a[arraylength]</code>,数组长度为<code>arraylength</code><br><code>cin.get(a,size)</code>—<code>size</code>,<code>arraylength</code>不同可以分为四类：</p>
+<h4 id="类1：输入串长-lt-size，输入串长-gt-arraylength，"><a href="#类1：输入串长-lt-size，输入串长-gt-arraylength，" class="headerlink" title="类1：输入串长 &lt; size，输入串长 &gt; arraylength，"></a>类1：输入串长 &lt; size，输入串长 &gt; arraylength，</h4><p>会自动扩张arrayname大小，使能保存所有数据</p>
+<p>例1：char a[10];cin,get(a,20);</p>
+<p>输入：123456789012[enter]<br>输出a数组：123456789012 可以发现，输入12个字符到a[10]中，系统自动扩充a[10]，此时实际数组长为13（‘123456789012’\0’’）。但当计算sizeof(a)时，还是现实为10</p>
+<h4 id="类2：输入串长-lt-size，输入串长-lt-arraylength，"><a href="#类2：输入串长-lt-size，输入串长-lt-arraylength，" class="headerlink" title="类2：输入串长 &lt; size，输入串长 &lt; arraylength，"></a>类2：输入串长 &lt; size，输入串长 &lt; arraylength，</h4><p>把串全部输入，后面补‘\0’</p>
+<p>例2：char a[10];cin.get(a,20);</p>
+<p>输入：12345[enter]<br>输出：12345，此时数组内数据为‘12345‘\0’’</p>
+<h4 id="类3：输入串长-gt-size，大于arraylength"><a href="#类3：输入串长-gt-size，大于arraylength" class="headerlink" title="类3：输入串长&gt;size，大于arraylength"></a>类3：输入串长&gt;size，大于arraylength</h4><p>先截取size个字符，若还是大于arraylength，则输入前arraylength-1个字符，最后补充‘\0’</p>
+<p>例3：char a[5];cin,get(a,10);</p>
+<p>输入：123456789012[enter]<br>输出：123456789   先截取了9个字符变成‘123456789‘/0‘’，然后放入到a中，a自动扩张长度</p>
+<h4 id="类4：输入串长-gt-size，小于arraylength"><a href="#类4：输入串长-gt-size，小于arraylength" class="headerlink" title="类4：输入串长&gt;size，小于arraylength"></a>类4：输入串长&gt;size，小于arraylength</h4><p>先截取size个字符，若小于arraylength，则把截取串放入数组中，最后补充‘\0’</p>
+<p>例4：char a[15],cin.get(a,10)</p>
+<p>输入：123456789012[enter]<br>输出：123456789   此时数组内为‘123456789‘\0’’   注意：前size-1有效，最后一个补‘\0’</p>
+<p>综上：当吧大于数组长度的字符串放出char a[arraylength]中，系统自动扩张数组a的长度使a能放得下，但是这么做容易产生运行错误</p>
+<h3 id="3个参数"><a href="#3个参数" class="headerlink" title="3个参数"></a>3个参数</h3><p>用法：<code>cin.get(arrayname,size,s)</code> 把数据输入到<code>arrayname</code>字符数组中，当到达长度<code>size</code>时结束或者遇到字符<code>s</code>时结束<br>注释：<code>arrayname</code>必须是字符数组，即<code>char arrayname[]</code>类型，不可为<code>string</code>类型；<code>size</code>为最大的输入长度；<code>s</code>为控制，遇到<code>s</code>则当前输入结束缓存区里的<code>s</code>将被舍弃</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">	<span class="keyword">char</span> a[<span class="number">10</span>];</span><br><span class="line">	<span class="built_in">cin</span>.get(a,<span class="number">10</span>,<span class="string">'.'</span>);</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输入：abc.123<br>输出：abc    遇到  ’.‘ 输入结束</p>
+<h2 id="cin-getline"><a href="#cin-getline" class="headerlink" title="cin.getline()"></a>cin.getline()</h2><p><code>cin.getline()</code>的用法和<code>cin.get()</code>用法大致相同，没有一参数用法，只有二参数，三参数两类<br><code>cin.gerline(arrayname,size)</code><br><code>cin.getline(arrayname,size,s)</code>用法与<code>cin.get()</code>效果大致相同，但也有些区别</p>
+<h3 id="cin-getline-arrayname-size-与cin-get-arrayname-size-的区别"><a href="#cin-getline-arrayname-size-与cin-get-arrayname-size-的区别" class="headerlink" title="cin.getline(arrayname,size)与cin.get(arrayname,size)的区别"></a>cin.getline(arrayname,size)与cin.get(arrayname,size)的区别</h3><p><code>cin.get(arrayname,size)</code>当遇到[enter]时会结束目前输入，他不会删除缓冲区中的[enter]<br><code>cin.getline(arrayname,size)</code>当遇到[enter]时会结束当前输入，但是会删除缓冲区中的[enter]</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> a[<span class="number">10</span>];<span class="keyword">char</span> b;</span><br><span class="line">    <span class="built_in">cin</span>.get(a,<span class="number">10</span>);</span><br><span class="line">	<span class="built_in">cin</span>.get(b);</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;a&lt;&lt;<span class="built_in">endl</span>&lt;&lt;<span class="keyword">int</span>(b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输入：12345[enter]<br>输出：12345 【换行】 10<br>说明：cin.get(a,10)把12345到a中，遇到[enter]结束，但是不把[enter]删除，则把[enter]输入到b中，（enter的ASCALL码为10）</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> a[<span class="number">10</span>];<span class="keyword">char</span> b;</span><br><span class="line">    <span class="built_in">cin</span>.getline(a,<span class="number">10</span>);</span><br><span class="line">	<span class="built_in">cin</span>.get(b);</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;a&lt;&lt;<span class="built_in">endl</span>&lt;&lt;<span class="keyword">int</span>(b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输入：12345[enter]a[enter]<br>输出：12345【换行】97<br>说明：cin.getline(a,10)吧12345输入到a中，遇到[enter]结束，并把缓冲区中[enter]删除，把接下来的a输入到b中</p>
+<h3 id="cin-getline-arrayname-size-s-与cin-gei-arrayname-size-s-的区别"><a href="#cin-getline-arrayname-size-s-与cin-gei-arrayname-size-s-的区别" class="headerlink" title="cin.getline(arrayname,size,s)与cin.gei(arrayname,size,s)的区别"></a>cin.getline(arrayname,size,s)与cin.gei(arrayname,size,s)的区别</h3><p><code>cin.get（arrayname,size,s）</code>当遇到s时会结束输入，但不会删除缓冲区中的s<br><code>cin.getline(arrayname,size,s)</code>当遇到s时会结束输入，并把s从缓冲区中删除</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> a[<span class="number">10</span>];<span class="keyword">char</span> b;</span><br><span class="line">    <span class="built_in">cin</span>.get(a,<span class="number">10</span>,<span class="string">','</span>);</span><br><span class="line">	<span class="built_in">cin</span>.get(b);</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;a&lt;&lt;<span class="built_in">endl</span>&lt;&lt;b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输入：12345,[enter]<br>输出：12345【换行】，<br>说明：cin.get不会删除缓冲区的，缓存中的，被写入b中</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> a[<span class="number">10</span>];<span class="keyword">char</span> b;</span><br><span class="line">    <span class="built_in">cin</span>.getline(a,<span class="number">10</span>,<span class="string">','</span>);</span><br><span class="line">	<span class="built_in">cin</span>.get(b);</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;a&lt;&lt;<span class="built_in">endl</span>&lt;&lt;<span class="keyword">int</span>(b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输入：12345，[enter]<br>输出：12345【换行】10<br>说明：cin.getline吧12345输入到a中，遇到’，‘结束，并删除缓冲区的’，‘，后面的[enter]输入到b中</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>赞赏作者</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatreward.png" alt="WP 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/c/" rel="tag"># c++</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/06/ziroom/" rel="next" title="工作笔记-Ziroom">
+                <i class="fa fa-chevron-left"></i> 工作笔记-Ziroom
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+	
+	  
+		<ul class="sidebar-nav motion-element">
+		  <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+			文章目录
+		  </li>
+		  <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+			站点概览
+		  </li>
+		</ul>
+	  
+	
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/memory.jpg" alt="WP">
+            
+              <p class="site-author-name" itemprop="name">WP</p>
+              <p class="site-description motion-element" itemprop="description">飞机从头顶飞过<br>流星也划破那夜空</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+	
+	  
+	  <!--noindex-->
+		<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+		  <div class="post-toc">
+
+			
+			  
+			
+
+			
+			  <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#输入"><span class="nav-number">1.</span> <span class="nav-text">输入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#cin"><span class="nav-number">1.1.</span> <span class="nav-text">cin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cin-get"><span class="nav-number">1.2.</span> <span class="nav-text">cin.get()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1个参数"><span class="nav-number">1.2.1.</span> <span class="nav-text">1个参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2个参数"><span class="nav-number">1.2.2.</span> <span class="nav-text">2个参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#类1：输入串长-lt-size，输入串长-gt-arraylength，"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">类1：输入串长 &lt; size，输入串长 &gt; arraylength，</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类2：输入串长-lt-size，输入串长-lt-arraylength，"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">类2：输入串长 &lt; size，输入串长 &lt; arraylength，</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类3：输入串长-gt-size，大于arraylength"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">类3：输入串长&gt;size，大于arraylength</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类4：输入串长-gt-size，小于arraylength"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">类4：输入串长&gt;size，小于arraylength</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3个参数"><span class="nav-number">1.2.3.</span> <span class="nav-text">3个参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cin-getline"><span class="nav-number">1.3.</span> <span class="nav-text">cin.getline()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cin-getline-arrayname-size-与cin-get-arrayname-size-的区别"><span class="nav-number">1.3.1.</span> <span class="nav-text">cin.getline(arrayname,size)与cin.get(arrayname,size)的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cin-getline-arrayname-size-s-与cin-gei-arrayname-size-s-的区别"><span class="nav-number">1.3.2.</span> <span class="nav-text">cin.getline(arrayname,size,s)与cin.gei(arrayname,size,s)的区别</span></a></li></ol></li></ol></li></ol></div>
+			
+
+		  </div>
+		</section>
+	  <!--/noindex-->
+	  
+	
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WP</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">352k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">10:40</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/three/three.min.js"></script>
+
+  
+  <script src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+
+
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail';
+  guest = guest.split(',').filter(function (item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'IrCihvbStzYVX1cVfwYfUjpt-gzGzoHsz',
+    appKey: 'U1FLNq52nK27I2BQq9TCSAdt',
+    placeholder: '来玩啊',
+    avatar: 'mp',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+</script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+</html>
